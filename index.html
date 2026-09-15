@@ -313,7 +313,8 @@
         .win-line-left {
             position: absolute;
             left: 10%;
-            top: 0; bottom: 0;
+            top: 0;
+            bottom: 0;
             width: 4px;
             background: var(--team-a);
             box-shadow: 0 0 10px var(--team-a);
@@ -322,7 +323,8 @@
         .win-line-right {
             position: absolute;
             right: 10%;
-            top: 0; bottom: 0;
+            top: 0;
+            bottom: 0;
             width: 4px;
             background: var(--team-b);
             box-shadow: 0 0 10px var(--team-b);
@@ -345,7 +347,8 @@
             border: 3px solid #b45309;
             border-radius: 50%;
             position: absolute;
-            top: 50%; left: 50%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
             transition: left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -734,65 +737,12 @@
 
         #connect-svg {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
             z-index: 1;
-        }
-
-        /* WORD SEARCH GRID (MISI 6) */
-        .wordsearch-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            width: 100%;
-            max-width: 600px;
-        }
-
-        .wordsearch-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 42px);
-            gap: 6px;
-            background: rgba(15, 23, 42, 0.8);
-            padding: 15px;
-            border-radius: 15px;
-            border: 2px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .ws-cell {
-            width: 42px;
-            height: 42px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .ws-cell:hover {
-            background: rgba(59, 130, 246, 0.3);
-            border-color: #3b82f6;
-        }
-
-        .ws-cell.selected {
-            background: rgba(16, 185, 129, 0.4);
-            border-color: #10b981;
-            color: #d1fae5;
-        }
-
-        .target-word-display {
-            font-size: 1.1rem;
-            color: #fbbf24;
-            font-weight: 600;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 8px 20px;
-            border-radius: 10px;
-            border: 1px dashed rgba(255, 255, 255, 0.2);
         }
 
         /* MYSTERY BOXES */
@@ -1082,8 +1032,6 @@
             .team-select-buttons { gap: 10px; }
             .team-btn { width: 140px; padding: 14px; }
             .connect-container { gap: 30px; }
-            .wordsearch-grid { grid-template-columns: repeat(6, 36px); }
-            .ws-cell { width: 36px; height: 36px; font-size: 0.95rem; }
         }
     </style>
 </head>
@@ -1103,9 +1051,10 @@
             <div class="modal-instructions">
                 <ol>
                     <li>Game khusus materi <strong>Sifat Mustahil bagi Allah Swt.</strong></li>
-                    <li>Selesaikan ke-6 misi: Panah Balon (6 Soal), Pasangkan Tepat (2 Ronde), Menyusun Kata (6 Kata), Kotak Misteri, Hubungkan Kata (4 Putaran), dan Cari Kata Tersembunyi (4 Putaran).</li>
+                    <li>Selesaikan ke-5 misi: Panah Balon (6 Soal), Pasangkan Tepat (2 Ronde), Menyusun Kata (6 Kata), Kotak Misteri, dan Hubungkan Kata (4 Putaran total).</li>
                     <li>Tiap kelompok mendapat <strong>1 kali kesempatan</strong> bantuan untuk: Tanya Teman, Petunjuk Jawaban, dan Ganti Anggota.</li>
-                    <li>Misi 5 & Misi 6 dilakukan bergantian (2 putaran untuk Kelompok A dan 2 putaran untuk Kelompok B via pemilihan kelompok).</li>
+                    <li>Klik huruf yang salah pada kotak jawaban di Misi 3 untuk mengembalikannya ke kolam huruf.</li>
+                    <li>Gunakan tombol kontrol di header (Home, Pause, Fullscreen) kapan saja.</li>
                 </ol>
             </div>
             <button class="btn" id="close-instructions-btn" style="padding: 10px 24px; font-size: 1rem;">Mengerti</button>
@@ -1185,7 +1134,7 @@
             </div>
 
             <div class="mission-indicator">
-                <h2 id="mission-title-header">MISI 1 / 6</h2>
+                <h2 id="mission-title-header">MISI 1 / 5</h2>
                 <p id="mission-desc-header">PANAH BALON TERBANG</p>
             </div>
 
@@ -1350,8 +1299,7 @@
             mission2Round: 1,
             mission3Count: 0,
             mission4Opened: [],
-            mission5Round: 1, // 4 rounds total
-            mission6Round: 1, // 4 rounds total
+            mission5Round: 1, // Total 4 rounds (2 for A, 2 for B)
             lifelines: {
                 A: { 1: false, 2: false, 3: false },
                 B: { 1: false, 2: false, 3: false }
@@ -1473,7 +1421,6 @@
             gameState.mission3Count = 0;
             gameState.mission4Opened = [];
             gameState.mission5Round = 1;
-            gameState.mission6Round = 1;
             gameState.lifelines = {
                 A: { 1: false, 2: false, 3: false },
                 B: { 1: false, 2: false, 3: false }
@@ -1544,34 +1491,29 @@
         function loadMission() {
             switch(gameState.currentMission) {
                 case 1:
-                    missionTitleHeader.textContent = "MISI 1 / 6";
+                    missionTitleHeader.textContent = "MISI 1 / 5";
                     missionDescHeader.textContent = "PANAH BALON TERBANG";
                     loadMission1();
                     break;
                 case 2:
-                    missionTitleHeader.textContent = "MISI 2 / 6";
+                    missionTitleHeader.textContent = "MISI 2 / 5";
                     missionDescHeader.textContent = `PASANGKAN TEPAT (Ronde ${gameState.mission2Round}/2)`;
                     loadMission2();
                     break;
                 case 3:
-                    missionTitleHeader.textContent = "MISI 3 / 6";
+                    missionTitleHeader.textContent = "MISI 3 / 5";
                     missionDescHeader.textContent = `MENYUSUN KATA (${gameState.mission3Count + 1}/6)`;
                     loadMission3();
                     break;
                 case 4:
-                    missionTitleHeader.textContent = "MISI 4 / 6";
+                    missionTitleHeader.textContent = "MISI 4 / 5";
                     missionDescHeader.textContent = "KOTAK MISTERI MUSTAHIL";
                     loadMission4();
                     break;
                 case 5:
-                    missionTitleHeader.textContent = "MISI 5 / 6";
+                    missionTitleHeader.textContent = "MISI 5 / 5";
                     missionDescHeader.textContent = `HUBUNGKAN KATA (Putaran ${gameState.mission5Round}/4)`;
                     loadMission5();
-                    break;
-                case 6:
-                    missionTitleHeader.textContent = "MISI 6 / 6";
-                    missionDescHeader.textContent = `CARI KATA (Putaran ${gameState.mission6Round}/4)`;
-                    loadMission6();
                     break;
             }
         }
@@ -1798,7 +1740,7 @@
             });
         }
 
-        /* MISSION 3: MENYUSUN KATA */
+        /* MISSION 3: MENYUSUN KATA (Dengan Fitur Kembalikan Huruf) */
         const scrambleWordsMustahil = [
             { word: "ADAM", clue: "Sifat mustahil Allah: Tiada" },
             { word: "FANA", clue: "Sifat mustahil Allah: Binasa" },
@@ -1935,241 +1877,153 @@
             }
         }
 
-        /* MISSION 5: MENHUBUNGKAN KATA (4 Putaran dengan Pilihan Kelompok) */
+        /* MISSION 5: MENHUBUNGKAN KATA (4 Putaran total: A, B, A, B) */
         function loadMission5() {
-            promptTeamTurn(() => {
-                gameContainer.innerHTML = `
-                    <div class="mission-title">
-                        <h3>🔗 MISI 5: MENGHUBUNGKAN KATA & ARTI (Putaran ${gameState.mission5Round}/4 - Kelompok ${gameState.selectedTeam})</h3>
-                        <p>Klik satu Sifat Mustahil di kiri, lalu klik Arti yang tepat di kanan untuk menghubungkan!</p>
+            // Tentukan giliran otomatis berdasarkan putaran: 1 (A), 2 (B), 3 (A), 4 (B)
+            gameState.selectedTeam = (gameState.mission5Round % 2 !== 0) ? 'A' : 'B';
+
+            gameContainer.innerHTML = `
+                <div class="mission-title">
+                    <h3>🔗 MISI 5: MENGHUBUNGKAN KATA & ARTI (Putaran ${gameState.mission5Round}/4 - Kelompok ${gameState.selectedTeam})</h3>
+                    <p>Klik satu Sifat Mustahil di kiri, lalu klik Arti yang tepat di kanan untuk menghubungkan!</p>
+                </div>
+                <div class="connect-container" id="connect-container">
+                    <svg id="connect-svg"></svg>
+                    <div class="connect-column" id="left-column">
+                        <h4 style="color:#fbbf24; text-align:center; margin-bottom:5px;">Sifat Mustahil</h4>
                     </div>
-                    <div class="connect-container" id="connect-container">
-                        <svg id="connect-svg"></svg>
-                        <div class="connect-column" id="left-column">
-                            <h4 style="color:#fbbf24; text-align:center; margin-bottom:5px;">Sifat Mustahil</h4>
-                        </div>
-                        <div class="connect-column" id="right-column">
-                            <h4 style="color:#fbbf24; text-align:center; margin-bottom:5px;">Arti / Makna</h4>
-                        </div>
+                    <div class="connect-column" id="right-column">
+                        <h4 style="color:#fbbf24; text-align:center; margin-bottom:5px;">Arti / Makna</h4>
                     </div>
-                    <button class="btn" id="check-connect-btn" style="margin-top:25px; padding:12px 28px; font-size:1rem;" disabled>SELESAI & PERIKSA</button>
-                `;
+                </div>
+                <button class="btn" id="check-connect-btn" style="margin-top:25px; padding:12px 28px; font-size:1rem;" disabled>SELESAI & PERIKSA</button>
+            `;
 
-                const setsConnect = [
-                    [{ id: '1', left: 'Adam', right: 'Tiada' }, { id: '2', left: 'Huduts', right: 'Baru' }],
-                    [{ id: '3', left: 'Ajzun', right: 'Lemah' }, { id: '4', left: 'Jahlun', right: 'Bodoh' }],
-                    [{ id: '5', left: 'Fana', right: 'Binasa' }, { id: '6', left: 'Karahah', right: 'Terpaksa' }],
-                    [{ id: '7', left: 'Mautun', right: 'Mati' }, { id: '8', left: 'Umyun', right: 'Buta' }]
-                ];
+            // Gunakan subset soal per putaran agar bervariasi
+            const setsConnect = [
+                [{ id: '1', left: 'Adam', right: 'Tiada' }, { id: '2', left: 'Huduts', right: 'Baru' }],
+                [{ id: '3', left: 'Ajzun', right: 'Lemah' }, { id: '4', left: 'Jahlun', right: 'Bodoh' }],
+                [{ id: '5', left: 'Fana', right: 'Binasa' }, { id: '6', left: 'Karahah', right: 'Terpaksa' }],
+                [{ id: '7', left: 'Mautun', right: 'Mati' }, { id: '8', left: 'Umyun', right: 'Buta' }]
+            ];
 
-                const pairsToConnect = setsConnect[gameState.mission5Round - 1];
+            const pairsToConnect = setsConnect[gameState.mission5Round - 1];
 
-                let shuffledLeft = [...pairsToConnect].sort(() => Math.random() - 0.5);
-                let shuffledRight = [...pairsToConnect].sort(() => Math.random() - 0.5);
+            let shuffledLeft = [...pairsToConnect].sort(() => Math.random() - 0.5);
+            let shuffledRight = [...pairsToConnect].sort(() => Math.random() - 0.5);
 
-                const leftCol = document.getElementById('left-column');
-                const rightCol = document.getElementById('right-column');
-                const svg = document.getElementById('connect-svg');
+            const leftCol = document.getElementById('left-column');
+            const rightCol = document.getElementById('right-column');
+            const svg = document.getElementById('connect-svg');
 
-                let selectedLeft = null;
-                let connections = {};
+            let selectedLeft = null;
+            let connections = {};
 
-                shuffledLeft.forEach(p => {
-                    const div = document.createElement('div');
-                    div.className = 'connect-item';
-                    div.textContent = p.left;
-                    div.dataset.id = p.id;
-                    div.addEventListener('click', () => {
-                        if (div.classList.contains('connected')) return;
-                        document.querySelectorAll('#left-column .connect-item').forEach(el => el.classList.remove('selected'));
-                        div.classList.add('selected');
-                        selectedLeft = p.id;
-                    });
-                    leftCol.appendChild(div);
+            shuffledLeft.forEach(p => {
+                const div = document.createElement('div');
+                div.className = 'connect-item';
+                div.textContent = p.left;
+                div.dataset.id = p.id;
+                div.dataset.side = 'left';
+                div.addEventListener('click', () => {
+                    if (div.classList.contains('connected')) return;
+                    document.querySelectorAll('#left-column .connect-item').forEach(el => el.classList.remove('selected'));
+                    div.classList.add('selected');
+                    selectedLeft = p.id;
                 });
-
-                shuffledRight.forEach(p => {
-                    const div = document.createElement('div');
-                    div.className = 'connect-item';
-                    div.textContent = p.right;
-                    div.dataset.id = p.id;
-                    div.addEventListener('click', () => {
-                        if (!selectedLeft) return;
-                        if (Object.values(connections).includes(p.id)) return;
-
-                        connections[selectedLeft] = p.id;
-
-                        const leftEl = document.querySelector(`#left-column [data-id='${selectedLeft}']`);
-                        leftEl.classList.remove('selected');
-                        leftEl.classList.add('connected');
-                        div.classList.add('connected');
-
-                        selectedLeft = null;
-                        redrawLines();
-
-                        if (Object.keys(connections).length === pairsToConnect.length) {
-                            document.getElementById('check-connect-btn').removeAttribute('disabled');
-                        }
-                    });
-                    rightCol.appendChild(div);
-                });
-
-                function redrawLines() {
-                    svg.innerHTML = '';
-                    const containerRect = document.getElementById('connect-container').getBoundingClientRect();
-
-                    for (let lId in connections) {
-                        let rId = connections[lId];
-                        let lEl = document.querySelector(`#left-column [data-id='${lId}']`);
-                        let rEl = document.querySelector(`#right-column [data-id='${rId}']`);
-
-                        let lRect = lEl.getBoundingClientRect();
-                        let rRect = rEl.getBoundingClientRect();
-
-                        let x1 = lRect.right - containerRect.left;
-                        let y1 = lRect.top + lRect.height / 2 - containerRect.top;
-                        let x2 = rRect.left - containerRect.left;
-                        let y2 = rRect.top + rRect.height / 2 - containerRect.top;
-
-                        let line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                        line.setAttribute('x1', x1);
-                        line.setAttribute('y1', y1);
-                        line.setAttribute('x2', x2);
-                        line.setAttribute('y2', y2);
-                        line.setAttribute('stroke', '#34d399');
-                        line.setAttribute('stroke-width', '4');
-                        svg.appendChild(line);
-                    }
-                }
-
-                document.getElementById('check-connect-btn').addEventListener('click', () => {
-                    let allCorrect = true;
-                    for (let lId in connections) {
-                        if (lId !== connections[lId]) allCorrect = false;
-                    }
-
-                    if (allCorrect) {
-                        playSound('correct');
-                        showFeedback(true, `Kelompok ${gameState.selectedTeam} Benar! +15 Poin`);
-                        triggerConfetti();
-                        if (gameState.selectedTeam === 'A') {
-                            gameState.scoreA += 15;
-                            gameState.correctA++;
-                            gameState.ropePosition = Math.max(5, gameState.ropePosition - 10);
-                        } else {
-                            gameState.scoreB += 15;
-                            gameState.correctB++;
-                            gameState.ropePosition = Math.min(95, gameState.ropePosition + 10);
-                        }
-                    } else {
-                        playSound('incorrect');
-                        showFeedback(false, `Ada pasangan garis yang kurang tepat!`);
-                        if (gameState.selectedTeam === 'A') gameState.incorrectA++;
-                        else gameState.incorrectB++;
-                    }
-
-                    updateUI();
-                    setTimeout(() => {
-                        gameState.mission5Round++;
-                        if (gameState.mission5Round > 4) {
-                            gameState.currentMission = 6;
-                            loadMission();
-                        } else {
-                            loadMission5();
-                        }
-                    }, 2000);
-                });
+                leftCol.appendChild(div);
             });
-        }
 
-        /* MISSION 6 (BARU): MENCARI KATA TERSEMBUNYI (WORD SEARCH) - 4 Putaran */
-        function loadMission6() {
-            promptTeamTurn(() => {
-                const targetWordsList = ["ADAM", "FANA", "AJZUN", "JAHLUN"];
-                const currentTargetWord = targetWordsList[gameState.mission6Round - 1];
+            shuffledRight.forEach(p => {
+                const div = document.createElement('div');
+                div.className = 'connect-item';
+                div.textContent = p.right;
+                div.dataset.id = p.id;
+                div.dataset.side = 'right';
+                div.addEventListener('click', () => {
+                    if (!selectedLeft) return;
+                    if (Object.values(connections).includes(p.id)) return;
 
-                gameContainer.innerHTML = `
-                    <div class="mission-title">
-                        <h3>🔍 MISI 6: CARI KATA TERSEMBUNYI (Putaran ${gameState.mission6Round}/4 - Kelompok ${gameState.selectedTeam})</h3>
-                        <p>Temukan dan klik huruf-huruf yang membentuk kata target di tumpukan huruf di bawah!</p>
-                    </div>
-                    <div class="wordsearch-container">
-                        <div class="target-word-display">Cari Kata: <strong style="color:#34d399">${currentTargetWord}</strong></div>
-                        <div class="wordsearch-grid" id="ws-grid"></div>
-                        <button class="btn" id="check-ws-btn" style="padding: 10px 24px; font-size: 1rem;">CEK KATA</button>
-                    </div>
-                `;
+                    connections[selectedLeft] = p.id;
 
-                // Buat grid huruf acak 6x6 yang menyisipkan target word secara horizontal/vertikal
-                const size = 6;
-                let gridData = [];
-                for(let i=0; i<size*size; i++) {
-                    const randomChar = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-                    gridData.push(randomChar);
-                }
+                    const leftEl = document.querySelector(`#left-column [data-id='${selectedLeft}']`);
+                    leftEl.classList.remove('selected');
+                    leftEl.classList.add('connected');
+                    div.classList.add('connected');
 
-                // Sisipkan kata target di baris tertentu agar pasti ada
-                let insertIdx = (gameState.mission6Round * 3) % (size * (size - 1));
-                for(let k=0; k<currentTargetWord.length; k++) {
-                    gridData[insertIdx + k] = currentTargetWord[k];
-                }
+                    selectedLeft = null;
+                    redrawLines();
 
-                const wsGridEl = document.getElementById('ws-grid');
-                let selectedCells = [];
-
-                gridData.forEach((char, idx) => {
-                    const cell = document.createElement('div');
-                    cell.className = 'ws-cell';
-                    cell.textContent = char;
-                    cell.dataset.index = idx;
-                    cell.dataset.char = char;
-
-                    cell.addEventListener('click', () => {
-                        if (cell.classList.contains('selected')) {
-                            cell.classList.remove('selected');
-                            selectedCells = selectedCells.filter(c => c !== cell);
-                        } else {
-                            cell.classList.add('selected');
-                            selectedCells.push(cell);
-                        }
-                    });
-
-                    wsGridEl.appendChild(cell);
-                });
-
-                document.getElementById('check-ws-btn').addEventListener('click', () => {
-                    let formedString = selectedCells.map(c => c.dataset.char).join('');
-                    // Cek apakah formasi huruf mengandung kata target
-                    if (formedString.includes(currentTargetWord)) {
-                        playSound('correct');
-                        showFeedback(true, `Kelompok ${gameState.selectedTeam} Berhasil Menemukan Kata! +15 Poin`);
-                        triggerConfetti();
-                        if (gameState.selectedTeam === 'A') {
-                            gameState.scoreA += 15;
-                            gameState.correctA++;
-                            gameState.ropePosition = Math.max(5, gameState.ropePosition - 10);
-                        } else {
-                            gameState.scoreB += 15;
-                            gameState.correctB++;
-                            gameState.ropePosition = Math.min(95, gameState.ropePosition + 10);
-                        }
-                    } else {
-                        playSound('incorrect');
-                        showFeedback(false, `Kata Belum Tepat atau Huruf Kurang!`);
-                        if (gameState.selectedTeam === 'A') gameState.incorrectA++;
-                        else gameState.incorrectB++;
+                    if (Object.keys(connections).length === pairsToConnect.length) {
+                        document.getElementById('check-connect-btn').removeAttribute('disabled');
                     }
-
-                    updateUI();
-                    setTimeout(() => {
-                        gameState.mission6Round++;
-                        if (gameState.mission6Round > 4) {
-                            endGame();
-                        } else {
-                            loadMission6();
-                        }
-                    }, 2000);
                 });
+                rightCol.appendChild(div);
+            });
+
+            function redrawLines() {
+                svg.innerHTML = '';
+                const containerRect = document.getElementById('connect-container').getBoundingClientRect();
+
+                for (let lId in connections) {
+                    let rId = connections[lId];
+                    let lEl = document.querySelector(`#left-column [data-id='${lId}']`);
+                    let rEl = document.querySelector(`#right-column [data-id='${rId}']`);
+
+                    let lRect = lEl.getBoundingClientRect();
+                    let rRect = rEl.getBoundingClientRect();
+
+                    let x1 = lRect.right - containerRect.left;
+                    let y1 = lRect.top + lRect.height / 2 - containerRect.top;
+                    let x2 = rRect.left - containerRect.left;
+                    let y2 = rRect.top + rRect.height / 2 - containerRect.top;
+
+                    let line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line.setAttribute('x1', x1);
+                    line.setAttribute('y1', y1);
+                    line.setAttribute('x2', x2);
+                    line.setAttribute('y2', y2);
+                    line.setAttribute('stroke', '#34d399');
+                    line.setAttribute('stroke-width', '4');
+                    svg.appendChild(line);
+                }
+            }
+
+            document.getElementById('check-connect-btn').addEventListener('click', () => {
+                let allCorrect = true;
+                for (let lId in connections) {
+                    if (lId !== connections[lId]) allCorrect = false;
+                }
+
+                if (allCorrect) {
+                    playSound('correct');
+                    showFeedback(true, `Kelompok ${gameState.selectedTeam} Benar! +15 Poin`);
+                    triggerConfetti();
+                    if (gameState.selectedTeam === 'A') {
+                        gameState.scoreA += 15;
+                        gameState.correctA++;
+                        gameState.ropePosition = Math.max(5, gameState.ropePosition - 10);
+                    } else {
+                        gameState.scoreB += 15;
+                        gameState.correctB++;
+                        gameState.ropePosition = Math.min(95, gameState.ropePosition + 10);
+                    }
+                } else {
+                    playSound('incorrect');
+                    showFeedback(false, `Ada pasangan garis yang kurang tepat!`);
+                    if (gameState.selectedTeam === 'A') gameState.incorrectA++;
+                    else gameState.incorrectB++;
+                }
+
+                updateUI();
+                setTimeout(() => {
+                    gameState.mission5Round++;
+                    if (gameState.mission5Round > 4) {
+                        endGame();
+                    } else {
+                        loadMission5();
+                    }
+                }, 2000);
             });
         }
 
