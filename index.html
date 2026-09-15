@@ -1336,7 +1336,7 @@
             mission2Round: 1,
             mission3Count: 0,
             mission4Opened: [],
-            mission5Round: 1, // total 4 rounds for connect lines (2 for A, 2 for B)
+            mission5Round: 1,
             lifelines: {
                 A: { 1: false, 2: false, 3: false },
                 B: { 1: false, 2: false, 3: false }
@@ -1621,8 +1621,13 @@
                 </div>
             `;
 
+            let isAnswered = false;
+
             document.querySelectorAll('.option-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
+                btn.addEventListener('click', (e) => {
+                    if (isAnswered) return;
+                    isAnswered = true;
+
                     const selectedIdx = parseInt(btn.getAttribute('data-index'));
                     const isCorrect = (selectedIdx === qObj.correct);
 
@@ -1653,7 +1658,9 @@
                     }
 
                     updateUI();
-                    setTimeout(onComplete, 2000);
+                    setTimeout(() => {
+                        onComplete();
+                    }, 2000);
                 });
             });
         }
@@ -1821,7 +1828,6 @@
                     });
                 });
 
-                // Fitur Reset: Klik kotak jawaban untuk mengembalikan huruf ke rak bawah
                 slots.forEach((slot) => {
                     slot.addEventListener('click', () => {
                         if (slot.textContent !== '_') {
