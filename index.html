@@ -327,7 +327,7 @@
             justify-content: center;
         }
 
-        /* MISSION 1: FLYING BALLOONS & BOW */
+        /* MISSION 1: FLYING BALLOONS (CLICK TO SELECT) */
         .balloon-sky {
             width: 100%;
             height: 320px;
@@ -336,41 +336,39 @@
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.15);
-            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
         }
 
         .flying-balloon {
-            position: absolute;
-            width: 75px;
-            height: 90px;
+            width: 90px;
+            height: 110px;
             background: radial-gradient(circle at 30% 30%, #f472b6, #db2777);
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.4rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: white;
-            box-shadow: inset -8px -8px 15px rgba(0,0,0,0.3), 0 5px 15px rgba(0,0,0,0.3);
-            animation: flyUp 5s linear infinite alternate;
+            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.3), 0 10px 15px rgba(0,0,0,0.3);
+            animation: flyFloat 3s ease-in-out infinite alternate;
+            transition: transform 0.2s ease;
         }
 
-        .flying-balloon:nth-child(even) {
-            background: radial-gradient(circle at 30% 30%, #60a5fa, #2563eb);
-            animation-duration: 6s;
+        .flying-balloon:nth-child(2) { background: radial-gradient(circle at 30% 30%, #60a5fa, #2563eb); animation-delay: 0.5s; }
+        .flying-balloon:nth-child(3) { background: radial-gradient(circle at 30% 30%, #34d399, #059669); animation-delay: 1s; }
+
+        @keyframes flyFloat {
+            0% { transform: translateY(15px); }
+            100% { transform: translateY(-15px); }
         }
 
-        @keyframes flyUp {
-            0% { transform: translateY(180px); }
-            100% { transform: translateY(10px); }
-        }
-
-        .bow-shooter-area {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-top: 10px;
+        .flying-balloon:hover {
+            transform: scale(1.1);
         }
 
         /* QUESTION BOX */
@@ -795,7 +793,7 @@
             <div class="modal-instructions">
                 <ol>
                     <li>Game dimainkan oleh <strong>Kelompok A</strong> dan <strong>Kelompok B</strong> dalam satu layar.</li>
-                    <li>Selesaikan ke-4 misi: <strong>Panah Balon</strong> (6 soal bergantian), <strong>Pasangkan Tepat</strong> (2 ronde drag & drop), <strong>Menyusun Kata</strong> (6 kata bergantian), dan <strong>Kotak Misteri</strong>.</li>
+                    <li>Selesaikan ke-4 misi: <strong>Balon Terbang</strong> (6 soal bergantian, cukup klik balon), <strong>Pasangkan Tepat</strong> (2 ronde drag & drop), <strong>Menyusun Kata</strong> (6 kata bergantian), dan <strong>Kotak Misteri</strong>.</li>
                     <li>Setiap jawaban benar mendapat <strong>+10 poin</strong> dan tali tambang bergeser ke kelompok tersebut.</li>
                 </ol>
             </div>
@@ -858,7 +856,7 @@
 
             <div class="mission-indicator">
                 <h2 id="mission-title-header">MISI 1 / 4</h2>
-                <p id="mission-desc-header">PANAH BALON TERBANG</p>
+                <p id="mission-desc-header">BALON TERBANG</p>
             </div>
 
             <div class="team-score-box team-b">
@@ -934,10 +932,7 @@
                 audioToggleBtn.textContent = '🔇';
                 isMusicPlaying = false;
             } else {
-                bgm.play().then(() => {
-                    audioToggleBtn.textContent = '🔊';
-                    isMusicPlaying = true;
-                }).catch(e => console.log(e));
+                bgm.play().then(() => { isMusicPlaying = true; audioToggleBtn.textContent = '🔊'; }).catch(e => {});
             }
         });
 
@@ -1104,7 +1099,7 @@
         function loadMission() {
             if (gameState.currentMission === 1) {
                 missionTitleHeader.textContent = "MISI 1 / 4";
-                missionDescHeader.textContent = "PANAH BALON TERBANG";
+                missionDescHeader.textContent = "BALON TERBANG";
                 loadMission1();
             } else if (gameState.currentMission === 2) {
                 missionTitleHeader.textContent = "MISI 2 / 4";
@@ -1121,7 +1116,7 @@
             }
         }
 
-        /* ================= MISI 1: PANAH BALON (6 SOAL: 3 A, 3 B) ================= */
+        /* ================= MISI 1: BALON TERBANG (6 SOAL: 3 A, 3 B) ================= */
         function loadMission1() {
             if (gameState.mission1Count >= 6) {
                 gameState.currentMission = 2;
@@ -1133,32 +1128,23 @@
             
             gameContainer.innerHTML = `
                 <div class="mission-title" style="text-align:center; margin-bottom:15px;">
-                    <h3>🎈 MISI 1: PANAH BALON TERBANG (${gameState.mission1Count + 1}/6)</h3>
-                    <p>Giliran <strong>Kelompok ${currentTeam}</strong>. Tembak balon di udara!</p>
+                    <h3>🎈 MISI 1: BALON TERBANG (${gameState.mission1Count + 1}/6)</h3>
+                    <p>Giliran <strong>Kelompok ${currentTeam}</strong>. Klik salah satu balon di udara!</p>
                 </div>
                 <div class="balloon-sky" id="balloon-sky">
-                    <div class="flying-balloon" style="left: 20%;" id="target-balloon">🎈 1</div>
-                    <div class="flying-balloon" style="left: 60%; animation-delay: 1s;">🎈 2</div>
-                </div>
-                <div class="bow-shooter-area">
-                    <button class="btn" id="shoot-btn">🏹 TEMBAK PANAH!</button>
+                    <div class="flying-balloon" id="b1">🎈 1</div>
+                    <div class="flying-balloon" id="b2" style="animation-delay: 0.7s;">🎈 2</div>
+                    <div class="flying-balloon" id="b3" style="animation-delay: 1.4s;">🎈 3</div>
                 </div>
             `;
 
-            document.getElementById('shoot-btn').addEventListener('click', () => {
-                promptTeamTurn(currentTeam, () => {
-                    gameState.mission1Count++;
-                    loadQuestionModal(shuffledQuestions[gameState.mission1Count % shuffledQuestions.length], () => {
-                        loadMission1();
-                    });
-                });
-            });
-
-            document.getElementById('target-balloon').addEventListener('click', () => {
-                promptTeamTurn(currentTeam, () => {
-                    gameState.mission1Count++;
-                    loadQuestionModal(shuffledQuestions[gameState.mission1Count % shuffledQuestions.length], () => {
-                        loadMission1();
+            document.querySelectorAll('.flying-balloon').forEach(b => {
+                b.addEventListener('click', () => {
+                    promptTeamTurn(currentTeam, () => {
+                        gameState.mission1Count++;
+                        loadQuestionModal(shuffledQuestions[gameState.mission1Count % shuffledQuestions.length], () => {
+                            loadMission1();
+                        });
                     });
                 });
             });
