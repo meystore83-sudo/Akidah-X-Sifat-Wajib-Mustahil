@@ -327,55 +327,110 @@
             justify-content: center;
         }
 
-        /* MISSION 1: FLYING BALLOONS (CLICK TO SELECT) */
-        .balloon-sky {
+        /* TURN SELECTOR */
+        .team-select-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .team-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 25px 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            width: 250px;
+        }
+
+        .team-btn.team-a:hover {
+            background: rgba(37, 99, 235, 0.2);
+            border-color: var(--team-a);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+        }
+
+        .team-btn.team-b:hover {
+            background: rgba(220, 38, 38, 0.2);
+            border-color: var(--team-b);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.4);
+        }
+
+        .team-btn img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .team-btn span {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* MISSION 1: FLYING BALLOONS */
+        .mission-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .mission-title h3 {
+            font-size: 1.6rem;
+            color: #34d399;
+        }
+
+        .mission-title p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .flying-balloon-arena {
             width: 100%;
-            height: 320px;
-            background: linear-gradient(to bottom, #1e293b, #0f172a);
+            height: 350px;
+            background: rgba(15, 23, 42, 0.5);
             border-radius: 15px;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 20px;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
         }
 
         .flying-balloon {
-            width: 90px;
-            height: 110px;
+            position: absolute;
+            width: 75px;
+            height: 90px;
             background: radial-gradient(circle at 30% 30%, #f472b6, #db2777);
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            font-weight: 700;
+            font-size: 1.5rem;
             color: white;
-            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.3), 0 10px 15px rgba(0,0,0,0.3);
-            animation: flyFloat 3s ease-in-out infinite alternate;
-            transition: transform 0.2s ease;
+            box-shadow: inset -8px -8px 15px rgba(0,0,0,0.3), 0 5px 15px rgba(0,0,0,0.3);
+            animation: flyUp 4s ease-in-out infinite alternate;
         }
 
-        .flying-balloon:nth-child(2) { background: radial-gradient(circle at 30% 30%, #60a5fa, #2563eb); animation-delay: 0.5s; }
-        .flying-balloon:nth-child(3) { background: radial-gradient(circle at 30% 30%, #34d399, #059669); animation-delay: 1s; }
+        .flying-balloon:nth-child(2) { background: radial-gradient(circle at 30% 30%, #60a5fa, #2563eb); animation-duration: 3.5s; }
+        .flying-balloon:nth-child(3) { background: radial-gradient(circle at 30% 30%, #34d399, #059669); animation-duration: 4.5s; }
+        .flying-balloon:nth-child(4) { background: radial-gradient(circle at 30% 30%, #fbbf24, #d97706); animation-duration: 3s; }
+        .flying-balloon:nth-child(5) { background: radial-gradient(circle at 30% 30%, #a78bfa, #7c3aed); animation-duration: 5s; }
+        .flying-balloon:nth-child(6) { background: radial-gradient(circle at 30% 30%, #f87171, #dc2626); animation-duration: 3.8s; }
 
-        @keyframes flyFloat {
-            0% { transform: translateY(15px); }
-            100% { transform: translateY(-15px); }
-        }
-
-        .flying-balloon:hover {
-            transform: scale(1.1);
+        @keyframes flyUp {
+            0% { transform: translateY(200px) scale(1); }
+            100% { transform: translateY(10px) scale(1.05); }
         }
 
         /* QUESTION BOX */
         .question-box {
             width: 100%;
             max-width: 900px;
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(15, 23, 42, 0.9);
             border: 2px solid rgba(255, 255, 255, 0.15);
             border-radius: 20px;
             padding: 30px;
@@ -475,7 +530,7 @@
             border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 20px;
-            min-height: 320px;
+            min-height: 300px;
         }
 
         .drop-column h4 {
@@ -496,12 +551,13 @@
         .drag-item {
             background: rgba(59, 130, 246, 0.2);
             border: 2px solid #3b82f6;
-            padding: 12px 16px;
+            padding: 14px 18px;
             border-radius: 10px;
             cursor: grab;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 1rem;
             transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
         }
 
         .drag-item:active { cursor: grabbing; }
@@ -510,13 +566,14 @@
         .drop-target {
             background: rgba(255, 255, 255, 0.05);
             border: 2px dashed rgba(255, 255, 255, 0.2);
-            padding: 12px 16px;
+            padding: 14px 18px;
             border-radius: 10px;
-            min-height: 50px;
+            min-height: 55px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
         }
 
         .drop-target.drag-over {
@@ -535,18 +592,53 @@
             background: rgba(15, 23, 42, 0.8);
             border: 2px solid rgba(255, 255, 255, 0.15);
             border-radius: 20px;
-            padding: 35px;
+            padding: 30px;
             max-width: 700px;
             width: 100%;
         }
 
-        .clue-text {
+        .scramble-clue {
             font-size: 1.2rem;
             color: #fbbf24;
             margin-bottom: 20px;
+            font-weight: 600;
         }
 
-        .letter-slots {
+        .letter-pool {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .letter-tile {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: all 0.2s ease;
+        }
+
+        .letter-tile:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+        }
+
+        .letter-tile.used {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .answer-slots {
             display: flex;
             justify-content: center;
             gap: 10px;
@@ -554,45 +646,20 @@
             min-height: 60px;
         }
 
-        .letter-slot {
+        .answer-slot {
             width: 50px;
             height: 50px;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.05);
             border: 2px dashed rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.4rem;
-            font-weight: 700;
+            font-size: 1.5rem;
+            font-weight: 800;
             color: #34d399;
-        }
-
-        .shuffled-pool {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-
-        .pool-tile {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
-            transition: transform 0.2s ease;
         }
-
-        .pool-tile:hover { transform: translateY(-3px); }
-        .pool-tile.used { opacity: 0.3; pointer-events: none; }
 
         /* MISSION 4: KOTAK MISTERI */
         .mystery-grid {
@@ -622,6 +689,7 @@
         .mystery-box:hover:not(.opened) {
             transform: translateY(-5px);
             box-shadow: 0 12px 25px rgba(59, 130, 246, 0.6);
+            background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
         }
 
         .mystery-box.opened {
@@ -644,6 +712,13 @@
             text-transform: uppercase;
         }
 
+        .mystery-box.opened::after {
+            content: '✔';
+            position: absolute;
+            font-size: 2rem;
+            color: #10b981;
+        }
+
         /* MODAL / POPUP */
         .modal-overlay {
             position: fixed;
@@ -660,7 +735,9 @@
             padding: 20px;
         }
 
-        .modal-overlay.active { display: flex; }
+        .modal-overlay.active {
+            display: flex;
+        }
 
         .modal-card {
             background: #1e293b;
@@ -679,8 +756,17 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        .modal-card h2 { font-size: 2rem; margin-bottom: 15px; }
-        .modal-card p { color: #cbd5e1; font-size: 1.05rem; margin-bottom: 30px; line-height: 1.6; }
+        .modal-card h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .modal-card p {
+            color: #cbd5e1;
+            font-size: 1.05rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
 
         .modal-instructions {
             text-align: left;
@@ -719,7 +805,10 @@
             gap: 12px;
         }
 
-        .feedback-popup.show { transform: translateX(-50%) translateY(0); }
+        .feedback-popup.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
         .feedback-popup.correct { border-color: #10b981; color: #34d399; }
         .feedback-popup.incorrect { border-color: #ef4444; color: #f87171; }
 
@@ -730,11 +819,29 @@
             padding: 40px 20px;
         }
 
-        .trophy-icon { font-size: 5rem; margin-bottom: 20px; animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        .trophy-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
 
-        .winner-title { font-size: 3rem; font-weight: 800; color: #fbbf24; margin-bottom: 10px; }
-        .winner-subtitle { font-size: 1.3rem; color: #cbd5e1; margin-bottom: 30px; }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .winner-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #fbbf24;
+            margin-bottom: 10px;
+        }
+
+        .winner-subtitle {
+            font-size: 1.3rem;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+        }
 
         .stats-card {
             background: rgba(255, 255, 255, 0.05);
@@ -746,14 +853,41 @@
             backdrop-filter: blur(10px);
         }
 
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
-        .stat-box { background: rgba(15, 23, 42, 0.6); padding: 20px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         .stat-box.team-a { border-top: 4px solid var(--team-a); }
         .stat-box.team-b { border-top: 4px solid var(--team-b); }
-        .stat-box h4 { font-size: 1.1rem; margin-bottom: 10px; }
-        .stat-box p { font-size: 1.5rem; font-weight: 700; }
-        .quote-box { font-style: italic; color: #34d399; font-size: 1.1rem; margin-top: 15px; }
 
+        .stat-box h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-box p {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .quote-box {
+            font-style: italic;
+            color: #34d399;
+            font-size: 1.1rem;
+            margin-top: 15px;
+        }
+
+        /* AUDIO CONTROLS FLOATING */
         .audio-float-btn {
             position: fixed;
             bottom: 20px;
@@ -770,14 +904,40 @@
             cursor: pointer;
             box-shadow: 0 5px 20px rgba(0,0,0,0.5);
             z-index: 999;
+            transition: transform 0.2s ease;
+            backdrop-filter: blur(5px);
         }
 
-        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1500; }
+        .audio-float-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* CONFETTI CANVAS */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1500;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .options-grid { grid-template-columns: 1fr; }
+            .drag-drop-container { grid-template-columns: 1fr; }
+            .mystery-grid { grid-template-columns: repeat(2, 1fr); }
+            .game-header { flex-direction: column; gap: 15px; }
+            .home-avatars { gap: 20px; }
+        }
     </style>
 </head>
 <body>
 
     <canvas id="confetti-canvas"></canvas>
+
+    <!-- FLOATING AUDIO BUTTON -->
     <div class="audio-float-btn" id="audio-toggle-btn" title="Musik ON/OFF">🔊</div>
 
     <!-- FEEDBACK POPUP -->
@@ -793,8 +953,10 @@
             <div class="modal-instructions">
                 <ol>
                     <li>Game dimainkan oleh <strong>Kelompok A</strong> dan <strong>Kelompok B</strong> dalam satu layar.</li>
-                    <li>Selesaikan ke-4 misi: <strong>Balon Terbang</strong> (6 soal bergantian, cukup klik balon), <strong>Pasangkan Tepat</strong> (2 ronde drag & drop), <strong>Menyusun Kata</strong> (6 kata bergantian), dan <strong>Kotak Misteri</strong>.</li>
-                    <li>Setiap jawaban benar mendapat <strong>+10 poin</strong> dan tali tambang bergeser ke kelompok tersebut.</li>
+                    <li>Selesaikan ke-4 misi yang tersedia secara berurutan: Memanah Balon Terbang (6 Soal), Pasangkan Tepat (2 Ronde), Menyusun Kata (6 Kata), dan Kotak Misteri.</li>
+                    <li>Pilih kelompok yang menjawab sebelum tantangan dimulai.</li>
+                    <li>Setiap jawaban benar mendapat <strong>+10 poin</strong> dan tali tambang akan bergeser ke arah kelompok tersebut.</li>
+                    <li>Kelompok dengan skor tertinggi dan posisi tarik tambang paling unggul akan menjadi pemenang di akhir game!</li>
                 </ol>
             </div>
             <button class="btn" id="close-instructions-btn">Mengerti, Kembali</button>
@@ -804,8 +966,8 @@
     <!-- TURN SELECTOR MODAL -->
     <div class="modal-overlay" id="turn-modal">
         <div class="modal-card">
-            <h2>👥 GILIRAN KELOMPOK</h2>
-            <p id="turn-modal-desc">Pilih kelompok yang akan bermain:</p>
+            <h2>👥 SIAPA YANG MENJAWAB?</h2>
+            <p>Pilih kelompok yang akan menjawab tantangan ini:</p>
             <div class="team-select-buttons">
                 <button class="team-btn team-a" id="select-team-a">
                     <img src="https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/9ebed1d16258403a359df6046ec28866aa736015/Murid%20LK.png" alt="Kelompok A">
@@ -856,7 +1018,7 @@
 
             <div class="mission-indicator">
                 <h2 id="mission-title-header">MISI 1 / 4</h2>
-                <p id="mission-desc-header">BALON TERBANG</p>
+                <p id="mission-desc-header">PANAH BALON TERBANG</p>
             </div>
 
             <div class="team-score-box team-b">
@@ -873,10 +1035,13 @@
             <div class="tug-track">
                 <div class="win-line-left"></div>
                 <div class="win-line-right"></div>
+                
                 <img src="https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/9ebed1d16258403a359df6046ec28866aa736015/Murid%20LK.png" class="avatar-tug-left" id="avatar-a" alt="Avatar A">
+                
                 <div class="rope">
                     <div class="rope-knot" id="rope-knot" style="left: 50%;"></div>
                 </div>
+
                 <img src="https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/6d02e8635c29903da6ef8f9042ef6e2c89ea078f/Murid%20PR.png" class="avatar-tug-right" id="avatar-b" alt="Avatar B">
             </div>
             <div class="tug-labels">
@@ -887,7 +1052,9 @@
         </div>
 
         <!-- MAIN GAME CONTAINER -->
-        <div class="game-main-container" id="game-container"></div>
+        <div class="game-main-container" id="game-container">
+            <!-- Dynamic content injected via JS -->
+        </div>
     </div>
 
     <!-- 3. WIN SCREEN -->
@@ -909,7 +1076,7 @@
                     <small id="stats-correct-b">Benar: 0 | Salah: 0</small>
                 </div>
             </div>
-            <div class="quote-box">"Ilmu Akidah adalah fondasi keselamatan dunia dan akhirat."</div>
+            <div class="quote-box" id="winner-quote">"Ilmu Akidah adalah fondasi keselamatan dunia dan akhirat."</div>
         </div>
 
         <div class="btn-group">
@@ -932,17 +1099,25 @@
                 audioToggleBtn.textContent = '🔇';
                 isMusicPlaying = false;
             } else {
-                bgm.play().then(() => { isMusicPlaying = true; audioToggleBtn.textContent = '🔊'; }).catch(e => {});
+                bgm.play().then(() => {
+                    audioToggleBtn.textContent = '🔊';
+                    isMusicPlaying = true;
+                }).catch(e => console.log("Audio play blocked", e));
             }
         });
 
+        // Web Audio API for Sound Effects
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
         function playSound(type) {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
             const osc = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
             osc.connect(gainNode);
             gainNode.connect(audioCtx.destination);
+
             const now = audioCtx.currentTime;
 
             if (type === 'correct') {
@@ -950,42 +1125,53 @@
                 osc.frequency.setValueAtTime(440, now);
                 osc.frequency.setValueAtTime(554.37, now + 0.1);
                 osc.frequency.setValueAtTime(659.25, now + 0.2);
+                osc.frequency.setValueAtTime(880, now + 0.3);
                 gainNode.gain.setValueAtTime(0.2, now);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
-                osc.start(now); osc.stop(now + 0.5);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+                osc.start(now);
+                osc.stop(now + 0.6);
             } else if (type === 'incorrect') {
                 osc.type = 'sawtooth';
                 osc.frequency.setValueAtTime(220, now);
                 osc.frequency.setValueAtTime(150, now + 0.2);
                 gainNode.gain.setValueAtTime(0.3, now);
                 gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
-                osc.start(now); osc.stop(now + 0.4);
+                osc.start(now);
+                osc.stop(now + 0.4);
             } else if (type === 'win') {
-                [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+                const notes = [523.25, 659.25, 783.99, 1046.5];
+                notes.forEach((freq, idx) => {
                     const o = audioCtx.createOscillator();
                     const g = audioCtx.createGain();
-                    o.connect(g); g.connect(audioCtx.destination);
+                    o.connect(g);
+                    g.connect(audioCtx.destination);
                     o.frequency.setValueAtTime(freq, now + (idx * 0.15));
                     g.gain.setValueAtTime(0.2, now + (idx * 0.15));
                     g.gain.exponentialRampToValueAtTime(0.001, now + (idx * 0.15) + 0.5);
-                    o.start(now + (idx * 0.15)); o.stop(now + (idx * 0.15) + 0.5);
+                    o.start(now + (idx * 0.15));
+                    o.stop(now + (idx * 0.15) + 0.5);
                 });
             }
         }
 
         /* GAME STATE */
         let gameState = {
-            scoreA: 0, scoreB: 0,
-            correctA: 0, correctB: 0,
-            incorrectA: 0, incorrectB: 0,
+            scoreA: 0,
+            scoreB: 0,
+            correctA: 0,
+            correctB: 0,
+            incorrectA: 0,
+            incorrectB: 0,
             ropePosition: 50,
             currentMission: 1,
             selectedTeam: null,
-            mission1Count: 0, // max 6 (3 each)
-            mission2Round: 0, // max 2
-            mission3Count: 0  // max 6 (3 each)
+            mission1Count: 0, // total 6 questions
+            mission2Round: 1, // total 2 rounds
+            mission3Count: 0, // total 6 words
+            mission4Opened: []
         };
 
+        /* BANK SOAL */
         const bankSoal = [
             { q: "Sifat Allah Swt. yang berarti Allah Maha Mengetahui adalah...", options: ["A. Qudrat", "B. Ilmu", "C. Hayat", "D. Sama'"], correct: 1 },
             { q: "Apa arti dari sifat wajib Allah 'Wujud'?", options: ["A. Allah ada", "B. Allah kekal", "C. Allah terdahulu", "D. Allah Maha Mendengar"], correct: 0 },
@@ -1032,7 +1218,10 @@
 
         startGameBtn.addEventListener('click', () => {
             if (!isMusicPlaying) {
-                bgm.play().then(() => { isMusicPlaying = true; audioToggleBtn.textContent = '🔊'; }).catch(e => {});
+                bgm.play().then(() => {
+                    isMusicPlaying = true;
+                    audioToggleBtn.textContent = '🔊';
+                }).catch(e => console.log(e));
             }
             initGame();
             switchScreen(gameScreen);
@@ -1040,18 +1229,27 @@
 
         instructionsBtn.addEventListener('click', () => instructionsModal.classList.add('active'));
         closeInstructionsBtn.addEventListener('click', () => instructionsModal.classList.remove('active'));
+
         homeBtn.addEventListener('click', () => switchScreen(homeScreen));
-        restartBtn.addEventListener('click', () => { initGame(); switchScreen(gameScreen); });
+        restartBtn.addEventListener('click', () => {
+            initGame();
+            switchScreen(gameScreen);
+        });
 
         function initGame() {
-            gameState.scoreA = 0; gameState.scoreB = 0;
-            gameState.correctA = 0; gameState.correctB = 0;
-            gameState.incorrectA = 0; gameState.incorrectB = 0;
+            gameState.scoreA = 0;
+            gameState.scoreB = 0;
+            gameState.correctA = 0;
+            gameState.correctB = 0;
+            gameState.incorrectA = 0;
+            gameState.incorrectB = 0;
             gameState.ropePosition = 50;
             gameState.currentMission = 1;
             gameState.mission1Count = 0;
-            gameState.mission2Round = 0;
+            gameState.mission2Round = 1;
             gameState.mission3Count = 0;
+            gameState.mission4Opened = [];
+
             shuffledQuestions = [...bankSoal].sort(() => Math.random() - 0.5);
             updateUI();
             loadMission();
@@ -1060,13 +1258,17 @@
         function updateUI() {
             scoreAEl.textContent = `${gameState.scoreA} POIN`;
             scoreBEl.textContent = `${gameState.scoreB} POIN`;
+
             ropeKnot.style.left = `${gameState.ropePosition}%`;
             avatarA.style.left = `calc(${gameState.ropePosition}% - 45px)`;
             avatarB.style.right = `calc(${100 - gameState.ropePosition}% - 45px)`;
 
             let status = "POSISI TENGAH (50 : 50)";
-            if (gameState.ropePosition < 50) status = `KEUNGGULAN KELOMPOK A (${Math.round(50 - gameState.ropePosition)}%)`;
-            else if (gameState.ropePosition > 50) status = `KEUNGGULAN KELOMPOK B (${Math.round(gameState.ropePosition - 50)}%)`;
+            if (gameState.ropePosition < 50) {
+                status = `KEUNGGULAN KELOMPOK A (${Math.round(50 - gameState.ropePosition)}%)`;
+            } else if (gameState.ropePosition > 50) {
+                status = `KEUNGGULAN KELOMPOK B (${Math.round(gameState.ropePosition - 50)}%)`;
+            }
             tugStatusText.textContent = status;
         }
 
@@ -1074,13 +1276,38 @@
             feedbackPopup.className = `feedback-popup show ${isCorrect ? 'correct' : 'incorrect'}`;
             feedbackIcon.textContent = isCorrect ? '✅' : '❌';
             feedbackText.textContent = message;
-            setTimeout(() => { feedbackPopup.classList.remove('show'); }, 2500);
+            setTimeout(() => {
+                feedbackPopup.classList.remove('show');
+            }, 2500);
+        }
+
+        function loadMission() {
+            switch(gameState.currentMission) {
+                case 1:
+                    missionTitleHeader.textContent = "MISI 1 / 4";
+                    missionDescHeader.textContent = "PANAH BALON TERBANG";
+                    loadMission1();
+                    break;
+                case 2:
+                    missionTitleHeader.textContent = "MISI 2 / 4";
+                    missionDescHeader.textContent = `PASANGKAN TEPAT (Ronde ${gameState.mission2Round}/2)`;
+                    loadMission2();
+                    break;
+                case 3:
+                    missionTitleHeader.textContent = "MISI 3 / 4";
+                    missionDescHeader.textContent = `MENYUSUN KATA (${gameState.mission3Count + 1}/6)`;
+                    loadMission3();
+                    break;
+                case 4:
+                    missionTitleHeader.textContent = "MISI 4 / 4";
+                    missionDescHeader.textContent = "KOTAK MISTERI AKIDAH";
+                    loadMission4();
+                    break;
+            }
         }
 
         let pendingCallback = null;
-        function promptTeamTurn(teamName, callback) {
-            gameState.selectedTeam = teamName;
-            document.getElementById('turn-modal-desc').textContent = `Giliran Bermain: KELOMPOK ${teamName}`;
+        function promptTeamTurn(callback) {
             pendingCallback = callback;
             turnModal.classList.add('active');
         }
@@ -1090,60 +1317,41 @@
             turnModal.classList.remove('active');
             if (pendingCallback) pendingCallback();
         });
+
         selectTeamB.addEventListener('click', () => {
             gameState.selectedTeam = 'B';
             turnModal.classList.remove('active');
             if (pendingCallback) pendingCallback();
         });
 
-        function loadMission() {
-            if (gameState.currentMission === 1) {
-                missionTitleHeader.textContent = "MISI 1 / 4";
-                missionDescHeader.textContent = "BALON TERBANG";
-                loadMission1();
-            } else if (gameState.currentMission === 2) {
-                missionTitleHeader.textContent = "MISI 2 / 4";
-                missionDescHeader.textContent = "PASANGKAN DENGAN TEPAT";
-                loadMission2();
-            } else if (gameState.currentMission === 3) {
-                missionTitleHeader.textContent = "MISI 3 / 4";
-                missionDescHeader.textContent = "MENYUSUN KATA AKIDAH";
-                loadMission3();
-            } else if (gameState.currentMission === 4) {
-                missionTitleHeader.textContent = "MISI 4 / 4";
-                missionDescHeader.textContent = "KOTAK MISTERI AKIDAH";
-                loadMission4();
-            }
-        }
-
-        /* ================= MISI 1: BALON TERBANG (6 SOAL: 3 A, 3 B) ================= */
+        /* ================= MISSION 1: FLYING BALLOONS (6 Questions total) ================= */
         function loadMission1() {
-            if (gameState.mission1Count >= 6) {
-                gameState.currentMission = 2;
-                loadMission();
-                return;
-            }
-
-            const currentTeam = (gameState.mission1Count % 2 === 0) ? 'A' : 'B';
-            
             gameContainer.innerHTML = `
-                <div class="mission-title" style="text-align:center; margin-bottom:15px;">
-                    <h3>🎈 MISI 1: BALON TERBANG (${gameState.mission1Count + 1}/6)</h3>
-                    <p>Giliran <strong>Kelompok ${currentTeam}</strong>. Klik salah satu balon di udara!</p>
+                <div class="mission-title">
+                    <h3>🎈 MISI 1: PANAH BALON TERBANG (Soal ${gameState.mission1Count + 1} / 6)</h3>
+                    <p>Balon bergerak terbang! Pilih kelompok, lalu klik salah satu balon untuk memecahkannya!</p>
                 </div>
-                <div class="balloon-sky" id="balloon-sky">
-                    <div class="flying-balloon" id="b1">🎈 1</div>
-                    <div class="flying-balloon" id="b2" style="animation-delay: 0.7s;">🎈 2</div>
-                    <div class="flying-balloon" id="b3" style="animation-delay: 1.4s;">🎈 3</div>
+                <div class="flying-balloon-arena" id="flying-arena">
+                    <div class="flying-balloon" style="left: 15%; top: 20px;">🎈</div>
+                    <div class="flying-balloon" style="left: 32%; top: 100px;">🎈</div>
+                    <div class="flying-balloon" style="left: 50%; top: 40px;">🎈</div>
+                    <div class="flying-balloon" style="left: 68%; top: 120px;">🎈</div>
+                    <div class="flying-balloon" style="left: 82%; top: 60px;">🎈</div>
                 </div>
             `;
 
             document.querySelectorAll('.flying-balloon').forEach(b => {
                 b.addEventListener('click', () => {
-                    promptTeamTurn(currentTeam, () => {
-                        gameState.mission1Count++;
+                    promptTeamTurn(() => {
+                        b.remove();
                         loadQuestionModal(shuffledQuestions[gameState.mission1Count % shuffledQuestions.length], () => {
-                            loadMission1();
+                            gameState.mission1Count++;
+                            if (gameState.mission1Count >= 6) {
+                                gameState.currentMission = 2;
+                                loadMission();
+                            } else {
+                                loadMission1();
+                            }
                         });
                     });
                 });
@@ -1154,7 +1362,7 @@
             gameContainer.innerHTML = `
                 <div class="question-box">
                     <div class="question-header">
-                        <span class="question-team-tag team-${gameState.selectedTeam.toLowerCase()}">KELOMPOK ${gameState.selectedTeam}</span>
+                        <span class="question-team-tag team-${gameState.selectedTeam.toLowerCase()}">GILIRAN: KELOMPOK ${gameState.selectedTeam}</span>
                         <span>Poin: +10</span>
                     </div>
                     <div class="question-text">${qObj.q}</div>
@@ -1185,16 +1393,19 @@
                         showFeedback(true, `Kelompok ${gameState.selectedTeam} Benar! +10 Poin`);
                         triggerConfetti();
                         if (gameState.selectedTeam === 'A') {
-                            gameState.scoreA += 10; gameState.correctA++;
+                            gameState.scoreA += 10;
+                            gameState.correctA++;
                             gameState.ropePosition = Math.max(5, gameState.ropePosition - 8);
                         } else {
-                            gameState.scoreB += 10; gameState.correctB++;
+                            gameState.scoreB += 10;
+                            gameState.correctB++;
                             gameState.ropePosition = Math.min(95, gameState.ropePosition + 8);
                         }
                     } else {
                         playSound('incorrect');
                         showFeedback(false, `Jawaban Kurang Tepat!`);
-                        if (gameState.selectedTeam === 'A') gameState.incorrectA++; else gameState.incorrectB++;
+                        if (gameState.selectedTeam === 'A') gameState.incorrectA++;
+                        else gameState.incorrectB++;
                     }
 
                     updateUI();
@@ -1203,20 +1414,13 @@
             });
         }
 
-        /* ================= MISI 2: DRAG AND DROP (2x / 2 Ronde) ================= */
+        /* ================= MISSION 2: DRAG AND DROP (2 Rounds total) ================= */
         function loadMission2() {
-            if (gameState.mission2Round >= 2) {
-                gameState.currentMission = 3;
-                loadMission();
-                return;
-            }
-
-            const currentTeam = (gameState.mission2Round === 0) ? 'A' : 'B';
-            promptTeamTurn(currentTeam, () => {
+            promptTeamTurn(() => {
                 gameContainer.innerHTML = `
-                    <div class="mission-title" style="text-align:center; margin-bottom:15px;">
-                        <h3>🧩 MISI 2: PASANGKAN DENGAN TEPAT (Ronde ${gameState.mission2Round + 1} - Kelompok ${currentTeam})</h3>
-                        <p>Seret Sifat Allah di kiri ke Arti yang sesuai di kanan!</p>
+                    <div class="mission-title">
+                        <h3>🧩 MISI 2: PASANGKAN DENGAN TEPAT (Kelompok ${gameState.selectedTeam})</h3>
+                        <p>Seret Sifat Allah di kiri ke Arti / Pasangan yang sesuai di kanan!</p>
                     </div>
                     <div class="drag-drop-container">
                         <div class="drop-column">
@@ -1231,13 +1435,12 @@
                     <button class="btn" id="check-drag-btn" style="margin-top: 25px;">SELESAI & PERIKSA</button>
                 `;
 
-                const pairs = [
-                    { id: '1', sifat: 'Wujud', arti: 'Allah ada' },
-                    { id: '2', sifat: 'Qidam', arti: 'Allah terdahulu' },
-                    { id: '3', sifat: 'Baqa', arti: 'Allah kekal' },
-                    { id: '4', sifat: 'Qudrat', arti: 'Allah Maha Kuasa' }
+                const allPairs = [
+                    [{ id: '1', sifat: 'Wujud', arti: 'Allah ada' }, { id: '2', sifat: 'Qidam', arti: 'Allah terdahulu' }, { id: '3', sifat: 'Baqa', arti: 'Allah kekal' }, { id: '4', sifat: 'Qudrat', arti: 'Allah Maha Kuasa' }],
+                    [{ id: '5', sifat: 'Ilmu', arti: 'Allah Maha Mengetahui' }, { id: '6', sifat: 'Adam', arti: 'Tiada' }, { id: '7', sifat: 'Huduts', arti: 'Baru' }, { id: '8', sifat: 'Ajzun', arti: 'Lemah' }]
                 ];
 
+                const pairs = allPairs[gameState.mission2Round - 1];
                 let shuffledSifat = [...pairs].sort(() => Math.random() - 0.5);
                 let shuffledArti = [...pairs].sort(() => Math.random() - 0.5);
 
@@ -1250,6 +1453,7 @@
                     item.draggable = true;
                     item.textContent = p.sifat;
                     item.dataset.id = p.id;
+
                     item.addEventListener('dragstart', (e) => {
                         e.dataTransfer.setData('text/plain', p.id);
                         item.classList.add('dragging');
@@ -1263,18 +1467,24 @@
                     target.className = 'drop-target';
                     target.dataset.id = p.id;
                     target.innerHTML = `<span>${p.arti}</span><small style="color:#94a3b8">Letakkan di sini</small>`;
-                    target.addEventListener('dragover', (e) => { e.preventDefault(); target.classList.add('drag-over'); });
+
+                    target.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        target.classList.add('drag-over');
+                    });
                     target.addEventListener('dragleave', () => target.classList.remove('drag-over'));
                     target.addEventListener('drop', (e) => {
                         e.preventDefault();
                         target.classList.remove('drag-over');
                         const draggedId = e.dataTransfer.getData('text/plain');
                         const draggedEl = document.querySelector(`[data-id='${draggedId}'].drag-item`);
+                        
                         target.innerHTML = `<span>${p.arti}</span><strong style="color:#34d399">${draggedEl.textContent}</strong>`;
                         target.dataset.matchedId = draggedId;
                         target.classList.add('matched');
                         draggedEl.style.display = 'none';
                     });
+
                     dropTargetsEl.appendChild(target);
                 });
 
@@ -1286,114 +1496,141 @@
 
                     if (allCorrect) {
                         playSound('correct');
-                        showFeedback(true, `Kelompok ${currentTeam} Berhasil! +10 Poin`);
+                        showFeedback(true, `Kelompok ${gameState.selectedTeam} Berhasil! +10 Poin`);
                         triggerConfetti();
-                        if (currentTeam === 'A') {
-                            gameState.scoreA += 10; gameState.correctA++;
+                        if (gameState.selectedTeam === 'A') {
+                            gameState.scoreA += 10;
+                            gameState.correctA++;
                             gameState.ropePosition = Math.max(5, gameState.ropePosition - 8);
                         } else {
-                            gameState.scoreB += 10; gameState.correctB++;
+                            gameState.scoreB += 10;
+                            gameState.correctB++;
                             gameState.ropePosition = Math.min(95, gameState.ropePosition + 8);
                         }
                     } else {
                         playSound('incorrect');
                         showFeedback(false, `Ada pasangan yang kurang tepat!`);
-                        if (currentTeam === 'A') gameState.incorrectA++; else gameState.incorrectB++;
+                        if (gameState.selectedTeam === 'A') gameState.incorrectA++;
+                        else gameState.incorrectB++;
                     }
 
                     updateUI();
-                    gameState.mission2Round++;
-                    setTimeout(loadMission2, 2000);
+                    setTimeout(() => {
+                        gameState.mission2Round++;
+                        if (gameState.mission2Round > 2) {
+                            gameState.currentMission = 3;
+                            loadMission();
+                        } else {
+                            loadMission2();
+                        }
+                    }, 2000);
                 });
             });
         }
 
-        /* ================= MISI 3: MENYUSUN KATA (6 Kata: 3 A, 3 B) ================= */
-        const wordListMission3 = [
-            { word: "WUJUD", clue: "Sifat Wajib: Allah Ada" },
-            { word: "QIDAM", clue: "Sifat Wajib: Terdahulu" },
-            { word: "BAQA", clue: "Sifat Wajib: Kekal" },
-            { word: "ILMU", clue: "Sifat Wajib: Maha Mengetahui" },
-            { word: "ADAM", clue: "Sifat Mustahil: Tiada" },
-            { word: "FANA", clue: "Sifat Mustahil: Binasa" }
+        /* ================= MISSION 3: MENYUSUN KATA (6 Words total) ================= */
+        const scrambleWords = [
+            { word: "WUJUD", clue: "Sifat wajib Allah: Ada" },
+            { word: "QIDAM", clue: "Sifat wajib Allah: Terdahulu" },
+            { word: "BAQA", clue: "Sifat wajib Allah: Kekal" },
+            { word: "ILMU", clue: "Sifat wajib Allah: Mengetahui" },
+            { word: "ADAM", clue: "Sifat mustahil Allah: Tiada" },
+            { word: "FANA", clue: "Sifat mustahil Allah: Binasa" }
         ];
 
         function loadMission3() {
-            if (gameState.mission3Count >= 6) {
-                gameState.currentMission = 4;
-                loadMission();
-                return;
-            }
-
-            const currentTeam = (gameState.mission3Count % 2 === 0) ? 'A' : 'B';
-            promptTeamTurn(currentTeam, () => {
-                const currentWordObj = wordListMission3[gameState.mission3Count];
+            promptTeamTurn(() => {
+                const currentWordObj = scrambleWords[gameState.mission3Count];
                 const targetWord = currentWordObj.word;
-                let shuffledLetters = targetWord.split('').sort(() => Math.random() - 0.5);
+                const scrambledLetters = targetWord.split('').sort(() => Math.random() - 0.5);
 
                 gameContainer.innerHTML = `
                     <div class="scramble-box">
-                        <h3>🔤 MISI 3: MENYUSUN KATA (${gameState.mission3Count + 1}/6)</h3>
-                        <p class="clue-text">Clue: ${currentWordObj.clue} (Kelompok ${currentTeam})</p>
-                        <div class="letter-slots" id="letter-slots">
-                            ${targetWord.split('').map(() => `<div class="letter-slot">_</div>`).join('')}
+                        <div class="mission-title" style="margin-bottom: 10px;">
+                            <h3>🔤 MISI 3: MENYUSUN KATA (Kelompok ${gameState.selectedTeam})</h3>
                         </div>
-                        <div class="shuffled-pool" id="shuffled-pool">
-                            ${shuffledLetters.map((l, idx) => `<div class="pool-tile" data-letter="${l}" data-idx="${idx}">${l}</div>`).join('')}
+                        <div class="scramble-clue">${currentWordObj.clue}</div>
+                        <div class="answer-slots" id="answer-slots">
+                            ${targetWord.split('').map(() => `<div class="answer-slot">_</div>`).join('')}
                         </div>
-                        <button class="btn" id="submit-word-btn">CEK JAWABAN</button>
+                        <div class="letter-pool" id="letter-pool">
+                            ${scrambledLetters.map((l, idx) => `<div class="letter-tile" data-idx="${idx}" data-letter="${l}">${l}</div>`).join('')}
+                        </div>
+                        <button class="btn" id="check-scramble-btn">CEK JAWABAN</button>
                     </div>
                 `;
 
-                let currentAnswerArr = [];
-                const slots = document.querySelectorAll('.letter-slot');
+                let currentAnswer = [];
+                const slots = document.querySelectorAll('.answer-slot');
+                const tiles = document.querySelectorAll('.letter-tile');
 
-                document.querySelectorAll('.pool-tile').forEach(tile => {
+                tiles.forEach(tile => {
                     tile.addEventListener('click', () => {
                         if (tile.classList.contains('used')) return;
-                        if (currentAnswerArr.length < targetWord.length) {
+                        const letter = tile.dataset.letter;
+                        const emptySlotIdx = Array.from(slots).findIndex(s => s.textContent === '_');
+                        if (emptySlotIdx !== -1) {
+                            slots[emptySlotIdx].textContent = letter;
+                            slots[emptySlotIdx].dataset.tileIdx = tile.dataset.idx;
                             tile.classList.add('used');
-                            currentAnswerArr.push({ letter: tile.dataset.letter, tileId: tile.dataset.idx });
-                            updateSlotsView();
+                            currentAnswer.push(letter);
                         }
                     });
                 });
 
-                function updateSlotsView() {
-                    slots.forEach((slot, idx) => {
-                        slot.textContent = currentAnswerArr[idx] ? currentAnswerArr[idx].letter : '_';
+                slots.forEach((slot, idx) => {
+                    slot.addEventListener('click', () => {
+                        if (slot.textContent !== '_') {
+                            const tileIdx = slot.dataset.tileIdx;
+                            const tile = document.querySelector(`.letter-tile[data-idx='${tileIdx}']`);
+                            if (tile) tile.classList.remove('used');
+                            slot.textContent = '_';
+                            delete slot.dataset.tileIdx;
+                        }
                     });
-                }
+                });
 
-                document.getElementById('submit-word-btn').addEventListener('click', () => {
-                    let formed = currentAnswerArr.map(x => x.letter).join('');
-                    if (formed === targetWord) {
+                document.getElementById('check-scramble-btn').addEventListener('click', () => {
+                    let formedWord = Array.from(slots).map(s => s.textContent === '_' ? '' : s.textContent).join('');
+                    
+                    if (formedWord === targetWord) {
                         playSound('correct');
-                        showFeedback(true, `Kelompok ${currentTeam} Benar! +10 Poin`);
+                        showFeedback(true, `Kelompok ${gameState.selectedTeam} Benar! +10 Poin`);
                         triggerConfetti();
-                        if (currentTeam === 'A') {
-                            gameState.scoreA += 10; gameState.correctA++;
+                        if (gameState.selectedTeam === 'A') {
+                            gameState.scoreA += 10;
+                            gameState.correctA++;
                             gameState.ropePosition = Math.max(5, gameState.ropePosition - 8);
                         } else {
-                            gameState.scoreB += 10; gameState.correctB++;
+                            gameState.scoreB += 10;
+                            gameState.correctB++;
                             gameState.ropePosition = Math.min(95, gameState.ropePosition + 8);
                         }
-                        updateUI();
-                        gameState.mission3Count++;
-                        setTimeout(loadMission3, 2000);
                     } else {
                         playSound('incorrect');
-                        showFeedback(false, `Susunan kata belum tepat!`);
-                        if (currentTeam === 'A') gameState.incorrectA++; else gameState.incorrectB++;
+                        showFeedback(false, `Susunan Kata Belum Tepat!`);
+                        if (gameState.selectedTeam === 'A') gameState.incorrectA++;
+                        else gameState.incorrectB++;
                     }
+
+                    updateUI();
+                    setTimeout(() => {
+                        gameState.mission3Count++;
+                        if (gameState.mission3Count >= 6) {
+                            gameState.currentMission = 4;
+                            loadMission();
+                        } else {
+                            loadMission3();
+                        }
+                    }, 2000);
                 });
             });
         }
 
-        /* ================= MISI 4: KOTAK MISTERI ================= */
+        /* ================= MISSION 4: KOTAK MISTERI ================= */
         function loadMission4() {
             gameContainer.innerHTML = `
-                <div class="mission-title" style="text-align:center; margin-bottom:15px;">
+                <div class="mission-title">
                     <h3>🎁 MISI 4: KOTAK MISTERI AKIDAH</h3>
                     <p>Pilih kotak bernomor untuk membongkar pertanyaan rahasia!</p>
                 </div>
@@ -1403,17 +1640,17 @@
             const mysteryGrid = document.getElementById('mystery-grid');
             for (let i = 1; i <= 10; i++) {
                 const box = document.createElement('div');
-                box.className = `mystery-box ${gameState.mission4Opened && gameState.mission4Opened.includes(i) ? 'opened' : ''}`;
-                box.innerHTML = `<span class="box-num">${i < 10 ? '0' + i : i}</span><span class="box-label">Kotak</span>`;
-
-                if (!gameState.mission4Opened) gameState.mission4Opened = [];
+                box.className = `mystery-box ${gameState.mission4Opened.includes(i) ? 'opened' : ''}`;
+                box.innerHTML = `
+                    <span class="box-num">${i < 10 ? '0' + i : i}</span>
+                    <span class="box-label">Kotak</span>
+                `;
 
                 if (!gameState.mission4Opened.includes(i)) {
                     box.addEventListener('click', () => {
-                        const currentTeam = (i % 2 === 0) ? 'B' : 'A';
-                        promptTeamTurn(currentTeam, () => {
+                        promptTeamTurn(() => {
                             gameState.mission4Opened.push(i);
-                            const qObj = shuffledQuestions[i % shuffledQuestions.length];
+                            const qObj = shuffledQuestions[(i + 2) % shuffledQuestions.length];
                             loadQuestionModal(qObj, () => {
                                 if (gameState.mission4Opened.length >= 4) {
                                     endGame();
@@ -1434,9 +1671,13 @@
             triggerConfetti();
 
             let winnerText = "";
-            if (gameState.scoreA > gameState.scoreB) winnerText = "🎉 SELAMAT! KELOMPOK A MENJADI PEMENANG!";
-            else if (gameState.scoreB > gameState.scoreA) winnerText = "🎉 SELAMAT! KELOMPOK B MENJADI PEMENANG!";
-            else winnerText = "🤝 PERMAINAN SERI (DRAW)!";
+            if (gameState.scoreA > gameState.scoreB) {
+                winnerText = "🎉 SELAMAT! KELOMPOK A MENJADI PEMENANG!";
+            } else if (gameState.scoreB > gameState.scoreA) {
+                winnerText = "🎉 SELAMAT! KELOMPOK B MENJADI PEMENANG!";
+            } else {
+                winnerText = "🤝 PERMAINAN SERI (DRAW)!";
+            }
 
             document.getElementById('winner-title').textContent = winnerText;
             document.getElementById('final-score-a').textContent = `${gameState.scoreA} Poin`;
@@ -1447,21 +1688,30 @@
             switchScreen(winScreen);
         }
 
-        /* CONFETTI */
+        /* CONFETTI EFFECT */
         const canvas = document.getElementById('confetti-canvas');
         const ctx = canvas.getContext('2d');
         let confettiParticles = [];
-        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
         function triggerConfetti() {
             confettiParticles = [];
             for (let i = 0; i < 150; i++) {
                 confettiParticles.push({
-                    x: Math.random() * canvas.width, y: Math.random() * canvas.height - canvas.height,
-                    r: Math.random() * 6 + 4, d: Math.random() * 50 + 10,
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    r: Math.random() * 6 + 4,
+                    d: Math.random() * 50 + 10,
                     color: ['#34d399', '#60a5fa', '#fbbf24', '#f472b6', '#a78bfa'][Math.floor(Math.random() * 5)],
-                    tilt: Math.random() * 10 - 10, tiltAngleIncremental: Math.random() * 0.07 + 0.05, tiltAngle: 0
+                    tilt: Math.random() * 10 - 10,
+                    tiltAngleIncremental: Math.random() * 0.07 + 0.05,
+                    tiltAngle: 0
                 });
             }
             requestAnimationFrame(drawConfetti);
@@ -1471,16 +1721,24 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             confettiParticles.forEach((p, index) => {
                 ctx.beginPath();
-                ctx.lineWidth = p.r; ctx.strokeStyle = p.color;
+                ctx.lineWidth = p.r;
+                ctx.strokeStyle = p.color;
                 ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
                 ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
                 ctx.stroke();
+
                 p.tiltAngle += p.tiltAngleIncremental;
                 p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
                 p.x += Math.sin(p.tiltAngle);
-                if (p.y > canvas.height) confettiParticles.splice(index, 1);
+
+                if (p.y > canvas.height) {
+                    confettiParticles.splice(index, 1);
+                }
             });
-            if (confettiParticles.length > 0) requestAnimationFrame(drawConfetti);
+
+            if (confettiParticles.length > 0) {
+                requestAnimationFrame(drawConfetti);
+            }
         }
     </script>
 </body>
