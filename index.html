@@ -1,278 +1,937 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>🎈 Akhlak Terpuji: Berilmu & Kerja Keras</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}
-body{font-family:Poppins,sans-serif;background:#0f172a;user-select:none;-webkit-user-select:none;touch-action:none}
-#game-bg{background-image:url('https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/698d7143342cc9a85f0865cf63b07e8acff66482/235394EA-46D9-4BAD-901F-74D6D9C9EE65.png');background-size:cover;background-position:center}
-.glass{background:rgba(15,23,42,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.card{background:rgba(255,255,255,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-.float{animation:float 3s ease-in-out infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 14px rgba(251,191,36,.45)}50%{box-shadow:0 0 30px rgba(251,191,36,.9)}}
-.pulse{animation:pulse 2s infinite}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarik Tambang Akidah Akhlak - Sifat Wajib & Mustahil bagi Allah</title>
+    <!-- Tailwind CSS untuk Desain Modern, Glassmorphism, & Responsive -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti untuk Efek Kemenangan -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/28e92f2b3562924dce64feaba1e387827550274a/IMG_3274.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .bg-fallback {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #065f46 100%);
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        @keyframes ropeVibrate {
+            0% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-3px) rotate(-1deg); }
+            50% { transform: translateY(3px) rotate(1deg); }
+            75% { transform: translateY(-2px) rotate(0.5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .vibrate {
+            animation: ropeVibrate 0.3s ease-in-out infinite;
+        }
+        .transition-transform {
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+    </style>
 </head>
-<body class="relative text-white">
+<body class="min-h-screen text-slate-800 flex flex-col justify-between overflow-x-hidden bg-fallback">
 
-<div id="game-bg" class="absolute inset-0 z-0"><div class="absolute inset-0 bg-slate-950/35"></div></div>
+    <!-- AUDIO BACKSOUND & WEB AUDIO API FX -->
+    <audio id="bgMusic" src="https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/28e92f2b3562924dce64feaba1e387827550274a/gerak_bebas.mp3" loop></audio>
 
-<audio id="bgm" loop preload="auto">
-<source src="https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/698d7143342cc9a85f0865cf63b07e8acff66482/follow_the_gilded_path.mp3" type="audio/mpeg">
-</audio>
+    <!-- HEADER / NAVBAR KONTROL -->
+    <header class="w-full p-4 glass-dark text-white flex justify-between items-center shadow-lg z-30">
+        <div class="flex items-center space-x-3">
+            <span class="bg-emerald-500 text-white p-2 rounded-xl text-xl shadow-inner"><i class="fa-solid fa-rope"></i></span>
+            <div>
+                <h1 class="font-extrabold text-lg sm:text-xl tracking-wide text-emerald-400">TARIK TAMBANG AKIDAH AKHLAK</h1>
+                <p class="text-xs text-slate-300">Sifat Wajib & Sifat Mustahil Bagi Allah Swt.</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-2 sm:space-x-4">
+            <!-- Audio Mute/Unmute -->
+            <button id="audioToggleBtn" onclick="toggleAudio()" class="bg-slate-700 hover:bg-slate-600 px-3 py-2 rounded-xl text-sm font-semibold flex items-center space-x-1 transition shadow">
+                <i id="audioIcon" class="fa-solid fa-volume-xmark text-amber-400"></i>
+                <span id="audioText" class="hidden sm:inline">Mute</span>
+            </button>
+            <!-- Volume Slider -->
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.25" onchange="adjustVolume(this.value)" class="w-16 sm:w-24 accent-emerald-500 cursor-pointer hidden sm:block">
+            <!-- Tombol Mode Guru -->
+            <button onclick="openTeacherModal()" class="bg-amber-600 hover:bg-amber-500 text-white px-3 py-2 rounded-xl text-sm font-semibold flex items-center space-x-1 shadow transition">
+                <i class="fa-solid fa-gear"></i>
+                <span class="hidden sm:inline">Mode Guru</span>
+            </button>
+        </div>
+    </header>
 
-<!-- PEMBUKA -->
-<section id="welcome" class="absolute inset-0 z-50 flex items-center justify-center p-5 bg-slate-950/75 backdrop-blur-sm text-center">
-<div class="glass w-full max-w-2xl rounded-3xl p-7 md:p-12 border border-white/20 shadow-2xl">
-<div class="text-6xl md:text-7xl float mb-4">🎈</div>
-<h1 class="text-3xl md:text-5xl font-extrabold text-amber-300 leading-tight">AKHLAK TERPUJI KEPADA DIRI SENDIRI</h1>
-<h2 class="text-xl md:text-2xl font-bold text-emerald-300 mt-3 mb-5">Berilmu dan Kerja Keras</h2>
-<p class="text-slate-200 mb-7 text-sm md:text-lg">“Tarik panah ke belakang, arahkan ke balon, lalu lepaskan!”</p>
-<button id="startBtn" class="pulse bg-gradient-to-r from-emerald-500 to-teal-600 px-9 py-4 rounded-full text-lg md:text-xl font-extrabold shadow-lg active:scale-95">▶️ MULAI BERMAIN</button>
-</div>
-</section>
+    <!-- CONTAINER UTAMA GAME -->
+    <main class="flex-grow flex flex-col items-center justify-center p-3 sm:p-6 max-w-6xl mx-auto w-full z-20">
 
-<!-- HEADER -->
-<header class="absolute top-0 left-0 right-0 z-20 p-3 md:p-4 bg-slate-900/80 backdrop-blur-md border-b border-white/10">
-<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-<div>
-<h1 class="text-sm md:text-lg font-extrabold text-amber-300">AKHLAK TERPUJI KEPADA DIRI SENDIRI</h1>
-<div class="flex flex-wrap gap-x-4 gap-y-1 text-xs md:text-sm font-semibold">
-<span id="score">Skor: 0</span><span id="progressText">Balon pecah: 0 / 20</span>
-</div>
-</div>
-<div class="flex items-center gap-2">
-<div class="w-28 md:w-48 h-2.5 bg-slate-700 rounded-full overflow-hidden"><div id="progress" class="h-full w-0 bg-gradient-to-r from-emerald-400 to-teal-400 transition-all"></div></div>
-<button id="soundBtn" class="bg-slate-800 border border-white/10 px-3 py-2 rounded-xl text-xs md:text-sm">🔊 ON</button>
-<button id="fsBtn" class="bg-slate-800 border border-white/10 px-3 py-2 rounded-xl text-xs md:text-sm">⛶</button>
-</div>
-</div>
-</header>
+        <!-- 1. HALAMAN OPENING / PEMBUKA -->
+        <div id="screenOpening" class="w-full glass rounded-3xl p-6 sm:p-12 text-center shadow-2xl flex flex-col items-center space-y-6">
+            <div class="inline-block bg-emerald-100 text-emerald-800 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-2 border border-emerald-300 shadow-sm">
+                🎮 Pembelajaran Interaktif Kelas Madrasah
+            </div>
+            <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                🪢 TARIK TAMBANG <br><span class="text-emerald-600">AKIDAH AKHLAK</span>
+            </h2>
+            <p class="text-base sm:text-lg text-slate-600 max-w-2xl font-medium">
+                Uji pemahaman dan kerja sama kelompok dalam mendalami <span class="text-slate-900 font-bold">Sifat Wajib dan Sifat Mustahil Bagi Allah Swt.</span> secara seru dan menyenangkan!
+            </p>
 
-<main id="gameArea" class="absolute inset-0 z-10">
-<canvas id="canvas"></canvas>
-<div id="hint" class="absolute bottom-3 left-1/2 -translate-x-1/2 glass rounded-full px-4 py-2 text-xs md:text-sm text-white/90 pointer-events-none">🏹 Tarik dari busur ke belakang, lalu lepaskan</div>
-</main>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-lg my-4">
+                <div class="bg-blue-600/10 border-2 border-blue-500 text-blue-900 p-4 rounded-2xl flex items-center justify-center space-x-3 shadow-sm">
+                    <i class="fa-solid fa-mars text-2xl text-blue-600"></i>
+                    <span class="font-bold text-lg">KELOMPOK LAKI-LAKI</span>
+                </div>
+                <div class="bg-pink-600/10 border-2 border-pink-500 text-pink-900 p-4 rounded-2xl flex items-center justify-center space-x-3 shadow-sm">
+                    <i class="fa-solid fa-venus text-2xl text-pink-600"></i>
+                    <span class="font-bold text-lg">KELOMPOK PEREMPUAN</span>
+                </div>
+            </div>
 
-<!-- MODAL -->
-<div id="sentenceModal" class="hidden absolute inset-0 z-40 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-5">
-<div class="card text-slate-900 max-w-xl w-full rounded-3xl p-7 md:p-10 text-center shadow-2xl border border-white/60">
-<div class="text-4xl mb-3">🌟</div>
-<div class="text-sm font-bold text-emerald-700 mb-3">AKHLAK TERPUJI</div>
-<h2 id="sentence" class="text-xl md:text-3xl font-extrabold leading-snug mb-7"></h2>
-<button id="nextBtn" class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-lg px-10 py-3.5 rounded-2xl shadow-lg active:scale-95">➡️ LANJUT</button>
-</div>
-</div>
+            <button onclick="openTutorialModal()" class="mt-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xl font-extxl font-bold px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition duration-200 flex items-center space-x-3">
+                <i class="fa-solid fa-rocket animate-bounce"></i>
+                <span>MULAI GAME</span>
+            </button>
+        </div>
 
-<!-- GAME OVER -->
-<div id="gameover" class="hidden absolute inset-0 z-50 bg-slate-950/90 backdrop-blur-lg flex items-center justify-center p-5">
-<div class="card text-slate-900 max-w-xl w-full rounded-3xl p-8 md:p-10 text-center shadow-2xl">
-<div class="text-6xl mb-2">🎉🎉🎉</div>
-<h2 class="text-3xl font-extrabold text-amber-600">SELAMAT!</h2>
-<p class="font-semibold mt-2 mb-6">Semua 20 akhlak terpuji telah ditemukan.</p>
-<div class="grid grid-cols-2 gap-3 mb-6">
-<div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4"><div class="text-xs text-slate-500">✨ Akhlak</div><b class="text-xl text-emerald-700">20 / 20</b></div>
-<div class="bg-amber-50 border border-amber-200 rounded-2xl p-4"><div class="text-xs text-slate-500">🏆 Skor</div><b id="finalScore" class="text-xl text-amber-700">200</b></div>
-</div>
-<p class="italic text-sm text-slate-600 bg-slate-100 rounded-2xl p-4 mb-7">“Orang yang berilmu akan terus belajar, sedangkan orang yang bekerja keras tidak mudah menyerah.”</p>
-<button id="restartBtn" class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold px-8 py-3.5 rounded-2xl active:scale-95">🔄 MAIN LAGI</button>
-</div>
-</div>
+        <!-- 2. HALAMAN ARENA PERMAINAN UTAMA -->
+        <div id="screenGame" class="w-full flex flex-col space-y-4 hidden">
 
-<script>
-const DATA=[
-"Rina bertanya ketika belum memahami pelajaran.",
-"Dimas membaca buku meski tidak ada tugas.",
-"Aisyah memeriksa kebenaran informasi sebelum membagikannya.",
-"Fajar mau belajar dari temannya.",
-"Siti belajar dari kesalahan yang diperbuatnya.",
-"Andi membantu teman memahami materi.",
-"Nabila mencari jawaban dari sumber yang tepat.",
-"Rafi tetap belajar meski nilainya sudah bagus.",
-"Lala membiasakan diri membuang sampah pada tempatnya.",
-"Hasan menerapkan ilmunya dalam kehidupan sehari-hari.",
-"Aisyah menyelesaikan tugas sebelum beristirahat.",
-"Rafi terus berlatih membaca Al-Qur’an.",
-"Dimas belajar lebih giat setelah nilainya kurang memuaskan.",
-"Siti terus berlatih meski jawabannya salah.",
-"Fajar menyelesaikan tugas kelompok tepat waktu.",
-"Nabila terus berlatih meski harus mengulang.",
-"Hasan membantu orang tua sebelum mengerjakan tugas.",
-"Rina terus mencoba meski hasilnya belum sesuai.",
-"Ilham menyelesaikan tugas sebelum bermain.",
-"Zahra rutin belajar demi meraih cita-citanya."
-];
+            <!-- KONTROL ATAS: SKOR & INDIKATOR GILIRAN -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full items-center">
+                <!-- Skor Laki-laki -->
+                <div id="cardTeamBoys" class="glass rounded-2xl p-4 flex items-center justify-between shadow-lg border-l-8 border-blue-600 transition-all duration-300">
+                    <div>
+                        <div class="text-xs font-bold text-blue-700 uppercase flex items-center space-x-1">
+                            <i class="fa-solid fa-mars"></i> <span>Kelompok Laki-Laki</span>
+                        </div>
+                        <div id="scoreBoysDisplay" class="text-2xl font-extrabold text-slate-900 mt-1">0 Tarikan</div>
+                    </div>
+                    <div id="starsBoys" class="text-amber-500 text-lg">⭐</div>
+                </div>
 
-const canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d');
-const bgm=document.getElementById('bgm');
-let W=0,H=0,dpr=1,started=false,paused=false,muted=false,score=0,index=0;
-let queue=[],balloons=[],particles=[],arrow=null,dragging=false,drag={x:0,y:0},lastTime=0;
-let audioCtx=null;
+                <!-- Info Giliran & Misi Aktif -->
+                <div class="glass-dark rounded-2xl p-4 text-center text-white shadow-lg flex flex-col justify-center items-center">
+                    <div id="badgeMission" class="bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-1 shadow">
+                        Misi 1: Kenali Sifat Allah
+                    </div>
+                    <div id="turnIndicator" class="text-base sm:text-lg font-bold text-amber-300 animate-pulse">
+                        Giliran: Kelompok Laki-Laki 🔵
+                    </div>
+                </div>
 
-function resize(){
- dpr=Math.min(window.devicePixelRatio||1,2);
- W=window.innerWidth;H=window.innerHeight;
- canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+'px';canvas.style.height=H+'px';
- ctx.setTransform(dpr,0,0,dpr,0,0);
-}
-window.addEventListener('resize',resize);resize();
+                <!-- Skor Perempuan -->
+                <div id="cardTeamGirls" class="glass rounded-2xl p-4 flex items-center justify-between shadow-lg border-l-8 border-pink-500 transition-all duration-300">
+                    <div id="starsGirls" class="text-amber-500 text-lg order-last sm:order-first">⭐</div>
+                    <div class="text-right sm:text-left">
+                        <div class="text-xs font-bold text-pink-700 uppercase flex items-center justify-end sm:justify-start space-x-1">
+                            <span>Kelompok Perempuan</span> <i class="fa-solid fa-venus"></i>
+                        </div>
+                        <div id="scoreGirlsDisplay" class="text-2xl font-extrabold text-slate-900 mt-1">0 Tarikan</div>
+                    </div>
+                </div>
+            </div>
 
-function initAudio(){
- try{
-  if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-  if(audioCtx.state==='suspended')audioCtx.resume();
- }catch(e){}
-}
-function tone(type='shoot'){
- if(muted)return;
- try{
-  initAudio();if(!audioCtx)return;
-  const o=audioCtx.createOscillator(),g=audioCtx.createGain(),n=audioCtx.currentTime;
-  if(type==='pop'){
-   o.type='sine';o.frequency.setValueAtTime(360,n);o.frequency.exponentialRampToValueAtTime(70,n+.14);
-   g.gain.setValueAtTime(.42,n);g.gain.exponentialRampToValueAtTime(.001,n+.14);o.connect(g);g.connect(audioCtx.destination);o.start(n);o.stop(n+.14);
-  }else if(type==='cling'){
-   o.type='triangle';o.frequency.setValueAtTime(523,n);o.frequency.setValueAtTime(659,n+.09);o.frequency.setValueAtTime(784,n+.18);o.frequency.setValueAtTime(1047,n+.27);
-   g.gain.setValueAtTime(.28,n);g.gain.exponentialRampToValueAtTime(.001,n+.9);o.connect(g);g.connect(audioCtx.destination);o.start(n);o.stop(n+.9);
-  }else{
-   o.type='triangle';o.frequency.setValueAtTime(240,n);o.frequency.exponentialRampToValueAtTime(480,n+.07);
-   g.gain.setValueAtTime(.14,n);g.gain.exponentialRampToValueAtTime(.001,n+.09);o.connect(g);g.connect(audioCtx.destination);o.start(n);o.stop(n+.09);
-  }
- }catch(e){}
-}
+            <!-- VISUALISASI TARIK TAMBANG -->
+            <div class="glass rounded-3xl p-5 shadow-xl relative overflow-hidden flex flex-col items-center">
+                <div class="w-full flex justify-between text-xs font-bold text-slate-500 mb-2 px-2">
+                    <span class="text-blue-700"><i class="fa-solid fa-circle-chevron-left"></i> Menang (Kiri)</span>
+                    <span class="text-slate-700">Posisi Tengah (0)</span>
+                    <span class="text-pink-700">Menang (Kanan) <i class="fa-solid fa-circle-chevron-right"></i></span>
+                </div>
 
-function shuffle(){
- queue=[...DATA];
- for(let i=queue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[queue[i],queue[j]]=[queue[j],queue[i]]}
-}
-function spawn(){
- const colors=['#f43f5e','#ec4899','#8b5cf6','#3b82f6','#10b981','#f59e0b','#06b6d4'];
- while(balloons.length<4 && index+balloons.length<20){
-  const r=30;
-  balloons.push({
-   x:80+Math.random()*Math.max(100,W-160),
-   y=Math.max(130,H-180-Math.random()*Math.max(80,H*.35)),
-   r,color:colors[Math.floor(Math.random()*colors.length)],
-   vy:.35+Math.random()*.45,vx:(Math.random()-.5)*.5,phase:Math.random()*6.28,
-   text:queue[index+balloons.length]
-  });
- }
-}
-function base(){return{x:W/2,y:H-72}}
-function pointer(e){
- const p=e.touches&&e.touches.length?e.touches[0]:e;
- return{x:p.clientX,y:p.clientY}
-}
-function begin(e){
- if(!started||paused||(arrow&&arrow.active))return;
- const p=pointer(e),b=base();
- if(Math.hypot(p.x-b.x,p.y-b.y)<130){dragging=true;drag.x=p.x;drag.y=p.y}
-}
-function move(e){if(!dragging)return;e.preventDefault();drag=pointer(e)}
-function end(){
- if(!dragging)return;
- dragging=false;
- const b=base(),dx=b.x-drag.x,dy=b.y-drag.y,dist=Math.hypot(dx,dy);
- if(dist<18)return;
- const power=Math.min(dist*.17,19),a=Math.atan2(dy,dx);
- arrow={x:b.x,y:b.y,vx:Math.cos(a)*power,vy:Math.sin(a)*power,active:true,angle:a};
- tone('shoot');
-}
-canvas.addEventListener('mousedown',begin);canvas.addEventListener('mousemove',move);window.addEventListener('mouseup',end);
-canvas.addEventListener('touchstart',e=>{e.preventDefault();begin(e)},{passive:false});
-canvas.addEventListener('touchmove',move,{passive:false});canvas.addEventListener('touchend',e=>{e.preventDefault();end()},{passive:false});
+                <!-- Jalur Tambang -->
+                <div class="w-full bg-slate-200 h-6 rounded-full relative shadow-inner overflow-hidden flex items-center">
+                    <!-- Garis Tengah -->
+                    <div class="absolute left-1/2 top-0 bottom-0 w-1 bg-red-500 transform -translate-x-1/2 z-10"></div>
+                    <!-- Tali Tambang -->
+                    <div id="ropeElement" class="absolute w-full h-3 bg-amber-700 rounded-full transition-transform duration-500 flex items-center justify-center">
+                        <!-- Bendera Penanda -->
+                        <div id="ropeFlag" class="w-8 h-8 bg-amber-400 border-2 border-amber-600 rounded-full shadow-md flex items-center justify-center text-xs font-bold text-amber-900 z-20 transform transition-all duration-500">
+                            🚩
+                        </div>
+                    </div>
+                </div>
+                <!-- Indikator Posisi Angka -->
+                <div class="flex justify-between w-full text-[10px] text-slate-400 px-1 mt-1 font-semibold">
+                    <span>-5</span><span>-4</span><span>-3</span><span>-2</span><span>-1</span><span class="text-red-500 font-bold">0</span><span>+1</span><span>+2</span><span>+3</span><span>+4</span><span>+5</span>
+                </div>
+            </div>
 
-function particlesAt(x,y,c){
- for(let i=0;i<28;i++){const a=Math.random()*Math.PI*2,s=1+Math.random()*5;particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,r:2+Math.random()*4,c,a:1,d:.025+Math.random()*.025})}
-}
-function update(dt){
- if(!started||paused)return;
- if(arrow?.active){
-  arrow.x+=arrow.vx*dt;arrow.y+=arrow.vy*dt;arrow.vy+=.11*dt;arrow.angle=Math.atan2(arrow.vy,arrow.vx);
-  if(arrow.x<-40||arrow.x>W+40||arrow.y<-40||arrow.y>H+40)arrow.active=false;
-  for(let i=balloons.length-1;i>=0;i--){
-   const b=balloons[i];
-   if(Math.hypot(arrow.x-b.x,arrow.y-b.y)<b.r+22){
-    arrow.active=false;tone('pop');particlesAt(b.x,b.y,b.color);
-    const text=b.text;balloons.splice(i,1);score+=10;
-    document.getElementById('score').textContent='Skor: '+score;
-    showSentence(text);break;
-   }
-  }
- }
- for(const b of balloons){
-  b.y-=b.vy*dt;b.phase+=.025*dt;b.x+=Math.sin(b.phase)*.7+b.vx*dt;
-  if(b.x<b.r){b.x=b.r;b.vx=Math.abs(b.vx)}if(b.x>W-b.r){b.x=W-b.r;b.vx=-Math.abs(b.vx)}
-  if(b.y<-80){b.y=H+60;b.x=b.r+Math.random()*(W-2*b.r)}
- }
- for(let i=particles.length-1;i>=0;i--){const p=particles[i];p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=.05*dt;p.a-=p.d*dt;if(p.a<=0)particles.splice(i,1)}
- spawn();
-}
-function drawBalloon(b){
- ctx.save();ctx.translate(b.x,b.y);
- ctx.beginPath();ctx.moveTo(0,b.r);ctx.quadraticCurveTo(5,b.r+20,0,b.r+38);ctx.strokeStyle='rgba(255,255,255,.65)';ctx.lineWidth=1.5;ctx.stroke();
- const g=ctx.createRadialGradient(-9,-10,2,0,0,b.r);g.addColorStop(0,'#fff');g.addColorStop(.3,b.color);g.addColorStop(1,shade(b.color,-45));
- ctx.beginPath();ctx.ellipse(0,0,b.r,b.r*1.15,0,0,Math.PI*2);ctx.fillStyle=g;ctx.shadowColor='rgba(0,0,0,.35)';ctx.shadowBlur=12;ctx.fill();
- ctx.beginPath();ctx.moveTo(-4,b.r*1.12);ctx.lineTo(4,b.r*1.12);ctx.lineTo(0,b.r*1.2);ctx.closePath();ctx.fillStyle=b.color;ctx.fill();
- ctx.restore();
-}
-function drawBow(){
- const b=base();ctx.save();ctx.translate(b.x,b.y);
- ctx.beginPath();ctx.arc(0,0,38,Math.PI,0);ctx.strokeStyle='#a16207';ctx.lineWidth=7;ctx.lineCap='round';ctx.stroke();
- if(dragging){
-  ctx.beginPath();ctx.moveTo(-31,0);ctx.lineTo(drag.x-b.x,drag.y-b.y);ctx.lineTo(31,0);ctx.strokeStyle='#f1f5f9';ctx.lineWidth=3;ctx.stroke();
-  const dx=b.x-drag.x,dy=b.y-drag.y,dist=Math.hypot(dx,dy),a=Math.atan2(dy,dx);
-  ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(Math.cos(a)*Math.min(220,dist*4),Math.sin(a)*Math.min(220,dist*4));ctx.strokeStyle='rgba(255,255,255,.55)';ctx.setLineDash([7,7]);ctx.lineWidth=2;ctx.stroke();ctx.setLineDash([]);
-  ctx.beginPath();ctx.arc(drag.x,drag.y,7,0,Math.PI*2);ctx.fillStyle='#fbbf24';ctx.fill();
- }else if(!arrow?.active){
-  ctx.beginPath();ctx.moveTo(-30,0);ctx.lineTo(0,0);ctx.lineTo(30,0);ctx.strokeStyle='rgba(255,255,255,.75)';ctx.lineWidth=2;ctx.stroke();
- }
- ctx.restore();
-}
-function drawArrow(){
- if(!arrow?.active)return;ctx.save();ctx.translate(arrow.x,arrow.y);ctx.rotate(arrow.angle);
- ctx.beginPath();ctx.moveTo(-23,0);ctx.lineTo(17,0);ctx.strokeStyle='#1e293b';ctx.lineWidth=4;ctx.stroke();
- ctx.beginPath();ctx.moveTo(17,0);ctx.lineTo(9,-7);ctx.lineTo(9,7);ctx.closePath();ctx.fillStyle='#f59e0b';ctx.fill();ctx.restore();
-}
-function render(){
- ctx.clearRect(0,0,W,H);
- balloons.forEach(drawBalloon);drawBow();drawArrow();
- particles.forEach(p=>{ctx.save();ctx.globalAlpha=Math.max(0,p.a);ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();ctx.restore()});
-}
-function loop(t){const dt=Math.min(2,(t-lastTime||16.67)/16.67);lastTime=t;update(dt);render();requestAnimationFrame(loop)}
-function shade(hex,p){
- let n=parseInt(hex.slice(1),16),a=Math.round(2.55*p),r=Math.max(0,Math.min(255,(n>>16)+a)),g=Math.max(0,Math.min(255,((n>>8)&255)+a)),b=Math.max(0,Math.min(255,(n&255)+a));return'#'+(1<<24|r<<16|g<<8|b).toString(16).slice(1)
-}
-function showSentence(text){
- paused=true;tone('cling');document.getElementById('sentence').textContent='“'+text+'”';document.getElementById('sentenceModal').classList.remove('hidden')
-}
-document.getElementById('nextBtn').onclick=()=>{
- document.getElementById('sentenceModal').classList.add('hidden');paused=false;index++;
- document.getElementById('progressText').textContent=`Balon pecah: ${index} / 20`;
- document.getElementById('progress').style.width=(index/20*100)+'%';
- if(index>=20)finish();
-};
-function finish(){paused=true;document.getElementById('finalScore').textContent=score;document.getElementById('gameover').classList.remove('hidden');bgm.volume=.08}
-document.getElementById('startBtn').onclick=()=>{
- initAudio();if(!muted){bgm.volume=.35;bgm.play().catch(()=>{})}
- started=true;shuffle();spawn();document.getElementById('welcome').style.display='none';lastTime=performance.now();requestAnimationFrame(loop)
-};
-document.getElementById('restartBtn').onclick=()=>{
- score=0;index=0;paused=false;arrow=null;dragging=false;balloons=[];particles=[];shuffle();spawn();
- document.getElementById('score').textContent='Skor: 0';document.getElementById('progressText').textContent='Balon pecah: 0 / 20';document.getElementById('progress').style.width='0%';
- document.getElementById('gameover').classList.add('hidden');bgm.volume=.35;if(!muted)bgm.play().catch(()=>{})
-};
-document.getElementById('soundBtn').onclick=()=>{
- muted=!muted;bgm.muted=muted;document.getElementById('soundBtn').textContent=muted?'🔇 OFF':'🔊 ON'
-};
-document.getElementById('fsBtn').onclick=()=>{
- if(!document.fullscreenElement)document.documentElement.requestFullscreen?.().catch(()=>{});else document.exitFullscreen?.()
-};
-</script>
+            <!-- KARTU SOAL & INTERAKSI -->
+            <div class="glass rounded-3xl p-6 sm:p-8 shadow-2xl flex flex-col space-y-6 relative">
+                <!-- Header Soal & Timer -->
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-300/60 pb-4 gap-2">
+                    <div>
+                        <span id="questionCategory" class="bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-lg uppercase shadow-sm">
+                            Pilihan Ganda
+                        </span>
+                        <h3 id="questionCounter" class="text-sm font-semibold text-slate-600 mt-2">Soal 1 dari 5 (Misi 1)</h3>
+                    </div>
+                    <div id="timerContainer" class="hidden items-center space-x-2 bg-amber-500 text-white px-4 py-1.5 rounded-xl font-bold shadow animate-pulse">
+                        <i class="fa-solid fa-stopwatch"></i>
+                        <span id="timerDisplay">15</span> detik
+                    </div>
+                </div>
+
+                <!-- Pertanyaan -->
+                <div class="py-2">
+                    <h2 id="questionText" class="text-xl sm:text-2xl font-extrabold text-slate-900 leading-snug">
+                        Memuat pertanyaan...
+                    </h2>
+                </div>
+
+                <!-- Opsi Jawaban / Kontainer Pilihan -->
+                <div id="optionsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Dinamis via JS -->
+                </div>
+
+                <!-- Kotak Feedback / Penjelasan (Hidden by default) -->
+                <div id="feedbackBox" class="hidden p-5 rounded-2xl border-2 shadow-lg transition-all">
+                    <div id="feedbackTitle" class="text-xl font-extrabold flex items-center space-x-2"></div>
+                    <p id="feedbackText" class="text-sm sm:text-base mt-2 font-medium"></p>
+                    <div id="feedbackExplanation" class="mt-3 text-xs sm:text-sm font-semibold p-3 rounded-xl bg-white/70 border border-slate-200"></div>
+                    <button onclick="nextQuestion()" class="mt-4 bg-slate-900 hover:bg-slate-800 text-white font-bold px-6 py-2.5 rounded-xl shadow transition flex items-center space-x-2">
+                        <span>Lanjut Soal Berikutnya</span> <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- TOMBOL NAVIGASI BAWAH / KONTROL MISI -->
+            <div class="flex flex-wrap justify-between items-center gap-2 pt-2">
+                <button onclick="skipMissionByTeacher()" class="bg-indigo-700 hover:bg-indigo-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow transition flex items-center space-x-1">
+                    <i class="fa-solid fa-forward-step"></i>
+                    <span>Lewati Misi (Guru)</span>
+                </button>
+                <div class="text-xs font-semibold text-slate-600 glass px-4 py-2 rounded-xl shadow-sm">
+                    Gunakan Tombol Mode Guru di atas untuk kontrol penuh permainan.
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 3. HALAMAN HASIL AKHIR -->
+        <div id="screenResult" class="w-full glass rounded-3xl p-6 sm:p-12 text-center shadow-2xl flex flex-col items-center space-y-6 hidden">
+            <div class="text-5xl">🏆</div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 uppercase tracking-tight">HASIL AKHIR PERMAINAN</h2>
+            
+            <div id="winnerAnnouncement" class="text-2xl sm:text-3xl font-extrabold p-6 rounded-2xl w-full max-w-xl shadow-lg border-2">
+                <!-- Diisi via JS -->
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl">
+                <div class="glass p-4 rounded-2xl shadow">
+                    <div class="text-xs font-bold text-slate-500">Total Soal</div>
+                    <div id="resTotalQuestions" class="text-xl font-extrabold text-slate-900 mt-1">0</div>
+                </div>
+                <div class="glass p-4 rounded-2xl shadow">
+                    <div class="text-xs font-bold text-slate-500">Tarikan Laki-Laki</div>
+                    <div id="resBoysScore" class="text-xl font-extrabold text-blue-700 mt-1">0</div>
+                </div>
+                <div class="glass p-4 rounded-2xl shadow">
+                    <div class="text-xs font-bold text-slate-500">Tarikan Perempuan</div>
+                    <div id="resGirlsScore" class="text-xl font-extrabold text-pink-700 mt-1">0</div>
+                </div>
+                <div class="glass p-4 rounded-2xl shadow">
+                    <div class="text-xs font-bold text-slate-500">Posisi Akhir</div>
+                    <div id="resFinalPos" class="text-xl font-extrabold text-amber-700 mt-1">0</div>
+                </div>
+            </div>
+
+            <p class="text-sm text-slate-600 max-w-lg italic font-medium">
+                “Hebat! Kemenangan bukan hanya tentang siapa yang menang, tetapi tentang belajar, bekerja sama, dan memahami sifat-sifat Allah Swt.”
+            </p>
+
+            <button onclick="restartGame()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-lg px-8 py-3 rounded-2xl shadow-xl transition flex items-center space-x-2">
+                <i class="fa-solid fa-rotate-right"></i>
+                <span>MAIN LAGI</span>
+            </button>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="w-full p-4 glass-dark text-slate-400 text-center text-xs z-30">
+        Media Pembelajaran Interaktif Akidah Akhlak Madrasah &copy; 2026 | Dirancang untuk Proyektor & Smart TV Kelas
+    </footer>
+
+    <!-- MODAL: PETUNJUK / CARA BERMAIN -->
+    <div id="tutorialModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl flex flex-col space-y-4 border border-white/60">
+            <div class="flex justify-between items-center border-b border-slate-300 pb-3">
+                <h3 class="text-xl font-extrabold text-slate-900 flex items-center space-x-2">
+                    <i class="fa-solid fa-book-open text-emerald-600"></i>
+                    <span>CARA BERMAIN</span>
+                </h3>
+                <button onclick="closeTutorialModal()" class="text-slate-500 hover:text-slate-800 font-bold text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <ol class="list-decimal list-inside space-y-2 text-sm sm:text-base text-slate-700 font-medium">
+                <li>Game dimainkan oleh dua kelompok: <strong class="text-blue-700">Laki-Laki</strong> vs <strong class="text-pink-700">Perempuan</strong> secara bergantian.</li>
+                <li>Jawab setiap pertanyaan dengan tepat sesuai misi yang berjalan.</li>
+                <li>Jawaban benar akan menarik tambang mendekati kelompok yang menjawab.</li>
+                <li>Jawaban salah tidak menggerakkan tambang dan kesempatan berpindah.</li>
+                <li>Kelompok yang berhasil menarik tambang sampai garis kemenangan menjadi pemenang!</li>
+            </ol>
+            <div class="pt-2">
+                <button onclick="startActualGame()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center space-x-2 text-lg">
+                    <span>SIAP, MULAI!</span>
+                    <i class="fa-solid fa-play"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: MODE GURU -->
+    <div id="teacherModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-dark text-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl flex flex-col space-y-5 border border-white/20">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+                <h3 class="text-xl font-extrabold text-amber-400 flex items-center space-x-2">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>PANEL KONTROL GURU</span>
+                </h3>
+                <button onclick="closeTeacherModal()" class="text-slate-400 hover:text-white font-bold text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="space-y-4 text-sm">
+                <div class="flex justify-between items-center bg-slate-800/80 p-3 rounded-xl">
+                    <span>Pilih Misi Aktif:</span>
+                    <select id="teacherMissionSelect" onchange="teacherChangeMission(this.value)" class="bg-slate-700 text-white rounded-lg px-3 py-1 font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <option value="1">Misi 1: Kenali Sifat Allah</option>
+                        <option value="2">Misi 2: Pasangkan!</option>
+                        <option value="3">Misi 3: Benar / Salah</option>
+                        <option value="4">Misi 4: Cepat Tepat</option>
+                        <option value="5">Misi 5: Final Tarik Tambang</option>
+                    </select>
+                </div>
+
+                <div class="flex justify-between items-center bg-slate-800/80 p-3 rounded-xl">
+                    <span>Atur Posisi Tambang (-5 s.d 5):</span>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="teacherAdjustRope(-1)" class="bg-blue-600 px-3 py-1 rounded font-bold">-</button>
+                        <span id="teacherRopePos" class="font-bold w-6 text-center">0</span>
+                        <button onclick="teacherAdjustRope(1)" class="bg-pink-600 px-3 py-1 rounded font-bold">+</button>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center bg-slate-800/80 p-3 rounded-xl">
+                    <span>Kelompok Giliran Saat Ini:</span>
+                    <select id="teacherTurnSelect" onchange="teacherChangeTurn(this.value)" class="bg-slate-700 text-white rounded-lg px-3 py-1 font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <option value="boys">Kelompok Laki-Laki 🔵</option>
+                        <option value="girls">Kelompok Perempuan 🩷</option>
+                    </select>
+                </div>
+
+                <div class="flex space-x-2 pt-2">
+                    <button onclick="teacherSkipCurrentQuestion()" class="flex-1 bg-indigo-600 hover:bg-indigo-500 py-2.5 rounded-xl font-bold shadow transition">Lewati Soal</button>
+                    <button onclick="restartGame(); closeTeacherModal();" class="flex-1 bg-rose-600 hover:bg-rose-500 py-2.5 rounded-xl font-bold shadow transition">Reset Game</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT UTAMA GAME -->
+    <script>
+        /* ==============================================================
+           BANK SOAL LENGKAP (30+ SOAL AKIDAH AKHLAK - SIFAT WAJIB & MUSTAHIL)
+           ============================================================== */
+        const questionBank = {
+            1: [ // Misi 1: Kenali Sifat Allah
+                {
+                    q: "Manakah yang termasuk sifat wajib bagi Allah Swt. di antara pilihan berikut?",
+                    options: ["Wujud", "Fana", "Adam", "Huduts"],
+                    answer: 0,
+                    expl: "Wujud berarti ada. Wujud merupakan sifat wajib bagi Allah Swt., sedangkan fana, adam, dan huduts adalah sifat mustahil."
+                },
+                {
+                    q: "Sifat wajib Allah Swt. yang berarti 'Terdahulu' atau 'Tanpa Permulaan' adalah...",
+                    options: ["Baqa'", "Qidam", "Mukhalafatu lil hawaditsi", "Wahdaniyah"],
+                    answer: 1,
+                    expl: "Qidam berarti terdahulu. Allah Swt. ada tanpa didahului oleh ketiadaan."
+                },
+                {
+                    q: "Apa arti dari sifat wajib Allah 'Baqa''?",
+                    options: ["Kekal / Tidak Berkesudahan", "Baru", "Lemah", "Bodoh"],
+                    answer: 0,
+                    expl: "Baqa' artinya kekal abadi selamanya. Allah Swt. tidak akan pernah binasa atau rusak."
+                },
+                {
+                    q: "Sifat wajib Allah yang bermakna 'Berbeda dengan makhluk-Nya' adalah...",
+                    options: ["Qiyamuhu binafsihi", "Wahdaniyah", "Mukhalafatu lil hawaditsi", "Qudrat"],
+                    answer: 2,
+                    expl: "Mukhalafatu lil hawaditsi berarti Allah berbeda dengan segala makhluk ciptaan-Nya."
+                },
+                {
+                    q: "Allah Swt. berdiri sendiri tanpa membutuhkan bantuan dari makhluk lain. Sifat wajib tersebut adalah...",
+                    options: ["Qiyamuhu binafsihi", "Qudrat", "Iradat", "Hayat"],
+                    answer: 0,
+                    expl: "Qiyamuhu binafsihi artinya Allah berdiri sendiri dan tidak bergantung kepada siapapun."
+                }
+            ],
+            2: [ // Misi 2: Pasangkan!
+                {
+                    q: "Pasangan yang tepat untuk sifat wajib Allah: **'Wujud'** (Ada) adalah sifat mustahil...",
+                    options: ["Adam (Tidak Ada)", "Fana (Binasa)", "Huduts (Baru)", "Ma'sum (Terjaga)"],
+                    answer: 0,
+                    expl: "Adam berarti tidak ada, yang merupakan kebalikan (sifat mustahil) dari sifat wajib Wujud."
+                },
+                {
+                    q: "Sifat mustahil yang menjadi kebalikan dari sifat wajib **'Qidam'** (Terdahulu) adalah...",
+                    options: ["Huduts (Baru)", "Adam", "Fana", "A'ma (Buta)"],
+                    answer: 0,
+                    expl: "Huduts artinya baru. Mustahil Allah Swt. bersifat baru karena Allah adalah pencipta waktu."
+                },
+                {
+                    q: "Kebalikan atau sifat mustahil dari sifat wajib **'Baqa''** (Kekal) adalah...",
+                    options: ["Fana (Binasa / Rusak)", "Adam", "Jahl", "Ajzun"],
+                    answer: 0,
+                    expl: "Fana berarti binasa atau rusak. Allah Swt. mustahil bersifat fana."
+                },
+                {
+                    q: "Sifat mustahil bagi Allah yang berarti 'Bersekutu / Ada yang menyamai' adalah kebalikan dari sifat...",
+                    options: ["Wahdaniyah (Esa)", "Qiyamuhu binafsihi", "Ilmu", "Sama'"],
+                    answer: 0,
+                    expl: "Ta'addud (berbilang/bersekutu) adalah sifat mustahil lawan dari Wahdaniyah (Esa)."
+                },
+                {
+                    q: "Sifat mustahil **'Ajzun'** (Lemah) adalah kebalikan dari sifat wajib...",
+                    options: ["Qudrat (Mahakuasa)", "Iradat", "Hayat", "Kalam"],
+                    answer: 0,
+                    expl: "Qudrat artinya Mahakuasa. Lawannya adalah Ajzun yang berarti lemah."
+                }
+            ],
+            3: [ // Misi 3: Benar atau Salah?
+                {
+                    q: "Pernyataan: 'Adam merupakan sifat wajib bagi Allah Swt.'",
+                    options: ["BENAR", "SALAH"],
+                    answer: 1,
+                    expl: "SALAH. Adam adalah sifat mustahil (artinya tidak ada). Sifat wajib bagi Allah adalah Wujud."
+                },
+                {
+                    q: "Pernyataan: 'Allah Swt. bersifat Sama' yang berarti Maha Mendengar.'",
+                    options: ["BENAR", "SALAH"],
+                    answer: 0,
+                    expl: "BENAR. Sama' adalah sifat wajib bagi Allah yang berarti Maha Mendengar segala suara di alam semesta."
+                },
+                {
+                    q: "Pernyataan: 'Sifat mustahil bagi Allah Swt. Jahl berarti Maha Mengetahui.'",
+                    options: ["BENAR", "SALAH"],
+                    answer: 1,
+                    expl: "SALAH. Jahl berarti bodoh. Sifat wajib Allah yang berarti Maha Mengetahui adalah Ilmu."
+                },
+                {
+                    q: "Pernyataan: 'Qiyamuhu binafsihi berarti Allah Swt. berdiri sendiri tanpa bantuan makhluk.'",
+                    options: ["BENAR", "SALAH"],
+                    answer: 0,
+                    expl: "BENAR. Qiyamuhu binafsihi bermakna Allah berdiri sendiri dan Maha Kaya."
+                },
+                {
+                    q: "Pernyataan: 'Sifat wajib Allah Mutakalliman termasuk dalam kelompok sifat Ma'ani.'",
+                    options: ["BENAR", "SALAH"],
+                    answer: 1,
+                    expl: "SALAH. Mutakalliman termasuk sifat Ma'nawiyah (keadaan Zat yang menyifati sifat Ma'ani Kalam)."
+                }
+            ],
+            4: [ // Misi 4: Cepat Tepat (Dengan Timer)
+                {
+                    q: "Sifat wajib Allah yang berarti 'Allah Maha Mengetahui' adalah...",
+                    options: ["Qudrat", "Ilmu", "Hayat", "Sama'"],
+                    answer: 1,
+                    expl: "Ilmu berarti Maha Mengetahui. Allah mengetahui segala sesuatu baik yang nampak maupun gaib."
+                },
+                {
+                    q: "Sifat wajib Allah yang berarti 'Maha Hidup' dan tidak akan pernah mati adalah...",
+                    options: ["Hayat", "Bashar", "Kalam", "Muridan"],
+                    answer: 0,
+                    expl: "Hayat artinya hidup. Allah Swt. senantiasa hidup kekal abadi selamanya."
+                },
+                {
+                    q: "Apa arti dari sifat wajib Allah **'Bashar'**?",
+                    options: ["Maha Mendengar", "Maha Melihat", "Maha Berkata-kata", "Maha Berkehendak"],
+                    answer: 1,
+                    expl: "Bashar artinya Maha Melihat. Allah melihat segala perbuatan makhluk-Nya."
+                },
+                {
+                    q: "Sifat wajib Allah yang berarti 'Maha Berkehendak' atas segala sesuatu adalah...",
+                    options: ["Qudrat", "Iradat", "Ilmu", "Wahdaniyah"],
+                    answer: 1,
+                    expl: "Iradat artinya berkehendak. Apabila Allah menghendaki sesuatu, maka terjadilah."
+                },
+                {
+                    q: "Sifat wajib Allah **'Kalam'** memiliki arti...",
+                    options: ["Maha Berfirman / Berkata-kata", "Maha Mendengar", "Maha Kuasa", "Maha Esa"],
+                    answer: 0,
+                    expl: "Kalam artinya berfirman atau berkata-kata. Allah berbicara melalui wahyu kepada para nabi dan rasul."
+                }
+            ],
+            5: [ // Misi 5: Final Tarik Tambang
+                {
+                    q: "(FINAL) Berapa jumlah sifat wajib bagi Allah Swt. yang wajib diketahui oleh setiap Muslim secara terperinci?",
+                    options: ["10 sifat", "20 sifat", "99 sifat", "25 sifat"],
+                    answer: 1,
+                    expl: "Terdapat 20 sifat wajib dan 20 sifat mustahil bagi Allah Swt. yang wajib diimani."
+                },
+                {
+                    q: "(FINAL) Pengelompokan sifat wajib Allah dibagi menjadi 4 bagian, yaitu Nafbiyah, Salbiyah, Ma'ani, dan...",
+                    options: ["Ja'iz", "Ma'nawiyah", "Mustahil", "Ruhaniyah"],
+                    answer: 1,
+                    expl: "Empat pembagian sifat wajib Allah adalah Nafsiyah, Salbiyah, Ma'ani, dan Ma'nawiyah."
+                },
+                {
+                    q: "(FINAL) Contoh penerapan iman terhadap sifat wajib **'Ilmu'** (Maha Mengetahui) dalam kehidupan sehari-hari adalah...",
+                    options: [
+                        "Selalu berbuat jujur dan merasa diawasi Allah di tempat sepi sekalipun",
+                        "Meminta bantuan kepada selain Allah",
+                        "Putus asa ketika menghadapi ujian hidup",
+                        "Sombong atas ilmu yang dimiliki"
+                    ],
+                    answer: 0,
+                    expl: "Menyadari bahwa Allah Maha Mengetahui membuat kita selalu jujur dan berakhlak mulia dimanapun kita berada."
+                },
+                {
+                    q: "(FINAL) Sifat mustahil **'Umyun'** (Buta) adalah kebalikan dari sifat wajib...",
+                    options: ["Sama'", "Bashar", "Hayat", "Kalam"],
+                    answer: 1,
+                    expl: "Umyun (buta) adalah sifat mustahil lawan dari sifat wajib Bashar (Maha Melihat)."
+                },
+                {
+                    q: "(FINAL) Sifat wajib **'Hayyan'** (Yang Maha Hidup) termasuk dalam kelompok sifat...",
+                    options: ["Ma'nawiyah", "Salbiyah", "Nafsiyah", "Ma'ani"],
+                    answer: 0,
+                    expl: "Hayyan adalah bentuk sifat Ma'nawiyah yang menyifati zat Allah senantiasa hidup."
+                }
+            ]
+        };
+
+        /* ==============================================================
+           VARIABEL STATE GAME
+           ============================================================== */
+        let currentMission = 1;
+        let currentQuestionIndex = 0;
+        let currentTurn = 'boys'; // 'boys' atau 'girls'
+        let ropePosition = 0; // Rentang -5 sampai +5
+        let scoreBoys = 0;
+        let scoreGirls = 0;
+        let timerInterval = null;
+        let timeLeft = 15;
+        let isAudioPlaying = false;
+
+        // Web Audio API Sound Synthesizer (Tanpa file eksternal tambahan untuk efek)
+        let audioCtx = null;
+
+        function initAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playSound(type) {
+            try {
+                initAudioContext();
+                if(!audioCtx) return;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+
+                if (type === 'success') {
+                    // Ting / Success Chord
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(587.33, now); // D5
+                    osc.frequency.setValueAtTime(880, now + 0.1); // A5
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+                    osc.start(now);
+                    osc.stop(now + 0.5);
+                } else if (type === 'wrong') {
+                    // Buzz / Wrong
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(150, now);
+                    osc.frequency.setValueAtTime(100, now + 0.15);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                } else if (type === 'pull') {
+                    // Rope Pull sound effect
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(300, now);
+                    osc.frequency.linearRampToValueAtTime(150, now + 0.2);
+                    gain.gain.setValueAtTime(0.25, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+                    osc.start(now);
+                    osc.stop(now + 0.2);
+                } else if (type === 'win') {
+                    // Fanfare
+                    osc.type = 'sine';
+                    const notes = [523.25, 659.25, 783.99, 1046.50];
+                    notes.forEach((freq, idx) => {
+                        let t = now + idx * 0.15;
+                        let o = audioCtx.createOscillator();
+                        let g = audioCtx.createGain();
+                        o.connect(g);
+                        g.connect(audioCtx.destination);
+                        o.frequency.setValueAtTime(freq, t);
+                        g.gain.setValueAtTime(0.2, t);
+                        g.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+                        o.start(t);
+                        o.stop(t + 0.3);
+                    });
+                }
+            } catch (e) {
+                console.log("Audio not allowed yet or not supported.");
+            }
+        }
+
+        /* ==============================================================
+           KONTROL AUDIO BACKSOUND
+           ============================================================== */
+        const bgMusic = document.getElementById('bgMusic');
+        bgMusic.volume = 0.25;
+
+        function toggleAudio() {
+            if (isAudioPlaying) {
+                bgMusic.pause();
+                isAudioPlaying = false;
+                document.getElementById('audioIcon').className = "fa-solid fa-volume-xmark text-amber-400";
+                document.getElementById('audioText').innerText = "Mute";
+            } else {
+                bgMusic.play().then(() => {
+                    isAudioPlaying = true;
+                    document.getElementById('audioIcon').className = "fa-solid fa-volume-high text-emerald-400";
+                    document.getElementById('audioText').innerText = "Unmute";
+                }).catch(e => {
+                    alert("Klik layar terlebih dahulu untuk mengaktifkan audio.");
+                });
+            }
+        }
+
+        function adjustVolume(val) {
+            bgMusic.volume = val;
+        }
+
+        /* ==============================================================
+           NAVIGASI ANTAR HALAMAN & MODAL
+           ============================================================== */
+        function openTutorialModal() {
+            document.getElementById('tutorialModal').classList.remove('hidden');
+        }
+
+        function closeTutorialModal() {
+            document.getElementById('tutorialModal').classList.add('hidden');
+        }
+
+        function startActualGame() {
+            closeTutorialModal();
+            document.getElementById('screenOpening').classList.add('hidden');
+            document.getElementById('screenGame').classList.remove('hidden');
+            
+            // Nyalakan backsound otomatis saat game dimulai
+            if (!isAudioPlaying) {
+                bgMusic.play().then(() => {
+                    isAudioPlaying = true;
+                    document.getElementById('audioIcon').className = "fa-solid fa-volume-high text-emerald-400";
+                    document.getElementById('audioText').innerText = "Unmute";
+                }).catch(e => {});
+            }
+
+            initGameSession();
+        }
+
+        function openTeacherModal() {
+            document.getElementById('teacherModal').classList.remove('hidden');
+            document.getElementById('teacherMissionSelect').value = currentMission;
+            document.getElementById('teacherRopePos').innerText = ropePosition;
+            document.getElementById('teacherTurnSelect').value = currentTurn;
+        }
+
+        function closeTeacherModal() {
+            document.getElementById('teacherModal').classList.add('hidden');
+        }
+
+        /* ==============================================================
+           LOGIKA UTAMA PERMAINAN
+           ============================================================== */
+        function initGameSession() {
+            currentMission = 1;
+            currentQuestionIndex = 0;
+            scoreBoys = 0;
+            scoreGirls = 0;
+            ropePosition = 0;
+            currentTurn = 'boys';
+            loadQuestion();
+            updateUI();
+        }
+
+        function loadQuestion() {
+            clearInterval(timerInterval);
+            const missionQuestions = questionBank[currentMission];
+            
+            if (!missionQuestions || currentQuestionIndex >= missionQuestions.length) {
+                // Lanjut ke Misi berikutnya atau Hasil Akhir
+                if (currentMission < 5) {
+                    currentMission++;
+                    currentQuestionIndex = 0;
+                    alert(`Hebat! Misi ${currentMission - 1} selesai. Memasuki Misi ${currentMission}!`);
+                    loadQuestion();
+                    return;
+                } else {
+                    showFinalResult();
+                    return;
+                }
+            }
+
+            const qData = missionQuestions[currentQuestionIndex];
+            
+            // Update Tampilan Misi & Counter
+            const missionNames = [
+                "Misi 1: Kenali Sifat Allah",
+                "Misi 2: Pasangkan!",
+                "Misi 3: Benar / Salah",
+                "Misi 4: Cepat Tepat",
+                "Misi 5: Final Tarik Tambang"
+            ];
+            document.getElementById('badgeMission').innerText = missionNames[currentMission - 1];
+            document.getElementById('questionCounter').innerText = `Soal ${currentQuestionIndex + 1} dari ${missionQuestions.length} (Misi ${currentMission})`;
+            document.getElementById('questionText').innerHTML = qData.q;
+
+            // Kategori Badge
+            const catEl = document.getElementById('questionCategory');
+            if(currentMission === 1) catEl.innerText = "Pilihan Ganda";
+            else if(currentMission === 2) catEl.innerText = "Pasangan Sifat";
+            else if(currentMission === 3) catEl.innerText = "Benar / Salah";
+            else if(currentMission === 4) catEl.innerText = "Cepat Tepat (Timer)";
+            else if(currentMission === 5) catEl.innerText = "Babak Final";
+
+            // Render Opsi
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            qData.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "bg-white/80 hover:bg-emerald-500 hover:text-white text-slate-800 font-bold p-4 rounded-2xl shadow transition-all duration-200 border border-slate-200 text-left flex items-center space-x-3 text-base sm:text-lg group";
+                btn.innerHTML = `<span class="bg-slate-200 group-hover:bg-white group-hover:text-emerald-700 w-8 h-8 rounded-xl flex items-center justify-center font-extrabold text-sm">${String.fromCharCode(65 + idx)}</span> <span>${opt}</span>`;
+                btn.onclick = () => checkAnswer(idx);
+                optionsContainer.appendChild(btn);
+            });
+
+            // Sembunyikan feedback lama
+            document.getElementById('feedbackBox').classList.add('hidden');
+            optionsContainer.classList.remove('hidden');
+
+            // Timer khusus Misi 4
+            const timerContainer = document.getElementById('timerContainer');
+            if (currentMission === 4) {
+                timerContainer.classList.remove('hidden');
+                timeLeft = 15;
+                document.getElementById('timerDisplay').innerText = timeLeft;
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    document.getElementById('timerDisplay').innerText = timeLeft;
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        handleTimeOut();
+                    }
+                }, 1000);
+            } else {
+                timerContainer.classList.add('hidden');
+            }
+
+            updateUI();
+        }
+
+        function checkAnswer(selectedIndex) {
+            clearInterval(timerInterval);
+            const qData = questionBank[currentMission][currentQuestionIndex];
+            const isCorrect = (selectedIndex === qData.answer);
+
+            showFeedback(isCorrect, qData.expl, qData.options[qData.answer]);
+        }
+
+        function handleTimeOut() {
+            const qData = questionBank[currentMission][currentQuestionIndex];
+            showFeedback(false, qData.expl, qData.options[qData.answer], "WAKTU HABIS!");
+        }
+
+        function showFeedback(isCorrect, explanation, correctText, customTitle = "") {
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.classList.add('hidden');
+
+            const feedbackBox = document.getElementById('feedbackBox');
+            feedbackBox.classList.remove('hidden');
+
+            const titleEl = document.getElementById('feedbackTitle');
+            const textEl = document.getElementById('feedbackText');
+            const explEl = document.getElementById('feedbackExplanation');
+
+            if (isCorrect) {
+                playSound('success');
+                playSound('pull');
+                feedbackBox.className = "p-5 rounded-2xl border-2 bg-emerald-100/90 border-emerald-500 text-emerald-900 shadow-lg transition-all";
+                titleEl.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i> <span>🎉 BENAR! MasyaAllah, jawaban tepat.</span>`;
+                textEl.innerText = `Kelompok ${currentTurn === 'boys' ? 'Laki-Laki' : 'Perempuan'} berhasil menjawab dengan benar! Tambang ditarik ke arah kelompok.`;
+                
+                // Gerakkan Tambang & Tambah Skor
+                if (currentTurn === 'boys') {
+                    scoreBoys++;
+                    ropePosition = Math.max(-5, ropePosition - 1);
+                } else {
+                    scoreGirls++;
+                    ropePosition = Math.min(5, ropePosition + 1);
+                }
+
+                // Cek Kemenangan Instant jika mencapai batas -5 atau +5
+                if (ropePosition === -5 || ropePosition === 5) {
+                    setTimeout(() => { showFinalResult(); }, 1500);
+                }
+            } else {
+                playSound('wrong');
+                feedbackBox.className = "p-5 rounded-2xl border-2 bg-rose-100/90 border-rose-500 text-rose-900 shadow-lg transition-all";
+                titleEl.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600"></i> <span>${customTitle || "❌ BELUM TEPAT"}</span>`;
+                textEl.innerText = `Jawaban yang benar adalah: "${correctText}". Kesempatan giliran akan berpindah ke kelompok lawan.`;
+            }
+
+            explEl.innerHTML = `<strong>Penjelasan:</strong> ${explanation}`;
+
+            // Ganti Giliran Kelompok
+            currentTurn = (currentTurn === 'boys') ? 'girls' : 'boys';
+            updateUI();
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function updateUI() {
+            // Update Skor Display
+            document.getElementById('scoreBoysDisplay').innerText = `${scoreBoys} Tarikan`;
+            document.getElementById('scoreGirlsDisplay').innerText = `${scoreGirls} Tarikan`;
+
+            // Update Kartu Border Aktif & Indikator Giliran
+            const cardBoys = document.getElementById('cardTeamBoys');
+            const cardGirls = document.getElementById('cardTeamGirls');
+            const turnInd = document.getElementById('turnIndicator');
+
+            if (currentTurn === 'boys') {
+                cardBoys.classList.add('ring-4', 'ring-blue-500', 'scale-105');
+                cardGirls.classList.remove('ring-4', 'ring-pink-500', 'scale-105');
+                turnInd.innerHTML = "Giliran: Kelompok Laki-Laki 🔵";
+                turnInd.className = "text-base sm:text-lg font-bold text-blue-300 animate-pulse";
+            } else {
+                cardGirls.classList.add('ring-4', 'ring-pink-500', 'scale-105');
+                cardBoys.classList.remove('ring-4', 'ring-blue-500', 'scale-105');
+                turnInd.innerHTML = "Giliran: Kelompok Perempuan 🩷";
+                turnInd.className = "text-base sm:text-lg font-bold text-pink-300 animate-pulse";
+            }
+
+            // Update Posisi Visual Tali Tambang (-5 s.d 5 diterjemahkan ke persentase -40% s.d 40%)
+            const ropeFlag = document.getElementById('ropeFlag');
+            const ropeElement = document.getElementById('ropeElement');
+            const percentMove = ropePosition * 8; // Max 40% geser kiri/kanan
+            ropeFlag.style.transform = `translateX(${percentMove}%)`;
+            
+            // Tambahkan animasi getar singkat
+            ropeElement.classList.add('vibrate');
+            setTimeout(() => {
+                ropeElement.classList.remove('vibrate');
+            }, 400);
+        }
+
+        function showFinalResult() {
+            clearInterval(timerInterval);
+            playSound('win');
+            
+            // Trigger Confetti
+            confetti({
+                particleCount: 120,
+                spread: 80,
+                origin: { y: 0.6 }
+            });
+
+            document.getElementById('screenGame').classList.add('hidden');
+            document.getElementById('screenResult').classList.remove('hidden');
+
+            document.getElementById('resTotalQuestions').innerText = (currentMission - 1) * 5 + currentQuestionIndex;
+            document.getElementById('resBoysScore').innerText = scoreBoys;
+            document.getElementById('resGirlsScore').innerText = scoreGirls;
+            document.getElementById('resFinalPos').innerText = ropePosition;
+
+            const winnerEl = document.getElementById('winnerAnnouncement');
+            if (ropePosition < 0 || scoreBoys > scoreGirls) {
+                winnerEl.className = "text-2xl sm:text-3xl font-extrabold p-6 rounded-2xl w-full max-w-xl shadow-lg border-2 bg-blue-600/20 border-blue-500 text-blue-900";
+                winnerEl.innerHTML = "🎉 PEMENANG: <br><span class='text-blue-700 text-3xl sm:text-4xl'>KELOMPOK LAKI-LAKI 🔵</span>";
+            } else if (ropePosition > 0 || scoreGirls > scoreBoys) {
+                winnerEl.className = "text-2xl sm:text-3xl font-extrabold p-6 rounded-2xl w-full max-w-xl shadow-lg border-2 bg-pink-600/20 border-pink-500 text-pink-900";
+                winnerEl.innerHTML = "🎉 PEMENANG: <br><span class='text-pink-700 text-3xl sm:text-4xl'>KELOMPOK PEREMPUAN 🩷</span>";
+            } else {
+                winnerEl.className = "text-2xl sm:text-3xl font-extrabold p-6 rounded-2xl w-full max-w-xl shadow-lg border-2 bg-amber-600/20 border-amber-500 text-amber-900";
+                winnerEl.innerHTML = "🤝 HASIL IMBANG (SERI)! <br><span class='text-amber-700 text-xl'>Luar biasa kekompakan kalian!</span>";
+            }
+        }
+
+        function restartGame() {
+            document.getElementById('screenResult').classList.add('hidden');
+            document.getElementById('screenOpening').classList.remove('hidden');
+        }
+
+        /* ==============================================================
+           FUNGSI MODE GURU (PANEL KONTROL)
+           ============================================================== */
+        function teacherChangeMission(val) {
+            currentMission = parseInt(val);
+            currentQuestionIndex = 0;
+            loadQuestion();
+            closeTeacherModal();
+        }
+
+        function teacherAdjustRope(amount) {
+            ropePosition = Math.max(-5, Math.min(5, ropePosition + amount));
+            document.getElementById('teacherRopePos').innerText = ropePosition;
+            updateUI();
+        }
+
+        function teacherChangeTurn(val) {
+            currentTurn = val;
+            updateUI();
+        }
+
+        function teacherSkipCurrentQuestion() {
+            closeTeacherModal();
+            nextQuestion();
+        }
+
+        function skipMissionByTeacher() {
+            if (confirm("Guru ingin melewati misi ini?")) {
+                if (currentMission < 5) {
+                    currentMission++;
+                    currentQuestionIndex = 0;
+                    loadQuestion();
+                } else {
+                    showFinalResult();
+                }
+            }
+        }
+    </script>
 </body>
 </html>
