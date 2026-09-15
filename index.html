@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarik Tambang Akidah Akhlak - Game Edukasi Interaktif</title>
+    <title>Tarik Tambang Sifat Mustahil bagi Allah - Game Edukasi Interaktif</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Amiri:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -36,7 +36,6 @@
             align-items: center;
         }
 
-        /* SCREENS */
         .screen {
             display: none;
             width: 100%;
@@ -63,7 +62,7 @@
         .game-title {
             font-size: clamp(2rem, 4vw, 4rem);
             font-weight: 800;
-            background: linear-gradient(to right, #34d399, #60a5fa, #f472b6);
+            background: linear-gradient(to right, #f87171, #fbbf24, #60a5fa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
@@ -151,10 +150,6 @@
             box-shadow: 0 15px 35px rgba(16, 185, 129, 0.6);
         }
 
-        .btn:active {
-            transform: translateY(1px);
-        }
-
         .btn-secondary {
             background: linear-gradient(135deg, #475569 0%, #334155 100%);
             box-shadow: 0 10px 25px rgba(71, 85, 105, 0.4);
@@ -175,7 +170,7 @@
             border-radius: 0 0 20px 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             backdrop-filter: blur(10px);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .team-score-box {
@@ -223,20 +218,65 @@
             color: #94a3b8;
         }
 
+        /* LIFELINE / BANTUAN BAR */
+        .lifeline-bar {
+            width: 100%;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 8px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .lifeline-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .lifeline-btn {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid #f59e0b;
+            color: #fbbf24;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lifeline-btn:hover:not(:disabled) {
+            background: rgba(245, 158, 11, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .lifeline-btn:disabled {
+            background: rgba(100, 116, 139, 0.2);
+            border-color: #475569;
+            color: #64748b;
+            cursor: not-allowed;
+        }
+
         /* ARENA TARIK TAMBANG */
         .tug-of-war-arena {
             width: 100%;
             background: rgba(30, 41, 59, 0.7);
             border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 15px;
-            margin-bottom: 20px;
+            padding: 12px;
+            margin-bottom: 15px;
             position: relative;
             box-shadow: inset 0 5px 15px rgba(0,0,0,0.5);
         }
 
         .tug-track {
-            height: 70px;
+            height: 60px;
             position: relative;
             display: flex;
             align-items: center;
@@ -292,8 +332,8 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             object-fit: contain;
             transition: left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), right 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
@@ -304,7 +344,7 @@
         .tug-labels {
             display: flex;
             justify-content: space-between;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #94a3b8;
             font-weight: 600;
             padding: 0 10px;
@@ -320,7 +360,7 @@
             backdrop-filter: blur(10px);
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
             margin-bottom: 20px;
-            min-height: 380px;
+            min-height: 360px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -335,7 +375,7 @@
 
         .mission-title h3 {
             font-size: 1.4rem;
-            color: #34d399;
+            color: #f87171;
         }
 
         .mission-title p {
@@ -345,7 +385,7 @@
 
         .flying-balloon-arena {
             width: 100%;
-            height: 300px;
+            height: 280px;
             background: rgba(15, 23, 42, 0.5);
             border-radius: 15px;
             position: relative;
@@ -357,7 +397,7 @@
             position: absolute;
             width: 65px;
             height: 80px;
-            background: radial-gradient(circle at 30% 30%, #f472b6, #db2777);
+            background: radial-gradient(circle at 30% 30%, #f87171, #dc2626);
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
             cursor: pointer;
             display: flex;
@@ -369,14 +409,14 @@
             animation: flyUp 4s ease-in-out infinite alternate;
         }
 
-        .flying-balloon:nth-child(2) { background: radial-gradient(circle at 30% 30%, #60a5fa, #2563eb); animation-duration: 3.5s; }
-        .flying-balloon:nth-child(3) { background: radial-gradient(circle at 30% 30%, #34d399, #059669); animation-duration: 4.5s; }
-        .flying-balloon:nth-child(4) { background: radial-gradient(circle at 30% 30%, #fbbf24, #d97706); animation-duration: 3s; }
-        .flying-balloon:nth-child(5) { background: radial-gradient(circle at 30% 30%, #a78bfa, #7c3aed); animation-duration: 5s; }
-        .flying-balloon:nth-child(6) { background: radial-gradient(circle at 30% 30%, #f87171, #dc2626); animation-duration: 3.8s; }
+        .flying-balloon:nth-child(2) { background: radial-gradient(circle at 30% 30%, #fbbf24, #d97706); animation-duration: 3.5s; }
+        .flying-balloon:nth-child(3) { background: radial-gradient(circle at 30% 30%, #60a5fa, #2563eb); animation-duration: 4.5s; }
+        .flying-balloon:nth-child(4) { background: radial-gradient(circle at 30% 30%, #f472b6, #db2777); animation-duration: 3s; }
+        .flying-balloon:nth-child(5) { background: radial-gradient(circle at 30% 30%, #34d399, #059669); animation-duration: 5s; }
+        .flying-balloon:nth-child(6) { background: radial-gradient(circle at 30% 30%, #a78bfa, #7c3aed); animation-duration: 3.8s; }
 
         @keyframes flyUp {
-            0% { transform: translateY(160px) scale(1); }
+            0% { transform: translateY(140px) scale(1); }
             100% { transform: translateY(10px) scale(1.05); }
         }
 
@@ -442,7 +482,7 @@
 
         .option-btn:hover {
             background: rgba(255, 255, 255, 0.12);
-            border-color: #34d399;
+            border-color: #f87171;
             transform: translateY(-2px);
         }
 
@@ -491,7 +531,7 @@
             text-align: center;
             margin-bottom: 12px;
             font-size: 1rem;
-            color: #34d399;
+            color: #f87171;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 8px;
         }
@@ -503,8 +543,8 @@
         }
 
         .drag-item {
-            background: rgba(59, 130, 246, 0.2);
-            border: 2px solid #3b82f6;
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid #ef4444;
             padding: 12px 15px;
             border-radius: 10px;
             cursor: grab;
@@ -569,7 +609,7 @@
         .letter-tile {
             width: 45px;
             height: 45px;
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            background: linear-gradient(135deg, #ef4444 0%, #991b1b 100%);
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 10px;
             display: flex;
@@ -584,7 +624,7 @@
 
         .letter-tile:hover {
             transform: translateY(-3px);
-            background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+            background: linear-gradient(135deg, #f87171 0%, #dc2626 100%);
         }
 
         .letter-tile.used {
@@ -615,6 +655,65 @@
             cursor: pointer;
         }
 
+        /* MISSION 5 (NEW): MENHUBUNGKAN KATA (MATCHING LINES) */
+        .connect-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 900px;
+            position: relative;
+            gap: 100px;
+            padding: 10px 20px;
+        }
+
+        .connect-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            flex: 1;
+            z-index: 2;
+        }
+
+        .connect-item {
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 14px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .connect-item:hover {
+            border-color: #fbbf24;
+            background: rgba(251, 191, 36, 0.1);
+        }
+
+        .connect-item.selected {
+            border-color: #34d399;
+            background: rgba(52, 211, 153, 0.2);
+            box-shadow: 0 0 15px rgba(52, 211, 153, 0.4);
+        }
+
+        .connect-item.connected {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.2);
+            color: #d1fae5;
+            cursor: default;
+        }
+
+        #connect-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
         /* MISSION 4: KOTAK MISTERI */
         .mystery-grid {
             display: grid;
@@ -625,7 +724,7 @@
         }
 
         .mystery-box {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            background: linear-gradient(135deg, #ef4444 0%, #991b1b 100%);
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 12px;
             height: 85px;
@@ -634,7 +733,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 6px 15px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 6px 15px rgba(239, 68, 68, 0.4);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -642,8 +741,8 @@
 
         .mystery-box:hover:not(.opened) {
             transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.6);
-            background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.6);
+            background: linear-gradient(135deg, #f87171 0%, #dc2626 100%);
         }
 
         .mystery-box.opened {
@@ -662,7 +761,7 @@
 
         .mystery-box .box-label {
             font-size: 0.7rem;
-            color: #bfdbfe;
+            color: #fca5a5;
             text-transform: uppercase;
         }
 
@@ -673,7 +772,7 @@
             color: #10b981;
         }
 
-        /* MODAL / POPUP - DIPERBAIKI AGAR TIDAK TERZOOM / PROPOSIONAL */
+        /* MODAL / POPUP */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -699,7 +798,7 @@
             border-radius: 20px;
             padding: 30px 25px;
             width: 100%;
-            max-width: 480px; /* Ukuran pas, tidak terlalu besar atau terzoom */
+            max-width: 480px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.6);
             text-align: center;
             animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -924,7 +1023,6 @@
             z-index: 1500;
         }
 
-        /* RESPONSIVE */
         @media(max-width: 900px) {
             .options-grid { grid-template-columns: 1fr; }
             .drag-drop-container { grid-template-columns: 1fr; }
@@ -933,6 +1031,7 @@
             .home-avatars { gap: 20px; }
             .team-select-buttons { gap: 10px; }
             .team-btn { width: 140px; padding: 14px; }
+            .connect-container { gap: 30px; }
         }
     </style>
 </head>
@@ -940,10 +1039,8 @@
 
     <canvas id="confetti-canvas"></canvas>
 
-    <!-- FLOATING AUDIO BUTTON -->
     <div class="audio-float-btn" id="audio-toggle-btn" title="Musik ON/OFF">🔊</div>
 
-    <!-- FEEDBACK POPUP -->
     <div class="feedback-popup" id="feedback-popup">
         <span id="feedback-icon">✅</span>
         <span id="feedback-text">Jawaban Benar! +10 Poin</span>
@@ -955,18 +1052,17 @@
             <h2>❓ PETUNJUK GAME</h2>
             <div class="modal-instructions">
                 <ol>
-                    <li>Game dimainkan oleh <strong>Kelompok A</strong> dan <strong>Kelompok B</strong> dalam satu layar.</li>
-                    <li>Selesaikan ke-4 misi secara berurutan: Memanah Balon Terbang (6 Soal), Pasangkan Tepat (2 Ronde), Menyusun Kata (6 Kata), dan Kotak Misteri.</li>
-                    <li>Pilih kelompok yang menjawab sebelum tantangan dimulai.</li>
-                    <li>Setiap jawaban benar mendapat <strong>+10 poin</strong> dan tali tambang bergeser ke arah kelompok tersebut.</li>
-                    <li>Kelompok dengan skor tertinggi & posisi tarik tambang terbaik menjadi pemenang!</li>
+                    <li>Game khusus materi <strong>Sifat Mustahil bagi Allah Swt.</strong></li>
+                    <li>Selesaikan ke-5 misi: Panah Balon (6 Soal), Pasangkan Tepat (2 Ronde), Menyusun Kata (6 Kata), Kotak Misteri, dan Hubungkan Kata.</li>
+                    <li>Tiap kelompok mendapat <strong>1 kali kesempatan</strong> bantuan untuk: Bertanya Teman, Petunjuk Jawaban, dan Ganti Anggota.</li>
+                    <li>Setiap jawaban benar mendapat +10 poin dan menarik tali tambang ke arah kelompokmu!</li>
                 </ol>
             </div>
             <button class="btn" id="close-instructions-btn" style="padding: 10px 24px; font-size: 1rem;">Mengerti</button>
         </div>
     </div>
 
-    <!-- TURN SELECTOR MODAL (Diperbaiki agar proporsional dan tidak terzoom) -->
+    <!-- TURN SELECTOR MODAL -->
     <div class="modal-overlay" id="turn-modal">
         <div class="modal-card">
             <h2>👥 SIAPA YANG MENJAWAB?</h2>
@@ -987,8 +1083,8 @@
     <!-- 1. HOME SCREEN -->
     <div class="screen active" id="home-screen">
         <div class="arabic-subtitle">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-        <h1 class="game-title">TARIK TAMBANG AKIDAH AKHLAK</h1>
-        <p class="game-subtitle">Materi: Sifat Wajib bagi Allah Swt. & Sifat Mustahil bagi Allah Swt.</p>
+        <h1 class="game-title">TARIK TAMBANG SIFAT MUSTAHIL ALLAH</h1>
+        <p class="game-subtitle">Materi Khusus: Sifat Mustahil bagi Allah Swt.</p>
         
         <div class="home-avatars">
             <div class="home-avatar-card">
@@ -1020,7 +1116,7 @@
             </div>
 
             <div class="mission-indicator">
-                <h2 id="mission-title-header">MISI 1 / 4</h2>
+                <h2 id="mission-title-header">MISI 1 / 5</h2>
                 <p id="mission-desc-header">PANAH BALON TERBANG</p>
             </div>
 
@@ -1032,6 +1128,22 @@
                 <img src="https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/6d02e8635c29903da6ef8f9042ef6e2c89ea078f/Murid%20PR.png" alt="B">
             </div>
         </header>
+
+        <!-- LIFELINE BAR (BANTUAN) -->
+        <div class="lifeline-bar" id="lifeline-bar" style="display:none;">
+            <div class="lifeline-group">
+                <span style="font-weight: 700; color: #fbbf24;">Bantuan Kelompok A:</span>
+                <button class="lifeline-btn" id="life-a-1" onclick="useLifeline('A', 1)">💡 Tanya Teman</button>
+                <button class="lifeline-btn" id="life-a-2" onclick="useLifeline('A', 2)">🔍 Petunjuk</button>
+                <button class="lifeline-btn" id="life-a-3" onclick="useLifeline('A', 3)">🔄 Ganti Anggota</button>
+            </div>
+            <div class="lifeline-group">
+                <span style="font-weight: 700; color: #fbbf24;">Bantuan Kelompok B:</span>
+                <button class="lifeline-btn" id="life-b-1" onclick="useLifeline('B', 1)">💡 Tanya Teman</button>
+                <button class="lifeline-btn" id="life-b-2" onclick="useLifeline('B', 2)">🔍 Petunjuk</button>
+                <button class="lifeline-btn" id="life-b-3" onclick="useLifeline('B', 3)">🔄 Ganti Anggota</button>
+            </div>
+        </div>
 
         <!-- ARENA TARIK TAMBANG -->
         <div class="tug-of-war-arena">
@@ -1064,7 +1176,7 @@
     <div class="screen" id="win-screen">
         <div class="trophy-icon">🏆</div>
         <h1 class="winner-title" id="winner-title">SELAMAT! KELOMPOK A MENANG!</h1>
-        <p class="winner-subtitle">"Luar Biasa! Terus belajar, terus berakhlak, dan terus mengenal kebesaran Allah Swt."</p>
+        <p class="winner-subtitle">"Luar Biasa! Terus kuasai ilmu tentang Sifat Mustahil bagi Allah Swt."</p>
 
         <div class="stats-card">
             <div class="stats-grid">
@@ -1079,7 +1191,7 @@
                     <small id="stats-correct-b">Benar: 0 | Salah: 0</small>
                 </div>
             </div>
-            <div class="quote-box" id="winner-quote">"Ilmu Akidah adalah fondasi keselamatan dunia dan akhirat."</div>
+            <div class="quote-box" id="winner-quote">"Mengenal sifat mustahil Allah memperkuat keimanan tauhid kita."</div>
         </div>
 
         <div class="btn-group">
@@ -1109,7 +1221,6 @@
             }
         });
 
-        // Web Audio API for Sound Effects
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         
         function playSound(type) {
@@ -1120,7 +1231,6 @@
             const gainNode = audioCtx.createGain();
             osc.connect(gainNode);
             gainNode.connect(audioCtx.destination);
-
             const now = audioCtx.currentTime;
 
             if (type === 'correct') {
@@ -1168,27 +1278,32 @@
             ropePosition: 50,
             currentMission: 1,
             selectedTeam: null,
-            mission1Count: 0, // total 6 questions
-            mission2Round: 1, // total 2 rounds
-            mission3Count: 0, // total 6 words
-            mission4Opened: []
+            mission1Count: 0,
+            mission2Round: 1,
+            mission3Count: 0,
+            mission4Opened: [],
+            lifelines: {
+                A: { 1: false, 2: false, 3: false },
+                B: { 1: false, 2: false, 3: false }
+            }
         };
 
-        /* BANK SOAL */
-        const bankSoal = [
-            { q: "Sifat Allah Swt. yang berarti Allah Maha Mengetahui adalah...", options: ["A. Qudrat", "B. Ilmu", "C. Hayat", "D. Sama'"], correct: 1 },
-            { q: "Apa arti dari sifat wajib Allah 'Wujud'?", options: ["A. Allah ada", "B. Allah kekal", "C. Allah terdahulu", "D. Allah Maha Mendengar"], correct: 0 },
-            { q: "Lawan dari sifat wajib 'Qidam' (terdahulu) adalah sifat mustahil...", options: ["A. Adam", "B. Huduts", "C. Fana", "D. Ajzun"], correct: 1 },
-            { q: "Sifat wajib Allah yang berarti 'Berdiri Sendiri' adalah...", options: ["A. Wahdaniyah", "B. Qiyamuhu Binafsihi", "C. Mukhalafatu lil Hawaditsi", "D. Iradat"], correct: 1 },
-            { q: "Allah Swt. mustahil bersifat 'Adam' yang artinya...", options: ["A. Baru", "B. Binasa", "C. Tiada / Tidak ada", "D. Lemah"], correct: 2 },
-            { q: "Sifat wajib yang menunjukkan bahwa Allah Maha Esa (Tunggal) adalah...", options: ["A. Qudrat", "B. Iradat", "C. Wahdaniyah", "D. Kalam"], correct: 2 },
-            { q: "Apa arti sifat wajib Allah 'Bashar'?", options: ["A. Maha Mendengar", "B. Maha Melihat", "C. Maha Berkata-kata", "D. Maha Hidup"], correct: 1 },
-            { q: "Sifat mustahil 'Umyun' bagi Allah Swt. berarti...", options: ["A. Tuli", "B. Bisu", "C. Buta", "D. Mati"], correct: 2 }
+        /* BANK SOAL KHUSUS SIFAT MUSTAHIL BAGI ALLAH */
+        const bankSoalMustahil = [
+            { q: "Sifat mustahil bagi Allah Swt. yang berarti 'Tiada' atau 'Tidak Ada' adalah...", options: ["A. Adam", "B. Huduts", "C. Fana", "D. Ajzun"], correct: 0 },
+            { q: "Lawan dari sifat wajib Qidam adalah sifat mustahil...", options: ["A. Adam", "B. Huduts (Baru)", "C. Fana", "D. Karahah"], correct: 1 },
+            { q: "Allah Swt. mustahil bersifat 'Fana' yang artinya...", options: ["A. Lemah", "B. Bodoh", "C. Binasa / Rusak", "D. Mati"], correct: 2 },
+            { q: "Sifat mustahil 'Mumatsalatu lil Hawaditsi' bagi Allah Swt. berarti...", options: ["A. Serupa dengan makhluk-Nya", "B. Lemah", "C. Terpaksa", "D. Bisep"], correct: 0 },
+            { q: "Apa arti dari sifat mustahil Allah 'Ajzun'?", options: ["A. Bodoh", "B. Lemah", "C. Terpaksa", "D. Mati"], correct: 1 },
+            { q: "Sifat mustahil 'Karahah' bagi Allah Swt. memiliki arti...", options: ["A. Terpaksa", "B. Bisu", "C. Buta", "D. Tuli"], correct: 0 },
+            { q: "Allah Swt. mustahil bersifat 'Jahlun' yang artinya...", options: ["A. Lupa", "B. Bodoh", "C. Tidur", "D. Tuli"], correct: 1 },
+            { q: "Sifat mustahil 'Mautun' bagi Allah Swt. berarti...", options: ["A. Buta", "B. Tuli", "C. Mati", "D. Bisu"], correct: 2 },
+            { q: "Sifat mustahil 'Umyun' bagi Allah Swt. memiliki arti...", options: ["A. Tuli", "B. Buta", "C. Bisu", "D. Lemah"], correct: 1 },
+            { q: "Lawan dari sifat wajib Sama' adalah sifat mustahil...", options: ["A. Shummun (Tuli)", "B. Bukmun (Bisu)", "C. Umyun (Buta)", "D. Mayyitan (Mati)"], correct: 0 }
         ];
 
         let shuffledQuestions = [];
 
-        /* DOM ELEMENTS */
         const homeScreen = document.getElementById('home-screen');
         const gameScreen = document.getElementById('game-screen');
         const winScreen = document.getElementById('win-screen');
@@ -1213,6 +1328,7 @@
         const feedbackText = document.getElementById('feedback-text');
         const restartBtn = document.getElementById('restart-btn');
         const homeBtn = document.getElementById('home-btn');
+        const lifelineBar = document.getElementById('lifeline-bar');
 
         function switchScreen(screen) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -1252,8 +1368,14 @@
             gameState.mission2Round = 1;
             gameState.mission3Count = 0;
             gameState.mission4Opened = [];
+            gameState.lifelines = {
+                A: { 1: false, 2: false, 3: false },
+                B: { 1: false, 2: false, 3: false }
+            };
 
-            shuffledQuestions = [...bankSoal].sort(() => Math.random() - 0.5);
+            shuffledQuestions = [...bankSoalMustahil].sort(() => Math.random() - 0.5);
+            updateLifelineUI();
+            lifelineBar.style.display = 'flex';
             updateUI();
             loadMission();
         }
@@ -1275,6 +1397,35 @@
             tugStatusText.textContent = status;
         }
 
+        function updateLifelineUI() {
+            ['A', 'B'].forEach(team => {
+                for (let i = 1; i <= 3; i++) {
+                    const btn = document.getElementById(`life-${team.toLowerCase()}-${i}`);
+                    if (gameState.lifelines[team][i]) {
+                        btn.disabled = true;
+                        btn.style.opacity = '0.4';
+                    } else {
+                        btn.disabled = false;
+                        btn.style.opacity = '1';
+                    }
+                }
+            });
+        }
+
+        function useLifeline(team, type) {
+            if (gameState.lifelines[team][type]) return;
+            gameState.lifelines[team][type] = true;
+            updateLifelineUI();
+
+            if (type === 1) {
+                showFeedback(true, `Kelompok ${team} menggunakan bantuan: Tanya Teman! Diskusi kelompok dibuka.`);
+            } else if (type === 2) {
+                showFeedback(true, `Kelompok ${team} menggunakan bantuan: Petunjuk Jawaban! (Perhatikan opsi yang paling logis)`);
+            } else if (type === 3) {
+                showFeedback(true, `Kelompok ${team} menggunakan bantuan: Ganti Anggota yang menjawab!`);
+            }
+        }
+
         function showFeedback(isCorrect, message) {
             feedbackPopup.className = `feedback-popup show ${isCorrect ? 'correct' : 'incorrect'}`;
             feedbackIcon.textContent = isCorrect ? '✅' : '❌';
@@ -1287,24 +1438,29 @@
         function loadMission() {
             switch(gameState.currentMission) {
                 case 1:
-                    missionTitleHeader.textContent = "MISI 1 / 4";
-                    missionDescHeader.textContent = "PANAH BALON TERBANG";
+                    missionTitleHeader.textContent = "MISI 1 / 5";
+                    missionDescHeader.textContent = "PANAH BALON SIFAT MUSTAHIL";
                     loadMission1();
                     break;
                 case 2:
-                    missionTitleHeader.textContent = "MISI 2 / 4";
+                    missionTitleHeader.textContent = "MISI 2 / 5";
                     missionDescHeader.textContent = `PASANGKAN TEPAT (Ronde ${gameState.mission2Round}/2)`;
                     loadMission2();
                     break;
                 case 3:
-                    missionTitleHeader.textContent = "MISI 3 / 4";
+                    missionTitleHeader.textContent = "MISI 3 / 5";
                     missionDescHeader.textContent = `MENYUSUN KATA (${gameState.mission3Count + 1}/6)`;
                     loadMission3();
                     break;
                 case 4:
-                    missionTitleHeader.textContent = "MISI 4 / 4";
-                    missionDescHeader.textContent = "KOTAK MISTERI AKIDAH";
+                    missionTitleHeader.textContent = "MISI 4 / 5";
+                    missionDescHeader.textContent = "KOTAK MISTERI MUSTAHIL";
                     loadMission4();
+                    break;
+                case 5:
+                    missionTitleHeader.textContent = "MISI 5 / 5";
+                    missionDescHeader.textContent = "MENHUBUNGKAN KATA & ARTI";
+                    loadMission5();
                     break;
             }
         }
@@ -1332,7 +1488,7 @@
             gameContainer.innerHTML = `
                 <div class="mission-title">
                     <h3>🎈 MISI 1: PANAH BALON TERBANG (Soal ${gameState.mission1Count + 1} / 6)</h3>
-                    <p>Balon bergerak terbang! Pilih kelompok, lalu klik salah satu balon untuk memecahkannya!</p>
+                    <p>Pilih kelompok, lalu klik salah satu balon untuk membuka soal Sifat Mustahil Allah!</p>
                 </div>
                 <div class="flying-balloon-arena" id="flying-arena">
                     <div class="flying-balloon" style="left: 15%; top: 20px;">🎈</div>
@@ -1417,33 +1573,33 @@
             });
         }
 
-        /* ================= MISSION 2: DRAG AND DROP (2 Rounds total) ================= */
+        /* ================= MISSION 2: DRAG AND DROP (2 Rounds total - Sifat Mustahil) ================= */
         function loadMission2() {
             promptTeamTurn(() => {
                 gameContainer.innerHTML = `
                     <div class="mission-title">
-                        <h3>🧩 MISI 2: PASANGKAN DENGAN TEPAT (Kelompok ${gameState.selectedTeam})</h3>
-                        <p>Seret Sifat Allah di kiri ke Arti / Pasangan yang sesuai di kanan!</p>
+                        <h3>🧩 MISI 2: PASANGKAN SIFAT MUSTAHIL (Kelompok ${gameState.selectedTeam})</h3>
+                        <p>Seret Sifat Mustahil Allah di kiri ke Arti yang sesuai di kanan!</p>
                     </div>
                     <div class="drag-drop-container">
                         <div class="drop-column">
-                            <h4>DAFTAR SIFAT</h4>
+                            <h4>SIFAT MUSTAHIL</h4>
                             <div class="draggable-items" id="drag-items"></div>
                         </div>
                         <div class="drop-column">
-                            <h4>PASANGAN / ARTI</h4>
+                            <h4>ARTI / MAKNA</h4>
                             <div class="droppable-targets" id="drop-targets"></div>
                         </div>
                     </div>
                     <button class="btn" id="check-drag-btn" style="margin-top: 20px; padding: 12px 28px; font-size: 1rem;">SELESAI & PERIKSA</button>
                 `;
 
-                const allPairs = [
-                    [{ id: '1', sifat: 'Wujud', arti: 'Allah ada' }, { id: '2', sifat: 'Qidam', arti: 'Allah terdahulu' }, { id: '3', sifat: 'Baqa', arti: 'Allah kekal' }, { id: '4', sifat: 'Qudrat', arti: 'Allah Maha Kuasa' }],
-                    [{ id: '5', sifat: 'Ilmu', arti: 'Allah Maha Mengetahui' }, { id: '6', sifat: 'Adam', arti: 'Tiada' }, { id: '7', sifat: 'Huduts', arti: 'Baru' }, { id: '8', sifat: 'Ajzun', arti: 'Lemah' }]
+                const allPairsMustahil = [
+                    [{ id: '1', sifat: 'Adam', arti: 'Tiada' }, { id: '2', sifat: 'Huduts', arti: 'Baru' }, { id: '3', sifat: 'Fana', arti: 'Binasa' }, { id: '4', sifat: 'Mumatsalatu lil Hawaditsi', arti: 'Serupa dengan makhluk' }],
+                    [{ id: '5', sifat: 'Ajzun', arti: 'Lemah' }, { id: '6', sifat: 'Karahah', arti: 'Terpaksa' }, { id: '7', sifat: 'Jahlun', arti: 'Bodoh' }, { id: '8', sifat: 'Mautun', arti: 'Mati' }]
                 ];
 
-                const pairs = allPairs[gameState.mission2Round - 1];
+                const pairs = allPairsMustahil[gameState.mission2Round - 1];
                 let shuffledSifat = [...pairs].sort(() => Math.random() - 0.5);
                 let shuffledArti = [...pairs].sort(() => Math.random() - 0.5);
 
@@ -1531,19 +1687,19 @@
             });
         }
 
-        /* ================= MISSION 3: MENYUSUN KATA (6 Words total) ================= */
-        const scrambleWords = [
-            { word: "WUJUD", clue: "Sifat wajib Allah: Ada" },
-            { word: "QIDAM", clue: "Sifat wajib Allah: Terdahulu" },
-            { word: "BAQA", clue: "Sifat wajib Allah: Kekal" },
-            { word: "ILMU", clue: "Sifat wajib Allah: Mengetahui" },
+        /* ================= MISSION 3: MENYUSUN KATA (6 Words - Sifat Mustahil) ================= */
+        const scrambleWordsMustahil = [
             { word: "ADAM", clue: "Sifat mustahil Allah: Tiada" },
-            { word: "FANA", clue: "Sifat mustahil Allah: Binasa" }
+            { word: "FANA", clue: "Sifat mustahil Allah: Binasa" },
+            { word: "AJZUN", clue: "Sifat mustahil Allah: Lemah" },
+            { word: "JAHLUN", clue: "Sifat mustahil Allah: Bodoh" },
+            { word: "MAUTUN", clue: "Sifat mustahil Allah: Mati" },
+            { word: "UMYUN", clue: "Sifat mustahil Allah: Buta" }
         ];
 
         function loadMission3() {
             promptTeamTurn(() => {
-                const currentWordObj = scrambleWords[gameState.mission3Count];
+                const currentWordObj = scrambleWordsMustahil[gameState.mission3Count];
                 const targetWord = currentWordObj.word;
                 const scrambledLetters = targetWord.split('').sort(() => Math.random() - 0.5);
 
@@ -1632,8 +1788,8 @@
         function loadMission4() {
             gameContainer.innerHTML = `
                 <div class="mission-title">
-                    <h3>🎁 MISI 4: KOTAK MISTERI AKIDAH</h3>
-                    <p>Pilih kotak bernomor untuk membongkar pertanyaan rahasia!</p>
+                    <h3>🎁 MISI 4: KOTAK MISTERI MUSTAHIL</h3>
+                    <p>Pilih kotak bernomor untuk membongkar pertanyaan rahasia Sifat Mustahil!</p>
                 </div>
                 <div class="mystery-grid" id="mystery-grid"></div>
             `;
@@ -1654,7 +1810,8 @@
                             const qObj = shuffledQuestions[(i + 2) % shuffledQuestions.length];
                             loadQuestionModal(qObj, () => {
                                 if (gameState.mission4Opened.length >= 4) {
-                                    endGame();
+                                    gameState.currentMission = 5;
+                                    loadMission();
                                 } else {
                                     loadMission4();
                                 }
@@ -1664,6 +1821,147 @@
                 }
                 mysteryGrid.appendChild(box);
             }
+        }
+
+        /* ================= MISSION 5 (NEW): MENHUBUNGKAN KATA (CONNECTING LINES) ================= */
+        function loadMission5() {
+            promptTeamTurn(() => {
+                gameContainer.innerHTML = `
+                    <div class="mission-title">
+                        <h3>🔗 MISI 5: MENGHUBUNGKAN KATA & ARTI (Kelompok ${gameState.selectedTeam})</h3>
+                        <p>Klik satu Sifat Mustahil di kiri, lalu klik Arti yang tepat di kanan untuk menghubungkan!</p>
+                    </div>
+                    <div class="connect-container" id="connect-container">
+                        <svg id="connect-svg"></svg>
+                        <div class="connect-column" id="left-column">
+                            <h4 style="color:#fbbf24; text-align:center; margin-bottom:5px;">Sifat Mustahil</h4>
+                        </div>
+                        <div class="connect-column" id="right-column">
+                            <h4 style="color:#fbbf24; text-align:center; margin-bottom:5px;">Arti / Makna</h4>
+                        </div>
+                    </div>
+                    <button class="btn" id="check-connect-btn" style="margin-top:25px; padding:12px 28px; font-size:1rem;" disabled>SELESAI & PERIKSA</button>
+                `;
+
+                const pairsToConnect = [
+                    { id: '1', left: 'Adam', right: 'Tiada' },
+                    { id: '2', left: 'Huduts', right: 'Baru' },
+                    { id: '3', left: 'Ajzun', right: 'Lemah' },
+                    { id: '4', left: 'Jahlun', right: 'Bodoh' }
+                ];
+
+                let shuffledLeft = [...pairsToConnect].sort(() => Math.random() - 0.5);
+                let shuffledRight = [...pairsToConnect].sort(() => Math.random() - 0.5);
+
+                const leftCol = document.getElementById('left-column');
+                const rightCol = document.getElementById('right-column');
+                const svg = document.getElementById('connect-svg');
+
+                let selectedLeft = null;
+                let connections = {}; // leftId -> rightId
+
+                shuffledLeft.forEach(p => {
+                    const div = document.createElement('div');
+                    div.className = 'connect-item';
+                    div.textContent = p.left;
+                    div.dataset.id = p.id;
+                    div.dataset.side = 'left';
+                    div.addEventListener('click', () => {
+                        if (div.classList.contains('connected')) return;
+                        document.querySelectorAll('#left-column .connect-item').forEach(el => el.classList.remove('selected'));
+                        div.classList.add('selected');
+                        selectedLeft = p.id;
+                    });
+                    leftCol.appendChild(div);
+                });
+
+                shuffledRight.forEach(p => {
+                    const div = document.createElement('div');
+                    div.className = 'connect-item';
+                    div.textContent = p.right;
+                    div.dataset.id = p.id;
+                    div.dataset.side = 'right';
+                    div.addEventListener('click', () => {
+                        if (!selectedLeft) return;
+                        // check if right already connected
+                        if (Object.values(connections).includes(p.id)) return;
+
+                        connections[selectedLeft] = p.id;
+                        
+                        // mark connected UI
+                        const leftEl = document.querySelector(`#left-column [data-id='${selectedLeft}']`);
+                        leftEl.classList.remove('selected');
+                        leftEl.classList.add('connected');
+                        div.classList.add('connected');
+
+                        selectedLeft = null;
+                        redrawLines();
+
+                        if (Object.keys(connections).length === pairsToConnect.length) {
+                            document.getElementById('check-connect-btn').removeAttribute('disabled');
+                        }
+                    });
+                    rightCol.appendChild(div);
+                });
+
+                function redrawLines() {
+                    svg.innerHTML = '';
+                    const containerRect = document.getElementById('connect-container').getBoundingClientRect();
+                    
+                    for (let lId in connections) {
+                        let rId = connections[lId];
+                        let lEl = document.querySelector(`#left-column [data-id='${lId}']`);
+                        let rEl = document.querySelector(`#right-column [data-id='${rId}']`);
+
+                        let lRect = lEl.getBoundingClientRect();
+                        let rRect = rEl.getBoundingClientRect();
+
+                        let x1 = lRect.right - containerRect.left;
+                        let y1 = lRect.top + lRect.height / 2 - containerRect.top;
+                        let x2 = rRect.left - containerRect.left;
+                        let y2 = rRect.top + rRect.height / 2 - containerRect.top;
+
+                        let line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        line.setAttribute('x1', x1);
+                        line.setAttribute('y1', y1);
+                        line.setAttribute('x2', x2);
+                        line.setAttribute('y2', y2);
+                        line.setAttribute('stroke', '#34d399');
+                        line.setAttribute('stroke-width', '4');
+                        svg.appendChild(line);
+                    }
+                }
+
+                document.getElementById('check-connect-btn').addEventListener('click', () => {
+                    let allCorrect = true;
+                    for (let lId in connections) {
+                        if (lId !== connections[lId]) allCorrect = false;
+                    }
+
+                    if (allCorrect) {
+                        playSound('correct');
+                        showFeedback(true, `Kelompok ${gameState.selectedTeam} Menghubungkan Kata Benar! +20 Poin`);
+                        triggerConfetti();
+                        if (gameState.selectedTeam === 'A') {
+                            gameState.scoreA += 20;
+                            gameState.correctA++;
+                            gameState.ropePosition = Math.max(5, gameState.ropePosition - 15);
+                        } else {
+                            gameState.scoreB += 20;
+                            gameState.correctB++;
+                            gameState.ropePosition = Math.min(95, gameState.ropePosition + 15);
+                        }
+                    } else {
+                        playSound('incorrect');
+                        showFeedback(false, `Ada pasangan garis yang kurang tepat!`);
+                        if (gameState.selectedTeam === 'A') gameState.incorrectA++;
+                        else gameState.incorrectB++;
+                    }
+
+                    updateUI();
+                    setTimeout(endGame, 2000);
+                });
+            });
         }
 
         /* END GAME */
@@ -1686,6 +1984,7 @@
             document.getElementById('stats-correct-a').textContent = `Benar: ${gameState.correctA} | Salah: ${gameState.incorrectA}`;
             document.getElementById('stats-correct-b').textContent = `Benar: ${gameState.correctB} | Salah: ${gameState.incorrectB}`;
 
+            lifelineBar.style.display = 'none';
             switchScreen(winScreen);
         }
 
@@ -1709,7 +2008,7 @@
                     y: Math.random() * canvas.height - canvas.height,
                     r: Math.random() * 6 + 4,
                     d: Math.random() * 50 + 10,
-                    color: ['#34d399', '#60a5fa', '#fbbf24', '#f472b6', '#a78bfa'][Math.floor(Math.random() * 5)],
+                    color: ['#f87171', '#60a5fa', '#fbbf24', '#f472b6', '#34d399'][Math.floor(Math.random() * 5)],
                     tilt: Math.random() * 10 - 10,
                     tiltAngleIncremental: Math.random() * 0.07 + 0.05,
                     tiltAngle: 0
