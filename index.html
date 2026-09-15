@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarik Tambang Akidah Akhlak - Game Edukasi Interaktif</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Amiri:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --secondary: #3b82f6;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --team-a: #2563eb;
+            --team-b: #dc2626;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            user-select: none;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+            color: #f1f5f9;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* SCREENS */
+        .screen {
+            display: none;
+            width: 100%;
+            max-width: 1400px;
+            min-height: 100vh;
+            padding: 20px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        /* HOME SCREEN */
+        #home-screen {
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            background: radial-gradient(circle at center, rgba(30,27,75,0.8) 0%, rgba(15,23,42,0.95) 100%);
+        }
+
+        .game-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            background: linear-gradient(to right, #34d399, #60a5fa, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .arabic-subtitle {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            color: #fbbf24;
+            margin-bottom: 15px;
+        }
+
+        .game-subtitle {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .home-avatars {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .home-avatar-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            width: 180px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .home-avatar-card.team-b {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .home-avatar-card img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4));
+        }
+
+        .home-avatar-card h3 {
+            margin-top: 15px;
+            font-size: 1.1rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 16px 36px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #475569 0%, #334155 100%);
+            box-shadow: 0 10px 25px rgba(71, 85, 105, 0.4);
+        }
+        .btn-secondary:hover {
+            box-shadow: 0 15px 35px rgba(71, 85, 105, 0.6);
+        }
+
+        /* HEADER GAME */
+        .game-header {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+        }
+
+        .team-score-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .team-score-box.team-a { border-left: 5px solid var(--team-a); }
+        .team-score-box.team-b { border-right: 5px solid var(--team-b); }
+
+        .team-score-box img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .team-info h4 {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        .team-info .score {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .mission-indicator {
+            text-align: center;
+        }
+
+        .mission-indicator h2 {
+            font-size: 1.3rem;
+            background: linear-gradient(to right, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .mission-indicator p {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        /* ARENA TARIK TAMBANG */
+        .tug-of-war-arena {
+            width: 100%;
+            background: rgba(30, 41, 59, 0.7);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            box-shadow: inset 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .tug-track {
+            height: 80px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 60px;
+        }
+
+        .win-line-left {
+            position: absolute;
+            left: 10%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--team-a);
+            box-shadow: 0 0 10px var(--team-a);
+        }
+
+        .win-line-right {
+            position: absolute;
+            right: 10%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--team-b);
+            box-shadow: 0 0 10px var(--team-b);
+        }
+
+        .rope {
+            width: 100%;
+            height: 12px;
+            background: #d97706;
+            border-radius: 6px;
+            position: relative;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, #b45309 10px, #b45309 20px);
+        }
+
+        .rope-knot {
+            width: 30px;
+            height: 30px;
+            background: #fbbf24;
+            border: 3px solid #b45309;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            transition: left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .avatar-tug-left, .avatar-tug-right {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            transition: left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), right 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .avatar-tug-left { left: 2%; }
+        .avatar-tug-right { right: 2%; }
+
+        .tug-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            font-weight: 600;
+            padding: 0 10px;
+        }
+
+        /* GAME CONTENT CONTAINER */
+        .game-main-container {
+            width: 100%;
+            background: rgba(30, 41, 59, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            margin-bottom: 30px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* TURN SELECTOR */
+        .turn-selector {
+            text-align: center;
+            width: 100%;
+        }
+
+        .turn-selector h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #fbbf24;
+        }
+
+        .turn-selector p {
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
+
+        .team-select-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .team-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 25px 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            width: 250px;
+        }
+
+        .team-btn.team-a:hover {
+            background: rgba(37, 99, 235, 0.2);
+            border-color: var(--team-a);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+        }
+
+        .team-btn.team-b:hover {
+            background: rgba(220, 38, 38, 0.2);
+            border-color: var(--team-b);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.4);
+        }
+
+        .team-btn img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .team-btn span {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* MISSION 1: BALON */
+        .mission-title {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .mission-title h3 {
+            font-size: 1.6rem;
+            color: #34d399;
+        }
+
+        .mission-title p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .balloon-arena {
+            width: 100%;
+            height: 320px;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .balloon {
+            width: 90px;
+            height: 110px;
+            background: radial-gradient(circle at 30% 30%, #f472b6, #db2777);
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.3), 0 10px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+            animation: floatBalloon 4s ease-in-out infinite alternate;
+        }
+
+        .balloon:nth-child(2) { background: radial-gradient(circle at 30% 30%, #60a5fa, #2563eb); animation-delay: 0.5s; }
+        .balloon:nth-child(3) { background: radial-gradient(circle at 30% 30%, #34d399, #059669); animation-delay: 1s; }
+        .balloon:nth-child(4) { background: radial-gradient(circle at 30% 30%, #fbbf24, #d97706); animation-delay: 1.5s; }
+        .balloon:nth-child(5) { background: radial-gradient(circle at 30% 30%, #a78bfa, #7c3aed); animation-delay: 2s; }
+        .balloon:nth-child(6) { background: radial-gradient(circle at 30% 30%, #f87171, #dc2626); animation-delay: 2.5s; }
+        .balloon:nth-child(7) { background: radial-gradient(circle at 30% 30%, #38bdf8, #0284c7); animation-delay: 3s; }
+        .balloon:nth-child(8) { background: radial-gradient(circle at 30% 30%, #4ade80, #16a34a); animation-delay: 3.5s; }
+
+        @keyframes floatBalloon {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-15px) rotate(3deg); }
+        }
+
+        .balloon:hover {
+            transform: scale(1.1);
+        }
+
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 15px;
+            background: #94a3b8;
+        }
+
+        /* QUESTION BOX */
+        .question-box {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .question-team-tag {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .question-team-tag.team-a { background: rgba(37, 99, 235, 0.3); color: #93c5fd; border: 1px solid var(--team-a); }
+        .question-team-tag.team-b { background: rgba(220, 38, 38, 0.3); color: #fca5a5; border: 1px solid var(--team-b); }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            color: #f8fafc;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .option-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            padding: 18px 20px;
+            border-radius: 12px;
+            color: #f1f5f9;
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .option-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #34d399;
+            transform: translateY(-2px);
+        }
+
+        .option-btn.correct {
+            background: rgba(16, 185, 129, 0.3) !important;
+            border-color: #10b981 !important;
+            color: #d1fae5;
+        }
+
+        .option-btn.incorrect {
+            background: rgba(239, 68, 68, 0.3) !important;
+            border-color: #ef4444 !important;
+            color: #fee2e2;
+        }
+
+        .option-letter {
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* MISSION 2: DRAG AND DROP */
+        .drag-drop-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .drop-column {
+            background: rgba(15, 23, 42, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            min-height: 350px;
+        }
+
+        .drop-column h4 {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: #34d399;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .draggable-items, .droppable-targets {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .drag-item {
+            background: rgba(59, 130, 246, 0.2);
+            border: 2px solid #3b82f6;
+            padding: 14px 18px;
+            border-radius: 10px;
+            cursor: grab;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .drag-item:active { cursor: grabbing; }
+        .drag-item.dragging { opacity: 0.5; }
+
+        .drop-target {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            padding: 14px 18px;
+            border-radius: 10px;
+            min-height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .drop-target.drag-over {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+        }
+
+        .drop-target.matched {
+            background: rgba(16, 185, 129, 0.25);
+            border: 2px solid #10b981;
+        }
+
+        /* MISSION 3: WORD SEARCH */
+        .word-search-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .grid-board {
+            display: grid;
+            grid-template-columns: repeat(8, 45px);
+            grid-template-rows: repeat(8, 45px);
+            gap: 6px;
+            background: rgba(15, 23, 42, 0.8);
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .grid-cell {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .grid-cell:hover {
+            background: rgba(59, 130, 246, 0.3);
+            border-color: #3b82f6;
+        }
+
+        .grid-cell.selected {
+            background: rgba(59, 130, 246, 0.6);
+            border-color: #60a5fa;
+            color: white;
+        }
+
+        .grid-cell.found {
+            background: rgba(16, 185, 129, 0.5);
+            border-color: #10b981;
+            color: #d1fae5;
+        }
+
+        .word-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            max-width: 800px;
+        }
+
+        .word-badge {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #cbd5e1;
+        }
+
+        .word-badge.found {
+            background: rgba(16, 185, 129, 0.3);
+            border-color: #10b981;
+            color: #34d399;
+            text-decoration: line-through;
+        }
+
+        /* MISSION 4: KOTAK MISTERI */
+        .mystery-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .mystery-box {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mystery-box:hover:not(.opened) {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(59, 130, 246, 0.6);
+            background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+        }
+
+        .mystery-box.opened {
+            background: rgba(15, 23, 42, 0.6);
+            border-color: rgba(255, 255, 255, 0.1);
+            cursor: default;
+            opacity: 0.6;
+            box-shadow: none;
+        }
+
+        .mystery-box .box-num {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .mystery-box .box-label {
+            font-size: 0.75rem;
+            color: #bfdbfe;
+            text-transform: uppercase;
+        }
+
+        .mystery-box.opened::after {
+            content: '✔';
+            position: absolute;
+            font-size: 2rem;
+            color: #10b981;
+        }
+
+        /* MODAL / POPUP */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-card {
+            background: #1e293b;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            padding: 40px;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            text-align: center;
+            animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes modalPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-card h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .modal-card p {
+            color: #cbd5e1;
+            font-size: 1.05rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .modal-instructions {
+            text-align: left;
+            background: rgba(15, 23, 42, 0.5);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-instructions ol {
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            color: #cbd5e1;
+        }
+
+        /* FEEDBACK POPUP */
+        .feedback-popup {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: rgba(15, 23, 42, 0.95);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 2000;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .feedback-popup.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .feedback-popup.correct { border-color: #10b981; color: #34d399; }
+        .feedback-popup.incorrect { border-color: #ef4444; color: #f87171; }
+
+        /* WIN SCREEN */
+        #win-screen {
+            text-align: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .trophy-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .winner-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #fbbf24;
+            margin-bottom: 10px;
+        }
+
+        .winner-subtitle {
+            font-size: 1.3rem;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+        }
+
+        .stats-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-box.team-a { border-top: 4px solid var(--team-a); }
+        .stat-box.team-b { border-top: 4px solid var(--team-b); }
+
+        .stat-box h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-box p {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .quote-box {
+            font-style: italic;
+            color: #34d399;
+            font-size: 1.1rem;
+            margin-top: 15px;
+        }
+
+        /* AUDIO CONTROLS FLOATING */
+        .audio-float-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            z-index: 999;
+            transition: transform 0.2s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .audio-float-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* CONFETTI CANVAS */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1500;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .options-grid { grid-template-columns: 1fr; }
+            .drag-drop-container { grid-template-columns: 1fr; }
+            .mystery-grid { grid-template-columns: repeat(2, 1fr); }
+            .game-header { flex-direction: column; gap: 15px; }
+            .home-avatars { gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- FLOATING AUDIO BUTTON -->
+    <div class="audio-float-btn" id="audio-toggle-btn" title="Musik ON/OFF">🔊</div>
+
+    <!-- FEEDBACK POPUP -->
+    <div class="feedback-popup" id="feedback-popup">
+        <span id="feedback-icon">✅</span>
+        <span id="feedback-text">Jawaban Benar! +10 Poin</span>
+    </div>
+
+    <!-- PETUNJUK MODAL -->
+    <div class="modal-overlay" id="instructions-modal">
+        <div class="modal-card">
+            <h2>❓ PETUNJUK GAME</h2>
+            <div class="modal-instructions">
+                <ol>
+                    <li>Game dimainkan oleh <strong>Kelompok A</strong> dan <strong>Kelompok B</strong> dalam satu layar.</li>
+                    <li>Selesaikan ke-4 misi yang tersedia secara berurutan: Memanah Balon, Pasangkan Tepat, Buru Kata, dan Kotak Misteri.</li>
+                    <li>Pilih kelompok yang menjawab sebelum soal atau tantangan dimulai.</li>
+                    <li>Setiap jawaban benar mendapat <strong>+10 poin</strong> dan tali tambang akan bergeser ke arah kelompok tersebut.</li>
+                    <li>Kelompok dengan skor tertinggi dan posisi tarik tambang paling unggul akan menjadi pemenang di akhir game!</li>
+                </ol>
+            </div>
+            <button class="btn" id="close-instructions-btn">Mengerti, Kembali</button>
+        </div>
+    </div>
+
+    <!-- TURN SELECTOR MODAL -->
+    <div class="modal-overlay" id="turn-modal">
+        <div class="modal-card">
+            <h2>👥 SIAPA YANG MENJAWAB?</h2>
+            <p>Pilih kelompok yang akan menjawab tantangan ini:</p>
+            <div class="team-select-buttons">
+                <button class="team-btn team-a" id="select-team-a">
+                    <img src="https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/6d02e8635c29903da6ef6e2c89ea078f/Murid%20LK.png" alt="Kelompok A">
+                    <span>KELOMPOK A</span>
+                </button>
+                <button class="team-btn team-b" id="select-team-b">
+                    <img src="https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/6d02e8635c29903da6ef8f9042ef6e2c89ea078f/Murid%20PR.png" alt="Kelompok B">
+                    <span>KELOMPOK B</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1. HOME SCREEN -->
+    <div class="screen active" id="home-screen">
+        <div class="arabic-subtitle">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+        <h1 class="game-title">TARIK TAMBANG AKIDAH AKHLAK</h1>
+        <p class="game-subtitle">Materi: Sifat Wajib bagi Allah Swt. & Sifat Mustahil bagi Allah Swt.</p>
+        
+        <div class="home-avatars">
+            <div class="home-avatar-card">
+                <img src="https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/6d02e8635c29903da6ef6e2c89ea078f/Murid%20LK.png" alt="Kelompok A">
+                <h3>Kelompok A</h3>
+            </div>
+            <div class="home-avatar-card team-b">
+                <img src="https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/6d02e8635c29903da6ef8f9042ef6e2c89ea078f/Murid%20PR.png" alt="Kelompok B">
+                <h3>Kelompok B</h3>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn" id="start-game-btn">▶️ MULAI GAME</button>
+            <button class="btn btn-secondary" id="instructions-btn">❓ PETUNJUK</button>
+        </div>
+    </div>
+
+    <!-- 2. GAMEPLAY SCREEN -->
+    <div class="screen" id="game-screen">
+        <!-- HEADER -->
+        <header class="game-header">
+            <div class="team-score-box team-a">
+                <img src="https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/6d02e8635c29903da6ef6e2c89ea078f/Murid%20LK.png" alt="A">
+                <div class="team-info">
+                    <h4>KELOMPOK A</h4>
+                    <div class="score" id="score-a">0 POIN</div>
+                </div>
+            </div>
+
+            <div class="mission-indicator">
+                <h2 id="mission-title-header">MISI 1 / 4</h2>
+                <p id="mission-desc-header">PANAH BALON</p>
+            </div>
+
+            <div class="team-score-box team-b">
+                <div class="team-info" style="text-align: right;">
+                    <h4>KELOMPOK B</h4>
+                    <div class="score" id="score-b">0 POIN</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/6d02e8635c29903da6ef8f9042ef6e2c89ea078f/Murid%20PR.png" alt="B">
+            </div>
+        </header>
+
+        <!-- ARENA TARIK TAMBANG -->
+        <div class="tug-of-war-arena">
+            <div class="tug-track">
+                <div class="win-line-left"></div>
+                <div class="win-line-right"></div>
+                
+                <img src="https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/6d02e8635c29903da6ef6e2c89ea078f/Murid%20LK.png" class="avatar-tug-left" id="avatar-a" alt="Avatar A">
+                
+                <div class="rope">
+                    <div class="rope-knot" id="rope-knot" style="left: 50%;"></div>
+                </div>
+
+                <img src="https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/6d02e8635c29903da6ef8f9042ef6e2c89ea078f/Murid%20PR.png" class="avatar-tug-right" id="avatar-b" alt="Avatar B">
+            </div>
+            <div class="tug-labels">
+                <span>🔵 ← TARIKAN KELOMPOK A</span>
+                <span id="tug-status-text">POSISI TENGAH (50 : 50)</span>
+                <span>TARIKAN KELOMPOK B → 🔴</span>
+            </div>
+        </div>
+
+        <!-- MAIN GAME CONTAINER -->
+        <div class="game-main-container" id="game-container">
+            <!-- Dynamic content injected via JS -->
+        </div>
+    </div>
+
+    <!-- 3. WIN SCREEN -->
+    <div class="screen" id="win-screen">
+        <div class="trophy-icon">🏆</div>
+        <h1 class="winner-title" id="winner-title">SELAMAT! KELOMPOK A MENANG!</h1>
+        <p class="winner-subtitle">"Luar Biasa! Terus belajar, terus berakhlak, dan terus mengenal kebesaran Allah Swt."</p>
+
+        <div class="stats-card">
+            <div class="stats-grid">
+                <div class="stat-box team-a">
+                    <h4>Kelompok A</h4>
+                    <p id="final-score-a">0 Poin</p>
+                    <small id="stats-correct-a">Benar: 0 | Salah: 0</small>
+                </div>
+                <div class="stat-box team-b">
+                    <h4>Kelompok B</h4>
+                    <p id="final-score-b">0 Poin</p>
+                    <small id="stats-correct-b">Benar: 0 | Salah: 0</small>
+                </div>
+            </div>
+            <div class="quote-box" id="winner-quote">"Ilmu Akidah adalah fondasi keselamatan dunia dan akhirat."</div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn" id="restart-btn">🔄 MAIN LAGI</button>
+            <button class="btn btn-secondary" id="home-btn">🏠 KEMBALI KE MENU</button>
+        </div>
+    </div>
+
+    <script>
+        /* AUDIO SETUP */
+        const bgm = new Audio('https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/6d02e8635c29903da6ef8f9042ef6e2c89ea078f/turbo_joyride.mp3');
+        bgm.loop = true;
+        bgm.volume = 0.3;
+        let isMusicPlaying = false;
+
+        const audioToggleBtn = document.getElementById('audio-toggle-btn');
+        audioToggleBtn.addEventListener('click', () => {
+            if (isMusicPlaying) {
+                bgm.pause();
+                audioToggleBtn.textContent = '🔇';
+                isMusicPlaying = false;
+            } else {
+                bgm.play().then(() => {
+                    audioToggleBtn.textContent = '🔊';
+                    isMusicPlaying = true;
+                }).catch(e => console.log("Audio play blocked", e));
+            }
+        });
+
+        // Web Audio API for Sound Effects
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+
+            if (type === 'correct') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(440, now);
+                osc.frequency.setValueAtTime(554.37, now + 0.1);
+                osc.frequency.setValueAtTime(659.25, now + 0.2);
+                osc.frequency.setValueAtTime(880, now + 0.3);
+                gainNode.gain.setValueAtTime(0.2, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+                osc.start(now);
+                osc.stop(now + 0.6);
+            } else if (type === 'incorrect') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(220, now);
+                osc.frequency.setValueAtTime(150, now + 0.2);
+                gainNode.gain.setValueAtTime(0.3, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+                osc.start(now);
+                osc.stop(now + 0.4);
+            } else if (type === 'win') {
+                const notes = [523.25, 659.25, 783.99, 1046.5];
+                notes.forEach((freq, idx) => {
+                    const o = audioCtx.createOscillator();
+                    const g = audioCtx.createGain();
+                    o.connect(g);
+                    g.connect(audioCtx.destination);
+                    o.frequency.setValueAtTime(freq, now + (idx * 0.15));
+                    g.gain.setValueAtTime(0.2, now + (idx * 0.15));
+                    g.gain.exponentialRampToValueAtTime(0.001, now + (idx * 0.15) + 0.5);
+                    o.start(now + (idx * 0.15));
+                    o.stop(now + (idx * 0.15) + 0.5);
+                });
+            }
+        }
+
+        /* GAME STATE */
+        let gameState = {
+            scoreA: 0,
+            scoreB: 0,
+            correctA: 0,
+            correctB: 0,
+            incorrectA: 0,
+            incorrectB: 0,
+            ropePosition: 50, // 0 (Left win) to 100 (Right win), 50 is center
+            currentMission: 1,
+            selectedTeam: null,
+            mission1Index: 0,
+            mission2Matches: [],
+            mission3WordsFound: 0,
+            mission4Opened: []
+        };
+
+        /* BANK SOAL (Comprehensive) */
+        const bankSoal = [
+            { q: "Sifat Allah Swt. yang berarti Allah Maha Mengetahui adalah...", options: ["A. Qudrat", "B. Ilmu", "C. Hayat", "D. Sama'"], correct: 1 },
+            { q: "Apa arti dari sifat wajib Allah 'Wujud'?", options: ["A. Allah ada", "B. Allah kekal", "C. Allah terdahulu", "D. Allah Maha Mendengar"], correct: 0 },
+            { q: "Lawan dari sifat wajib 'Qidam' (terdahulu) adalah sifat mustahil...", options: ["A. Adam", "B. Huduts", "C. Fana", "D. Ajzun"], correct: 1 },
+            { q: "Sifat wajib Allah yang berarti 'Berdiri Sendiri' adalah...", options: ["A. Wahdaniyah", "B. Qiyamuhu Binafsihi", "C. Mukhalafatu lil Hawaditsi", "D. Iradat"], correct: 1 },
+            { q: "Allah Swt. mustahil bersifat 'Adam' yang artinya...", options: ["A. Baru", "B. Binasa", "C. Tiada / Tidak ada", "D. Lemah"], correct: 2 },
+            { q: "Sifat wajib yang menunjukkan bahwa Allah Maha Esa (Tunggal) adalah...", options: ["A. Qudrat", "B. Iradat", "C. Wahdaniyah", "D. Kalam"], correct: 2 },
+            { q: "Apa arti sifat wajib Allah 'Bashar'?", options: ["A. Maha Mendengar", "B. Maha Melihat", "C. Maha Berkata-kata", "D. Maha Hidup"], correct: 1 },
+            { q: "Sifat mustahil 'Umyun' bagi Allah Swt. berarti...", options: ["A. Tuli", "B. Bisu", "C. Buta", "D. Mati"], correct: 2 },
+            { q: "Sifat wajib 'Kalam' bagi Allah Swt. berkaitan dengan...", options: ["A. Allah Maha Berfirman/Berkata-kata", "B. Allah Maha Mengetahui", "C. Allah Maha Kuasa", "D. Allah Maha Mendengar"], correct: 0 },
+            { q: "Pasangan sifat wajib 'Baqa' dan sifat mustahilnya adalah...", options: ["A. Fana", "B. Huduts", "C. Adam", "D. Mumatsalatu lil Hawaditsi"], correct: 0 },
+            { q: "Sifat mustahil 'Ajzun' bagi Allah Swt. berarti...", options: ["A. Lemah", "B. Bodoh", "C. Terpaksa", "D. Mati"], correct: 0 },
+            { q: "Sifat wajib Allah 'Iradat' memiliki arti...", options: ["A. Allah Maha Berkehendak", "B. Allah Maha Kuasa", "C. Allah Maha Hidup", "D. Allah Maha Mengetahui"], correct: 0 },
+            { q: "Allah Swt. tidak mungkin menyerupai makhluk-Nya. Ini adalah makna sifat wajib...", options: ["A. Qiyamuhu Binafsihi", "B. Mukhalafatu lil Hawaditsi", "C. Wahdaniyah", "D. Qidam"], correct: 1 },
+            { q: "Sifat mustahil 'Jahlun' bagi Allah Swt. berarti...", options: ["A. Bodoh", "B. Lemah", "C. Lupa", "D. Bisu"], correct: 0 },
+            { q: "Sifat wajib 'Hayat' bagi Allah Swt. artinya...", options: ["A. Allah Maha Hidup", "B. Allah Maha Mendengar", "C. Allah Maha Melihat", "D. Allah Maha Esa"], correct: 0 },
+            { q: "Lawan dari sifat wajib 'Sama'' adalah sifat mustahil...", options: ["A. Shummun (Tuli)", "B. Umyun (Buta)", "C. Bukmun (Bisu)", "D. Mautun (Mati)"], correct: 0 }
+        ];
+
+        let shuffledQuestions = [];
+
+        /* DOM ELEMENTS */
+        const homeScreen = document.getElementById('home-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const winScreen = document.getElementById('win-screen');
+        const startGameBtn = document.getElementById('start-game-btn');
+        const instructionsBtn = document.getElementById('instructions-btn');
+        const instructionsModal = document.getElementById('instructions-modal');
+        const closeInstructionsBtn = document.getElementById('close-instructions-btn');
+        const turnModal = document.getElementById('turn-modal');
+        const selectTeamA = document.getElementById('select-team-a');
+        const selectTeamB = document.getElementById('select-team-b');
+        const gameContainer = document.getElementById('game-container');
+        const scoreAEl = document.getElementById('score-a');
+        const scoreBEl = document.getElementById('score-b');
+        const missionTitleHeader = document.getElementById('mission-title-header');
+        const missionDescHeader = document.getElementById('mission-desc-header');
+        const ropeKnot = document.getElementById('rope-knot');
+        const avatarA = document.getElementById('avatar-a');
+        const avatarB = document.getElementById('avatar-b');
+        const tugStatusText = document.getElementById('tug-status-text');
+        const feedbackPopup = document.getElementById('feedback-popup');
+        const feedbackIcon = document.getElementById('feedback-icon');
+        const feedbackText = document.getElementById('feedback-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const homeBtn = document.getElementById('home-btn');
+
+        /* SCREEN NAVIGATION */
+        function switchScreen(screen) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            screen.classList.add('active');
+        }
+
+        startGameBtn.addEventListener('click', () => {
+            if (!isMusicPlaying) {
+                bgm.play().then(() => {
+                    isMusicPlaying = true;
+                    audioToggleBtn.textContent = '🔊';
+                }).catch(e => console.log(e));
+            }
+            initGame();
+            switchScreen(gameScreen);
+        });
+
+        instructionsBtn.addEventListener('click', () => instructionsModal.classList.add('active'));
+        closeInstructionsBtn.addEventListener('click', () => instructionsModal.classList.remove('active'));
+
+        homeBtn.addEventListener('click', () => switchScreen(homeScreen));
+        restartBtn.addEventListener('click', () => {
+            initGame();
+            switchScreen(gameScreen);
+        });
+
+        function initGame() {
+            gameState.scoreA = 0;
+            gameState.scoreB = 0;
+            gameState.correctA = 0;
+            gameState.correctB = 0;
+            gameState.incorrectA = 0;
+            gameState.incorrectB = 0;
+            gameState.ropePosition = 50;
+            gameState.currentMission = 1;
+            gameState.mission1Index = 0;
+            gameState.mission3WordsFound = 0;
+            gameState.mission4Opened = [];
+
+            shuffledQuestions = [...bankSoal].sort(() => Math.random() - 0.5);
+            updateUI();
+            loadMission();
+        }
+
+        function updateUI() {
+            scoreAEl.textContent = `${gameState.scoreA} POIN`;
+            scoreBEl.textContent = `${gameState.scoreB} POIN`;
+
+            // Update Tug of War Rope & Avatars
+            ropeKnot.style.left = `${gameState.ropePosition}%`;
+            avatarA.style.left = `calc(${gameState.ropePosition}% - 45px)`;
+            avatarB.style.right = `calc(${100 - gameState.ropePosition}% - 45px)`;
+
+            let status = "POSISI TENGAH (50 : 50)";
+            if (gameState.ropePosition < 50) {
+                status = `KEUNGGULAN KELOMPOK A (${Math.round(50 - gameState.ropePosition)}%)`;
+            } else if (gameState.ropePosition > 50) {
+                status = `KEUNGGULAN KELOMPOK B (${Math.round(gameState.ropePosition - 50)}%)`;
+            }
+            tugStatusText.textContent = status;
+        }
+
+        function showFeedback(isCorrect, message) {
+            feedbackPopup.className = `feedback-popup show ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedbackIcon.textContent = isCorrect ? '✅' : '❌';
+            feedbackText.textContent = message;
+            setTimeout(() => {
+                feedbackPopup.classList.remove('show');
+            }, 2500);
+        }
+
+        /* MISSION LOADER */
+        function loadMission() {
+            switch(gameState.currentMission) {
+                case 1:
+                    missionTitleHeader.textContent = "MISI 1 / 4";
+                    missionDescHeader.textContent = "PANAH BALON";
+                    loadMission1();
+                    break;
+                case 2:
+                    missionTitleHeader.textContent = "MISI 2 / 4";
+                    missionDescHeader.textContent = "PASANGKAN DENGAN TEPAT";
+                    loadMission2();
+                    break;
+                case 3:
+                    missionTitleHeader.textContent = "MISI 3 / 4";
+                    missionDescHeader.textContent = "BURU KATA AKIDAH";
+                    loadMission3();
+                    break;
+                case 4:
+                    missionTitleHeader.textContent = "MISI 4 / 4";
+                    missionDescHeader.textContent = "KOTAK MISTERI AKIDAH";
+                    loadMission4();
+                    break;
+            }
+        }
+
+        /* CHOOSE TEAM MODAL */
+        let pendingCallback = null;
+        function promptTeamTurn(callback) {
+            pendingCallback = callback;
+            turnModal.classList.add('active');
+        }
+
+        selectTeamA.addEventListener('click', () => {
+            gameState.selectedTeam = 'A';
+            turnModal.classList.remove('active');
+            if (pendingCallback) pendingCallback();
+        });
+
+        selectTeamB.addEventListener('click', () => {
+            gameState.selectedTeam = 'B';
+            turnModal.classList.remove('active');
+            if (pendingCallback) pendingCallback();
+        });
+
+        /* ================= MISSION 1: PANAH BALON ================= */
+        function loadMission1() {
+            gameContainer.innerHTML = `
+                <div class="mission-title">
+                    <h3>🎈 MISI 1: PANAH BALON AKIDAH</h3>
+                    <p>Pilih kelompok, lalu klik salah satu balon untuk mendapatkan soal!</p>
+                </div>
+                <div class="balloon-arena" id="balloon-arena"></div>
+            `;
+
+            const balloonArena = document.getElementById('balloon-arena');
+            for (let i = 1; i <= 8; i++) {
+                const b = document.createElement('div');
+                b.className = 'balloon';
+                b.innerHTML = `🎈`;
+                b.title = `Balon ${i}`;
+                b.addEventListener('click', () => {
+                    promptTeamTurn(() => {
+                        b.remove();
+                        loadQuestionModal(shuffledQuestions[gameState.mission1Index++ % shuffledQuestions.length], () => {
+                            if (balloonArena.children.length === 0 || gameState.mission1Index >= 8) {
+                                gameState.currentMission = 2;
+                                loadMission();
+                            } else {
+                                loadMission1();
+                            }
+                        });
+                    });
+                });
+                balloonArena.appendChild(b);
+            }
+        }
+
+        function loadQuestionModal(qObj, onComplete) {
+            gameContainer.innerHTML = `
+                <div class="question-box">
+                    <div class="question-header">
+                        <span class="question-team-tag team-${gameState.selectedTeam.toLowerCase()}">GILIRAN: KELOMPOK ${gameState.selectedTeam}</span>
+                        <span>Poin: +10</span>
+                    </div>
+                    <div class="question-text">${qObj.q}</div>
+                    <div class="options-grid">
+                        ${qObj.options.map((opt, idx) => `
+                            <button class="option-btn" data-index="${idx}">
+                                <span class="option-letter">${String.fromCharCode(65 + idx)}</span>
+                                <span>${opt.substring(3)}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const selectedIdx = parseInt(btn.getAttribute('data-index'));
+                    const isCorrect = (selectedIdx === qObj.correct);
+
+                    document.querySelectorAll('.option-btn').forEach((b, idx) => {
+                        if (idx === qObj.correct) b.classList.add('correct');
+                        else if (idx === selectedIdx) b.classList.add('incorrect');
+                        b.style.pointerEvents = 'none';
+                    });
+
+                    if (isCorrect) {
+                        playSound('correct');
+                        showFeedback(true, `Kelompok ${gameState.selectedTeam} Benar! +10 Poin`);
+                        triggerConfetti();
+                        if (gameState.selectedTeam === 'A') {
+                            gameState.scoreA += 10;
+                            gameState.correctA++;
+                            gameState.ropePosition = Math.max(5, gameState.ropePosition - 8);
+                        } else {
+                            gameState.scoreB += 10;
+                            gameState.correctB++;
+                            gameState.ropePosition = Math.min(95, gameState.ropePosition + 8);
+                        }
+                    } else {
+                        playSound('incorrect');
+                        showFeedback(false, `Jawaban Kurang Tepat!`);
+                        if (gameState.selectedTeam === 'A') gameState.incorrectA++;
+                        else gameState.incorrectB++;
+                    }
+
+                    updateUI();
+                    setTimeout(onComplete, 2000);
+                });
+            });
+        }
+
+        /* ================= MISSION 2: DRAG AND DROP ================= */
+        function loadMission2() {
+            promptTeamTurn(() => {
+                gameContainer.innerHTML = `
+                    <div class="mission-title">
+                        <h3>🧩 MISI 2: PASANGKAN DENGAN TEPAT (Kelompok ${gameState.selectedTeam})</h3>
+                        <p>Seret Sifat Allah di kiri ke Arti / Pasangan yang sesuai di kanan!</p>
+                    </div>
+                    <div class="drag-drop-container">
+                        <div class="drop-column">
+                            <h4>DAFTAR SIFAT</h4>
+                            <div class="draggable-items" id="drag-items"></div>
+                        </div>
+                        <div class="drop-column">
+                            <h4>PASANGAN / ARTI</h4>
+                            <div class="droppable-targets" id="drop-targets"></div>
+                        </div>
+                    </div>
+                    <button class="btn" id="check-drag-btn" style="margin-top: 25px;">SELESAI & PERIKSA</button>
+                `;
+
+                const pairs = [
+                    { id: '1', sifat: 'Wujud', arti: 'Allah ada' },
+                    { id: '2', sifat: 'Qidam', arti: 'Allah terdahulu' },
+                    { id: '3', sifat: 'Baqa', arti: 'Allah kekal' },
+                    { id: '4', sifat: 'Qudrat', arti: 'Allah Maha Kuasa' },
+                    { id: '5', sifat: 'Ilmu', arti: 'Allah Maha Mengetahui' },
+                    { id: '6', sifat: 'Adam (Mustahil)', arti: 'Tiada' },
+                    { id: '7', sifat: 'Huduts (Mustahil)', arti: 'Baru' },
+                    { id: '8', sifat: 'Ajzun (Mustahil)', arti: 'Lemah' }
+                ];
+
+                let shuffledSifat = [...pairs].sort(() => Math.random() - 0.5);
+                let shuffledArti = [...pairs].sort(() => Math.random() - 0.5);
+
+                const dragItemsEl = document.getElementById('drag-items');
+                const dropTargetsEl = document.getElementById('drop-targets');
+
+                shuffledSifat.forEach(p => {
+                    const item = document.createElement('div');
+                    item.className = 'drag-item';
+                    item.draggable = true;
+                    item.textContent = p.sifat;
+                    item.dataset.id = p.id;
+
+                    item.addEventListener('dragstart', (e) => {
+                        e.dataTransfer.setData('text/plain', p.id);
+                        item.classList.add('dragging');
+                    });
+                    item.addEventListener('dragend', () => item.classList.remove('dragging'));
+                    dragItemsEl.appendChild(item);
+                });
+
+                shuffledArti.forEach(p => {
+                    const target = document.createElement('div');
+                    target.className = 'drop-target';
+                    target.dataset.id = p.id;
+                    target.innerHTML = `<span>${p.arti}</span><small style="color:#94a3b8">Letakkan di sini</small>`;
+
+                    target.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        target.classList.add('drag-over');
+                    });
+                    target.addEventListener('dragleave', () => target.classList.remove('drag-over'));
+                    target.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        target.classList.remove('drag-over');
+                        const draggedId = e.dataTransfer.getData('text/plain');
+                        const draggedEl = document.querySelector(`[data-id='${draggedId}'].drag-item`);
+                        
+                        target.innerHTML = `<span>${p.arti}</span><strong style="color:#34d399">${draggedEl.textContent}</strong>`;
+                        target.dataset.matchedId = draggedId;
+                        target.classList.add('matched');
+                        draggedEl.style.display = 'none';
+                    });
+
+                    dropTargetsEl.appendChild(target);
+                });
+
+                document.getElementById('check-drag-btn').addEventListener('click', () => {
+                    let allCorrect = true;
+                    document.querySelectorAll('.drop-target').forEach(t => {
+                        if (t.dataset.matchedId !== t.dataset.id) allCorrect = false;
+                    });
+
+                    if (allCorrect) {
+                        playSound('correct');
+                        showFeedback(true, `Kelompok ${gameState.selectedTeam} Berhasil! +10 Poin`);
+                        triggerConfetti();
+                        if (gameState.selectedTeam === 'A') {
+                            gameState.scoreA += 10;
+                            gameState.correctA++;
+                            gameState.ropePosition = Math.max(5, gameState.ropePosition - 8);
+                        } else {
+                            gameState.scoreB += 10;
+                            gameState.correctB++;
+                            gameState.ropePosition = Math.min(95, gameState.ropePosition + 8);
+                        }
+                    } else {
+                        playSound('incorrect');
+                        showFeedback(false, `Ada pasangan yang kurang tepat!`);
+                        if (gameState.selectedTeam === 'A') gameState.incorrectA++;
+                        else gameState.incorrectB++;
+                    }
+
+                    updateUI();
+                    setTimeout(() => {
+                        gameState.currentMission = 3;
+                        loadMission();
+                    }, 2000);
+                });
+            });
+        }
+
+        /* ================= MISSION 3: WORD SEARCH ================= */
+        function loadMission3() {
+            promptTeamTurn(() => {
+                gameContainer.innerHTML = `
+                    <div class="mission-title">
+                        <h3>🔎 MISI 3: BURU KATA AKIDAH (Kelompok ${gameState.selectedTeam})</h3>
+                        <p>Temukan kata sifat wajib/mustahil Allah pada kotak huruf!</p>
+                    </div>
+                    <div class="word-search-layout">
+                        <div class="grid-board" id="grid-board"></div>
+                        <div class="word-list" id="word-list">
+                            <span class="word-badge" id="word-WUJUD">WUJUD</span>
+                            <span class="word-badge" id="word-QIDAM">QIDAM</span>
+                            <span class="word-badge" id="word-BAQA">BAQA</span>
+                            <span class="word-badge" id="word-ILMU">ILMU</span>
+                        </div>
+                        <button class="btn" id="submit-word-btn" style="margin-top: 15px;">CEK KATA TERPILIH</button>
+                    </div>
+                `;
+
+                // 8x8 Grid simulation with hidden words WUJUD, QIDAM, BAQA, ILMU
+                const gridData = [
+                    ['W', 'U', 'J', 'U', 'D', 'X', 'A', 'B'],
+                    ['C', 'Q', 'I', 'D', 'A', 'M', 'C', 'D'],
+                    ['E', 'F', 'B', 'A', 'Q', 'A', 'G', 'H'],
+                    ['I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'],
+                    ['Q', 'R', 'S', 'I', 'L', 'M', 'U', 'T'],
+                    ['U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B'],
+                    ['C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
+                    ['K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R']
+                ];
+
+                const boardEl = document.getElementById('grid-board');
+                let selectedCells = [];
+
+                gridData.forEach((row, rIdx) => {
+                    row.forEach((letter, cIdx) => {
+                        const cell = document.createElement('div');
+                        cell.className = 'grid-cell';
+                        cell.textContent = letter;
+                        cell.dataset.r = rIdx;
+                        cell.dataset.c = cIdx;
+                        cell.addEventListener('click', () => {
+                            cell.classList.toggle('selected');
+                            const key = `${rIdx}-${cIdx}`;
+                            if (selectedCells.includes(key)) {
+                                selectedCells = selectedCells.filter(k => k !== key);
+                            } else {
+                                selectedCells.push(key);
+                            }
+                        });
+                        boardEl.appendChild(cell);
+                    });
+                });
+
+                document.getElementById('submit-word-btn').addEventListener('click', () => {
+                    let formedWord = selectedCells.map(k => {
+                        const [r, c] = k.split('-').map(Number);
+                        return gridData[r][c];
+                    }).join('');
+
+                    const targetWords = ['WUJUD', 'QIDAM', 'BAQA', 'ILMU'];
+                    let foundMatch = targetWords.find(w => formedWord === w || formedWord === w.split('').reverse().join(''));
+
+                    if (foundMatch) {
+                        playSound('correct');
+                        showFeedback(true, `Kata ${foundMatch} Ditemukan! +10 Poin`);
+                        triggerConfetti();
+                        document.getElementById(`word-${foundMatch}`).classList.add('found');
+                        selectedCells.forEach(k => {
+                            const [r, c] = k.split('-');
+                            document.querySelector(`[data-r='${r}'][data-c='${c}']`).classList.add('found');
+                            document.querySelector(`[data-r='${r}'][data-c='${c}']`).classList.remove('selected');
+                        });
+                        selectedCells = [];
+
+                        if (gameState.selectedTeam === 'A') {
+                            gameState.scoreA += 10;
+                            gameState.correctA++;
+                            gameState.ropePosition = Math.max(5, gameState.ropePosition - 8);
+                        } else {
+                            gameState.scoreB += 10;
+                            gameState.correctB++;
+                            gameState.ropePosition = Math.min(95, gameState.ropePosition + 8);
+                        }
+                        updateUI();
+                        gameState.mission3WordsFound++;
+
+                        if (gameState.mission3WordsFound >= 2) { // Complete after finding 2 words
+                            setTimeout(() => {
+                                gameState.currentMission = 4;
+                                loadMission();
+                            }, 2000);
+                        }
+                    } else {
+                        playSound('incorrect');
+                        showFeedback(false, `Kata Belum Tepat, Coba Lagi!`);
+                        if (gameState.selectedTeam === 'A') gameState.incorrectA++;
+                        else gameState.incorrectB++;
+                    }
+                });
+            });
+        }
+
+        /* ================= MISSION 4: KOTAK MISTERI ================= */
+        function loadMission4() {
+            gameContainer.innerHTML = `
+                <div class="mission-title">
+                    <h3>🎁 MISI 4: KOTAK MISTERI AKIDAH</h3>
+                    <p>Pilih kotak bernomor untuk membongkar pertanyaan rahasia!</p>
+                </div>
+                <div class="mystery-grid" id="mystery-grid"></div>
+            `;
+
+            const mysteryGrid = document.getElementById('mystery-grid');
+            for (let i = 1; i <= 10; i++) {
+                const box = document.createElement('div');
+                box.className = `mystery-box ${gameState.mission4Opened.includes(i) ? 'opened' : ''}`;
+                box.innerHTML = `
+                    <span class="box-num">${i < 10 ? '0' + i : i}</span>
+                    <span class="box-label">Kotak</span>
+                `;
+
+                if (!gameState.mission4Opened.includes(i)) {
+                    box.addEventListener('click', () => {
+                        promptTeamTurn(() => {
+                            gameState.mission4Opened.push(i);
+                            const qObj = shuffledQuestions[(i + 5) % shuffledQuestions.length];
+                            loadQuestionModal(qObj, () => {
+                                if (gameState.mission4Opened.length >= 4) { // Finish game after 4 mystery boxes opened
+                                    endGame();
+                                } else {
+                                    loadMission4();
+                                }
+                            });
+                        });
+                    });
+                }
+                mysteryGrid.appendChild(box);
+            }
+        }
+
+        /* END GAME */
+        function endGame() {
+            playSound('win');
+            triggerConfetti();
+
+            let winnerText = "";
+            if (gameState.scoreA > gameState.scoreB) {
+                winnerText = "🎉 SELAMAT! KELOMPOK A MENJADI PEMENANG!";
+            } else if (gameState.scoreB > gameState.scoreA) {
+                winnerText = "🎉 SELAMAT! KELOMPOK B MENJADI PEMENANG!";
+            } else {
+                winnerText = "🤝 PERMAINAN SERI (DRAW)!";
+            }
+
+            document.getElementById('winner-title').textContent = winnerText;
+            document.getElementById('final-score-a').textContent = `${gameState.scoreA} Poin`;
+            document.getElementById('final-score-b').textContent = `${gameState.scoreB} Poin`;
+            document.getElementById('stats-correct-a').textContent = `Benar: ${gameState.correctA} | Salah: ${gameState.incorrectA}`;
+            document.getElementById('stats-correct-b').textContent = `Benar: ${gameState.correctB} | Salah: ${gameState.incorrectB}`;
+
+            switchScreen(winScreen);
+        }
+
+        /* SIMPLE CONFETTI EFFECT */
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let confettiParticles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function triggerConfetti() {
+            confettiParticles = [];
+            for (let i = 0; i < 150; i++) {
+                confettiParticles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    r: Math.random() * 6 + 4,
+                    d: Math.random() * 50 + 10,
+                    color: ['#34d399', '#60a5fa', '#fbbf24', '#f472b6', '#a78bfa'][Math.floor(Math.random() * 5)],
+                    tilt: Math.random() * 10 - 10,
+                    tiltAngleIncremental: Math.random() * 0.07 + 0.05,
+                    tiltAngle: 0
+                });
+            }
+            requestAnimationFrame(drawConfetti);
+        }
+
+        function drawConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            confettiParticles.forEach((p, index) => {
+                ctx.beginPath();
+                ctx.lineWidth = p.r;
+                ctx.strokeStyle = p.color;
+                ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+                ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+                ctx.stroke();
+
+                p.tiltAngle += p.tiltAngleIncremental;
+                p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+                p.x += Math.sin(p.tiltAngle);
+
+                if (p.y > canvas.height) {
+                    confettiParticles.splice(index, 1);
+                }
+            });
+
+            if (confettiParticles.length > 0) {
+                requestAnimationFrame(drawConfetti);
+            }
+        }
+    </script>
+</body>
+</html>
