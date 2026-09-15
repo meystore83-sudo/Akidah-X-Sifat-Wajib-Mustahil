@@ -45,10 +45,40 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
+            position: relative;
         }
 
         .screen.active {
             display: flex;
+        }
+
+        /* GLOBAL TOP CONTROL BUTTONS (Home, Pause, Fullscreen) */
+        .global-controls {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            display: flex;
+            gap: 8px;
+            z-index: 500;
+        }
+
+        .ctrl-btn {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #cbd5e1;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: all 0.2s ease;
+        }
+
+        .ctrl-btn:hover {
+            background: rgba(59, 130, 246, 0.3);
+            border-color: #3b82f6;
+            color: white;
         }
 
         /* HOME SCREEN */
@@ -170,7 +200,8 @@
             border-radius: 0 0 20px 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             backdrop-filter: blur(10px);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+            margin-top: 5px;
         }
 
         .team-score-box {
@@ -218,7 +249,7 @@
             color: #94a3b8;
         }
 
-        /* LIFELINE / BANTUAN BAR */
+        /* LIFELINE BAR (BANTUAN) */
         .lifeline-bar {
             width: 100%;
             background: rgba(30, 41, 59, 0.8);
@@ -228,7 +259,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-size: 0.85rem;
             backdrop-filter: blur(5px);
         }
@@ -270,7 +301,7 @@
             border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 12px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             position: relative;
             box-shadow: inset 0 5px 15px rgba(0,0,0,0.5);
         }
@@ -356,11 +387,11 @@
             background: rgba(30, 41, 59, 0.6);
             border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 25px;
+            padding: 20px;
             backdrop-filter: blur(10px);
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            margin-bottom: 20px;
-            min-height: 360px;
+            margin-bottom: 15px;
+            min-height: 350px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -370,7 +401,7 @@
         /* MISSION 1: FLYING BALLOONS */
         .mission-title {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .mission-title h3 {
@@ -385,7 +416,7 @@
 
         .flying-balloon-arena {
             width: 100%;
-            height: 280px;
+            height: 260px;
             background: rgba(15, 23, 42, 0.5);
             border-radius: 15px;
             position: relative;
@@ -395,15 +426,15 @@
 
         .flying-balloon {
             position: absolute;
-            width: 65px;
-            height: 80px;
+            width: 60px;
+            height: 75px;
             background: radial-gradient(circle at 30% 30%, #f87171, #dc2626);
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: white;
             box-shadow: inset -6px -6px 12px rgba(0,0,0,0.3), 0 5px 15px rgba(0,0,0,0.3);
             animation: flyUp 4s ease-in-out infinite alternate;
@@ -416,7 +447,7 @@
         .flying-balloon:nth-child(6) { background: radial-gradient(circle at 30% 30%, #a78bfa, #7c3aed); animation-duration: 3.8s; }
 
         @keyframes flyUp {
-            0% { transform: translateY(140px) scale(1); }
+            0% { transform: translateY(130px) scale(1); }
             100% { transform: translateY(10px) scale(1.05); }
         }
 
@@ -524,7 +555,7 @@
             border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 15px;
-            min-height: 250px;
+            min-height: 240px;
         }
 
         .drop-column h4 {
@@ -580,7 +611,7 @@
             border: 2px solid #10b981;
         }
 
-        /* MISSION 3: MENYUSUN KATA */
+        /* MISSION 3: MENYUSUN KATA DENGAN FITUR RESET KEMBALI */
         .scramble-box {
             text-align: center;
             background: rgba(15, 23, 42, 0.9);
@@ -594,7 +625,7 @@
         .scramble-clue {
             font-size: 1.1rem;
             color: #fbbf24;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-weight: 600;
         }
 
@@ -602,7 +633,7 @@
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             flex-wrap: wrap;
         }
 
@@ -636,7 +667,7 @@
             display: flex;
             justify-content: center;
             gap: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             min-height: 50px;
         }
 
@@ -653,23 +684,29 @@
             font-weight: 800;
             color: #34d399;
             cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        /* MISSION 5 (NEW): MENHUBUNGKAN KATA (MATCHING LINES) */
+        .answer-slot:hover {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* MISSION 5: MENHUBUNGKAN KATA (4 Ronde total, bergantian A & B) */
         .connect-container {
             display: flex;
             justify-content: space-between;
             width: 100%;
             max-width: 900px;
             position: relative;
-            gap: 100px;
+            gap: 80px;
             padding: 10px 20px;
         }
 
         .connect-column {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
             flex: 1;
             z-index: 2;
         }
@@ -677,7 +714,7 @@
         .connect-item {
             background: rgba(15, 23, 42, 0.8);
             border: 2px solid rgba(255, 255, 255, 0.2);
-            padding: 14px 20px;
+            padding: 12px 18px;
             border-radius: 12px;
             cursor: pointer;
             font-weight: 600;
@@ -885,6 +922,11 @@
             font-size: 0.9rem;
         }
 
+        /* PAUSE MODAL */
+        #pause-modal .modal-card h2 {
+            color: #38bdf8;
+        }
+
         /* FEEDBACK POPUP */
         .feedback-popup {
             position: fixed;
@@ -1027,11 +1069,12 @@
             .options-grid { grid-template-columns: 1fr; }
             .drag-drop-container { grid-template-columns: 1fr; }
             .mystery-grid { grid-template-columns: repeat(2, 1fr); }
-            .game-header { flex-direction: column; gap: 12px; }
+            .game-header { flex-direction: column; gap: 10px; }
             .home-avatars { gap: 20px; }
             .team-select-buttons { gap: 10px; }
             .team-btn { width: 140px; padding: 14px; }
             .connect-container { gap: 30px; }
+            .global-controls { top: 10px; right: 10px; }
         }
     </style>
 </head>
@@ -1041,11 +1084,6 @@
 
     <div class="audio-float-btn" id="audio-toggle-btn" title="Musik ON/OFF">🔊</div>
 
-    <div class="feedback-popup" id="feedback-popup">
-        <span id="feedback-icon">✅</span>
-        <span id="feedback-text">Jawaban Benar! +10 Poin</span>
-    </div>
-
     <!-- PETUNJUK MODAL -->
     <div class="modal-overlay" id="instructions-modal">
         <div class="modal-card">
@@ -1053,9 +1091,9 @@
             <div class="modal-instructions">
                 <ol>
                     <li>Game khusus materi <strong>Sifat Mustahil bagi Allah Swt.</strong></li>
-                    <li>Selesaikan ke-5 misi: Panah Balon (6 Soal), Pasangkan Tepat (2 Ronde), Menyusun Kata (6 Kata), Kotak Misteri, dan Hubungkan Kata.</li>
+                    <li>Selesaikan ke-5 misi secara berurutan: Panah Balon (6 Soal), Pasangkan Tepat (2 Ronde), Menyusun Kata (6 Kata), Kotak Misteri, dan Hubungkan Garis (4 Ronde).</li>
                     <li>Tiap kelompok mendapat <strong>1 kali kesempatan</strong> bantuan untuk: Bertanya Teman, Petunjuk Jawaban, dan Ganti Anggota.</li>
-                    <li>Setiap jawaban benar mendapat +10 poin dan menarik tali tambang ke arah kelompokmu!</li>
+                    <li>Gunakan tombol kontrol di sudut kanan atas untuk Pause/Lanjutkan, Fullscreen, atau kembali ke Home.</li>
                 </ol>
             </div>
             <button class="btn" id="close-instructions-btn" style="padding: 10px 24px; font-size: 1rem;">Mengerti</button>
@@ -1077,6 +1115,15 @@
                     <span>KELOMPOK B</span>
                 </button>
             </div>
+        </div>
+    </div>
+
+    <!-- PAUSE MODAL -->
+    <div class="modal-overlay" id="pause-modal">
+        <div class="modal-card">
+            <h2>⏸️ PERMAINAN DIJEDA</h2>
+            <p>Permainan sedang dihentikan sementara waktu.</p>
+            <button class="btn" id="resume-btn" style="padding: 12px 28px; font-size: 1rem;">▶️ LANJUTKAN PERMAINAN</button>
         </div>
     </div>
 
@@ -1105,6 +1152,13 @@
 
     <!-- 2. GAMEPLAY SCREEN -->
     <div class="screen" id="game-screen">
+        <!-- GLOBAL CONTROL BUTTONS (Home, Pause, Fullscreen) -->
+        <div class="global-controls">
+            <button class="ctrl-btn" onclick="goHome()">🏠 Home</button>
+            <button class="ctrl-btn" onclick="togglePause()">⏸️ Pause</button>
+            <button class="ctrl-btn" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+        </div>
+
         <!-- HEADER -->
         <header class="game-header">
             <div class="team-score-box team-a">
@@ -1117,7 +1171,7 @@
 
             <div class="mission-indicator">
                 <h2 id="mission-title-header">MISI 1 / 5</h2>
-                <p id="mission-desc-header">PANAH BALON TERBANG</p>
+                <p id="mission-desc-header">PANAH BALON SIFAT MUSTAHIL</p>
             </div>
 
             <div class="team-score-box team-b">
@@ -1132,13 +1186,13 @@
         <!-- LIFELINE BAR (BANTUAN) -->
         <div class="lifeline-bar" id="lifeline-bar" style="display:none;">
             <div class="lifeline-group">
-                <span style="font-weight: 700; color: #fbbf24;">Bantuan Kelompok A:</span>
+                <span style="font-weight: 700; color: #fbbf24;">Bantuan A:</span>
                 <button class="lifeline-btn" id="life-a-1" onclick="useLifeline('A', 1)">💡 Tanya Teman</button>
                 <button class="lifeline-btn" id="life-a-2" onclick="useLifeline('A', 2)">🔍 Petunjuk</button>
                 <button class="lifeline-btn" id="life-a-3" onclick="useLifeline('A', 3)">🔄 Ganti Anggota</button>
             </div>
             <div class="lifeline-group">
-                <span style="font-weight: 700; color: #fbbf24;">Bantuan Kelompok B:</span>
+                <span style="font-weight: 700; color: #fbbf24;">Bantuan B:</span>
                 <button class="lifeline-btn" id="life-b-1" onclick="useLifeline('B', 1)">💡 Tanya Teman</button>
                 <button class="lifeline-btn" id="life-b-2" onclick="useLifeline('B', 2)">🔍 Petunjuk</button>
                 <button class="lifeline-btn" id="life-b-3" onclick="useLifeline('B', 3)">🔄 Ganti Anggota</button>
@@ -1196,7 +1250,7 @@
 
         <div class="btn-group">
             <button class="btn" id="restart-btn">🔄 MAIN LAGI</button>
-            <button class="btn btn-secondary" id="home-btn">🏠 KEMBALI KE MENU</button>
+            <button class="btn btn-secondary" id="home-btn-win">🏠 KEMBALI KE MENU</button>
         </div>
     </div>
 
@@ -1282,13 +1336,13 @@
             mission2Round: 1,
             mission3Count: 0,
             mission4Opened: [],
+            mission5Round: 1, // total 4 rounds for connect lines (2 for A, 2 for B)
             lifelines: {
                 A: { 1: false, 2: false, 3: false },
                 B: { 1: false, 2: false, 3: false }
             }
         };
 
-        /* BANK SOAL KHUSUS SIFAT MUSTAHIL BAGI ALLAH */
         const bankSoalMustahil = [
             { q: "Sifat mustahil bagi Allah Swt. yang berarti 'Tiada' atau 'Tidak Ada' adalah...", options: ["A. Adam", "B. Huduts", "C. Fana", "D. Ajzun"], correct: 0 },
             { q: "Lawan dari sifat wajib Qidam adalah sifat mustahil...", options: ["A. Adam", "B. Huduts (Baru)", "C. Fana", "D. Karahah"], correct: 1 },
@@ -1312,6 +1366,8 @@
         const instructionsModal = document.getElementById('instructions-modal');
         const closeInstructionsBtn = document.getElementById('close-instructions-btn');
         const turnModal = document.getElementById('turn-modal');
+        const pauseModal = document.getElementById('pause-modal');
+        const resumeBtn = document.getElementById('resume-btn');
         const selectTeamA = document.getElementById('select-team-a');
         const selectTeamB = document.getElementById('select-team-b');
         const gameContainer = document.getElementById('game-container');
@@ -1327,7 +1383,7 @@
         const feedbackIcon = document.getElementById('feedback-icon');
         const feedbackText = document.getElementById('feedback-text');
         const restartBtn = document.getElementById('restart-btn');
-        const homeBtn = document.getElementById('home-btn');
+        const homeBtnWin = document.getElementById('home-btn-win');
         const lifelineBar = document.getElementById('lifeline-bar');
 
         function switchScreen(screen) {
@@ -1349,7 +1405,35 @@
         instructionsBtn.addEventListener('click', () => instructionsModal.classList.add('active'));
         closeInstructionsBtn.addEventListener('click', () => instructionsModal.classList.remove('active'));
 
-        homeBtn.addEventListener('click', () => switchScreen(homeScreen));
+        function goHome() {
+            if(confirm("Kembali ke menu utama? Progress permainan akan diulang.")) {
+                switchScreen(homeScreen);
+                lifelineBar.style.display = 'none';
+            }
+        }
+
+        homeBtnWin.addEventListener('click', () => switchScreen(homeScreen));
+
+        function togglePause() {
+            pauseModal.classList.add('active');
+        }
+
+        resumeBtn.addEventListener('click', () => {
+            pauseModal.classList.remove('active');
+        });
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    alert(`Gagal mengaktifkan fullscreen: ${err.message}`);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
         restartBtn.addEventListener('click', () => {
             initGame();
             switchScreen(gameScreen);
@@ -1368,6 +1452,7 @@
             gameState.mission2Round = 1;
             gameState.mission3Count = 0;
             gameState.mission4Opened = [];
+            gameState.mission5Round = 1;
             gameState.lifelines = {
                 A: { 1: false, 2: false, 3: false },
                 B: { 1: false, 2: false, 3: false }
@@ -1420,7 +1505,7 @@
             if (type === 1) {
                 showFeedback(true, `Kelompok ${team} menggunakan bantuan: Tanya Teman! Diskusi kelompok dibuka.`);
             } else if (type === 2) {
-                showFeedback(true, `Kelompok ${team} menggunakan bantuan: Petunjuk Jawaban! (Perhatikan opsi yang paling logis)`);
+                showFeedback(true, `Kelompok ${team} menggunakan bantuan: Petunjuk Jawaban! (Perhatikan opsi yang logis)`);
             } else if (type === 3) {
                 showFeedback(true, `Kelompok ${team} menggunakan bantuan: Ganti Anggota yang menjawab!`);
             }
@@ -1459,7 +1544,7 @@
                     break;
                 case 5:
                     missionTitleHeader.textContent = "MISI 5 / 5";
-                    missionDescHeader.textContent = "MENHUBUNGKAN KATA & ARTI";
+                    missionDescHeader.textContent = `MENGHUBUNGKAN KATA (Ronde ${gameState.mission5Round}/4)`;
                     loadMission5();
                     break;
             }
@@ -1483,7 +1568,7 @@
             if (pendingCallback) pendingCallback();
         });
 
-        /* ================= MISSION 1: FLYING BALLOONS (6 Questions total) ================= */
+        /* ================= MISSION 1: FLYING BALLOONS ================= */
         function loadMission1() {
             gameContainer.innerHTML = `
                 <div class="mission-title">
@@ -1573,7 +1658,7 @@
             });
         }
 
-        /* ================= MISSION 2: DRAG AND DROP (2 Rounds total - Sifat Mustahil) ================= */
+        /* ================= MISSION 2: DRAG AND DROP ================= */
         function loadMission2() {
             promptTeamTurn(() => {
                 gameContainer.innerHTML = `
@@ -1687,7 +1772,7 @@
             });
         }
 
-        /* ================= MISSION 3: MENYUSUN KATA (6 Words - Sifat Mustahil) ================= */
+        /* ================= MISSION 3: MENYUSUN KATA DENGAN FITUR RESET / KEMBALIKAN HURUF ================= */
         const scrambleWordsMustahil = [
             { word: "ADAM", clue: "Sifat mustahil Allah: Tiada" },
             { word: "FANA", clue: "Sifat mustahil Allah: Binasa" },
@@ -1707,6 +1792,7 @@
                     <div class="scramble-box">
                         <div class="mission-title" style="margin-bottom: 8px;">
                             <h3>🔤 MISI 3: MENYUSUN KATA (Kelompok ${gameState.selectedTeam})</h3>
+                            <p style="font-size: 0.8rem; color: #94a3b8;">Klik kotak jawaban untuk mengembalikan huruf ke bawah jika salah.</p>
                         </div>
                         <div class="scramble-clue">${currentWordObj.clue}</div>
                         <div class="answer-slots" id="answer-slots">
@@ -1735,6 +1821,7 @@
                     });
                 });
 
+                // Fitur Reset: Klik kotak jawaban untuk mengembalikan huruf ke rak bawah
                 slots.forEach((slot) => {
                     slot.addEventListener('click', () => {
                         if (slot.textContent !== '_') {
@@ -1823,13 +1910,13 @@
             }
         }
 
-        /* ================= MISSION 5 (NEW): MENHUBUNGKAN KATA (CONNECTING LINES) ================= */
+        /* ================= MISSION 5: MENHUBUNGKAN KATA (4 Ronde total, bergantian A & B) ================= */
         function loadMission5() {
             promptTeamTurn(() => {
                 gameContainer.innerHTML = `
                     <div class="mission-title">
-                        <h3>🔗 MISI 5: MENGHUBUNGKAN KATA & ARTI (Kelompok ${gameState.selectedTeam})</h3>
-                        <p>Klik satu Sifat Mustahil di kiri, lalu klik Arti yang tepat di kanan untuk menghubungkan!</p>
+                        <h3>🔗 MISI 5: MENGHUBUNGKAN KATA & ARTI (Kelompok ${gameState.selectedTeam}) - Ronde ${gameState.mission5Round}/4</h3>
+                        <p>Klik Sifat Mustahil di kiri, lalu klik Arti yang tepat di kanan untuk menghubungkan!</p>
                     </div>
                     <div class="connect-container" id="connect-container">
                         <svg id="connect-svg"></svg>
@@ -1840,7 +1927,7 @@
                             <h4 style="color:#fbbf24; text-align:center; margin-bottom:5px;">Arti / Makna</h4>
                         </div>
                     </div>
-                    <button class="btn" id="check-connect-btn" style="margin-top:25px; padding:12px 28px; font-size:1rem;" disabled>SELESAI & PERIKSA</button>
+                    <button class="btn" id="check-connect-btn" style="margin-top:20px; padding:12px 28px; font-size:1rem;" disabled>SELESAI & PERIKSA</button>
                 `;
 
                 const pairsToConnect = [
@@ -1858,7 +1945,7 @@
                 const svg = document.getElementById('connect-svg');
 
                 let selectedLeft = null;
-                let connections = {}; // leftId -> rightId
+                let connections = {};
 
                 shuffledLeft.forEach(p => {
                     const div = document.createElement('div');
@@ -1883,12 +1970,10 @@
                     div.dataset.side = 'right';
                     div.addEventListener('click', () => {
                         if (!selectedLeft) return;
-                        // check if right already connected
                         if (Object.values(connections).includes(p.id)) return;
 
                         connections[selectedLeft] = p.id;
                         
-                        // mark connected UI
                         const leftEl = document.querySelector(`#left-column [data-id='${selectedLeft}']`);
                         leftEl.classList.remove('selected');
                         leftEl.classList.add('connected');
@@ -1940,16 +2025,16 @@
 
                     if (allCorrect) {
                         playSound('correct');
-                        showFeedback(true, `Kelompok ${gameState.selectedTeam} Menghubungkan Kata Benar! +20 Poin`);
+                        showFeedback(true, `Kelompok ${gameState.selectedTeam} Menghubungkan Kata Benar! +15 Poin`);
                         triggerConfetti();
                         if (gameState.selectedTeam === 'A') {
-                            gameState.scoreA += 20;
+                            gameState.scoreA += 15;
                             gameState.correctA++;
-                            gameState.ropePosition = Math.max(5, gameState.ropePosition - 15);
+                            gameState.ropePosition = Math.max(5, gameState.ropePosition - 10);
                         } else {
-                            gameState.scoreB += 20;
+                            gameState.scoreB += 15;
                             gameState.correctB++;
-                            gameState.ropePosition = Math.min(95, gameState.ropePosition + 15);
+                            gameState.ropePosition = Math.min(95, gameState.ropePosition + 10);
                         }
                     } else {
                         playSound('incorrect');
@@ -1959,7 +2044,14 @@
                     }
 
                     updateUI();
-                    setTimeout(endGame, 2000);
+                    setTimeout(() => {
+                        gameState.mission5Round++;
+                        if (gameState.mission5Round > 4) {
+                            endGame();
+                        } else {
+                            loadMission5();
+                        }
+                    }, 2000);
                 });
             });
         }
