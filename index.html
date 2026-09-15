@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarik Tambang Akidah Akhlak - Sifat Wajib & Mustahil bagi Allah</title>
+    <title>Tarik Tambang Akidah Akhlak - Split Screen Edukasi</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
@@ -25,13 +25,13 @@
             background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #065f46 100%);
         }
         .glass {
-            background: rgba(255, 255, 255, 0.88);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.4);
         }
         .glass-dark {
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(15, 23, 42, 0.92);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -50,98 +50,101 @@
 </head>
 <body class="min-h-screen text-slate-800 flex flex-col justify-between overflow-x-hidden bg-fallback">
 
-    <!-- AUDIO BACKSOUND BARU -->
+    <!-- AUDIO BACKSOUND -->
     <audio id="bgMusic" src="https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/397d163d17e7585e887a6c4b45b1c00d71322bae/turbo_joyride.mp3" loop></audio>
 
-    <!-- HEADER / NAVBAR KONTROL -->
-    <header class="w-full p-3 sm:p-4 glass-dark text-white flex justify-between items-center shadow-lg z-30">
+    <!-- HEADER KONTROL ATAS -->
+    <header class="w-full px-4 py-2.5 glass-dark text-white flex justify-between items-center shadow-lg z-30">
         <div class="flex items-center space-x-3">
             <span class="bg-emerald-500 text-white p-2 rounded-xl text-lg shadow-inner"><i class="fa-solid fa-rope"></i></span>
             <div>
-                <h1 class="font-extrabold text-sm sm:text-xl tracking-wide text-emerald-400">TARIK TAMBANG AKIDAH AKHLAK</h1>
-                <p class="text-[10px] sm:text-xs text-slate-300">Sifat Wajib & Sifat Mustahil Bagi Allah Swt.</p>
+                <h1 class="font-extrabold text-sm sm:text-lg tracking-wide text-emerald-400">TARIK TAMBANG AKIDAH AKHLAK</h1>
+                <p class="text-[10px] text-slate-300">Sifat Wajib & Sifat Mustahil Bagi Allah Swt.</p>
             </div>
         </div>
-        <div class="flex items-center space-x-2 sm:space-x-3">
+        <div class="flex items-center space-x-2">
             <!-- Fullscreen Toggle -->
-            <button onclick="toggleFullScreen()" class="bg-slate-700 hover:bg-slate-600 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center space-x-1 transition shadow" title="Layar Penuh">
+            <button onclick="toggleFullScreen()" class="bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center space-x-1 transition shadow" title="Layar Penuh">
                 <i class="fa-solid fa-expand text-emerald-400"></i>
                 <span class="hidden sm:inline">Fullscreen</span>
             </button>
             <!-- Audio Mute/Unmute -->
-            <button onclick="toggleAudio()" class="bg-slate-700 hover:bg-slate-600 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center space-x-1 transition shadow">
+            <button onclick="toggleAudio()" class="bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center space-x-1 transition shadow">
                 <i id="audioIcon" class="fa-solid fa-volume-xmark text-amber-400"></i>
                 <span id="audioText" class="hidden sm:inline">Mute</span>
             </button>
-            <!-- Mode Guru -->
-            <button onclick="openTeacherModal()" class="bg-amber-600 hover:bg-amber-500 text-white px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center space-x-1 shadow transition">
+            <!-- Panel Guru -->
+            <button onclick="openTeacherModal()" class="bg-amber-600 hover:bg-amber-500 text-white px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center space-x-1 shadow transition">
                 <i class="fa-solid fa-gear"></i>
                 <span class="hidden sm:inline">Guru</span>
             </button>
         </div>
     </header>
 
-    <!-- CONTAINER UTAMA GAME -->
-    <main class="flex-grow flex flex-col items-center justify-center p-2 sm:p-4 max-w-7xl mx-auto w-full z-20">
+    <!-- CONTAINER UTAMA -->
+    <main class="flex-grow flex flex-col items-center justify-center p-2 sm:p-4 max-w-[98%] mx-auto w-full z-20">
 
-        <!-- 1. HALAMAN OPENING / PEMBUKA -->
-        <div id="screenOpening" class="w-full glass rounded-3xl p-6 sm:p-12 text-center shadow-2xl flex flex-col items-center space-y-6">
+        <!-- 1. HALAMAN PEMBUKA -->
+        <div id="screenOpening" class="w-full max-w-4xl glass rounded-3xl p-6 sm:p-12 text-center shadow-2xl flex flex-col items-center space-y-6 my-auto">
             <div class="inline-block bg-emerald-100 text-emerald-800 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-2 border border-emerald-300 shadow-sm">
-                🎮 Pembelajaran Interaktif Kelas Madrasah
+                🎮 Mode Split-Screen Bersamaan (Satu Layar)
             </div>
             <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
                 🪢 TARIK TAMBANG <br><span class="text-emerald-600">AKIDAH AKHLAK</span>
             </h2>
             <p class="text-base sm:text-lg text-slate-600 max-w-2xl font-medium">
-                Uji pemahaman dan kerja sama kelompok dalam mendalami <span class="text-slate-900 font-bold">Sifat Wajib dan Sifat Mustahil Bagi Allah Swt.</span> secara seru!
+                Kedua kelompok (<span class="text-blue-700 font-bold">Laki-Laki</span> & <span class="text-pink-700 font-bold">Perempuan</span>) dapat langsung mengerjakan soal dari kotak misteri masing-masing secara bersamaan di satu layar!
             </p>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-lg my-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-lg my-2">
                 <div class="bg-blue-600/10 border-2 border-blue-500 text-blue-900 p-4 rounded-2xl flex items-center justify-center space-x-3 shadow-sm">
                     <i class="fa-solid fa-mars text-2xl text-blue-600"></i>
-                    <span class="font-bold text-lg">KELOMPOK LAKI-LAKI</span>
+                    <span class="font-bold text-lg">SISI KIRI: LAKI-LAKI</span>
                 </div>
                 <div class="bg-pink-600/10 border-2 border-pink-500 text-pink-900 p-4 rounded-2xl flex items-center justify-center space-x-3 shadow-sm">
                     <i class="fa-solid fa-venus text-2xl text-pink-600"></i>
-                    <span class="font-bold text-lg">KELOMPOK PEREMPUAN</span>
+                    <span class="font-bold text-lg">SISI KANAN: PEREMPUAN</span>
                 </div>
             </div>
 
             <button onclick="startActualGame()" class="mt-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xl font-bold px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition duration-200 flex items-center space-x-3">
                 <i class="fa-solid fa-rocket animate-bounce"></i>
-                <span>MULAI GAME (FULLSCREEN)</span>
+                <span>MULAI GAME SEKARANG</span>
             </button>
         </div>
 
-        <!-- 2. HALAMAN ARENA PERMAINAN UTAMA (SPLIT SCREEN 2 KELOMPOK) -->
+        <!-- 2. ARENA PERMAINAN UTAMA (SPLIT SCREEN DUA KELOMPOK BERDAMPINGAN) -->
         <div id="screenGame" class="w-full flex flex-col space-y-3 hidden">
 
-            <!-- KONTROL ATAS: STATUS KELOMPOK & TAMBANG -->
+            <!-- STATUS BAR TENGAH (SKOR & TAMBANG) -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 w-full items-center">
                 <!-- Skor Laki-laki -->
-                <div id="cardTeamBoys" class="glass rounded-2xl p-3 flex items-center justify-between shadow-lg border-l-8 border-blue-600 transition-all">
+                <div class="glass rounded-2xl p-3 flex items-center justify-between shadow-lg border-l-8 border-blue-600">
                     <div>
                         <div class="text-xs font-bold text-blue-700 uppercase flex items-center space-x-1">
                             <i class="fa-solid fa-mars"></i> <span>Kelompok Laki-Laki</span>
                         </div>
                         <div id="scoreBoysDisplay" class="text-xl font-extrabold text-slate-900 mt-0.5">0 Tarikan</div>
                     </div>
-                    <div class="text-amber-500 text-base">🔵 Sisi Kiri</div>
+                    <span class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-lg font-bold">Sisi Kiri</span>
                 </div>
 
-                <!-- Info Giliran & Misi Aktif -->
-                <div class="glass-dark rounded-2xl p-3 text-center text-white shadow-lg flex flex-col justify-center items-center">
-                    <div id="badgeMission" class="bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-1 shadow">
-                        Misi Aktif: Papan Soal Sifat Allah
-                    </div>
-                    <div id="turnIndicator" class="text-sm sm:text-base font-bold text-amber-300 animate-pulse">
-                        Giliran: Kelompok Laki-Laki 🔵
+                <!-- Visual Tambang Tengah -->
+                <div class="glass-dark rounded-2xl p-2 text-center text-white shadow-lg flex flex-col justify-center items-center">
+                    <div class="text-xs font-bold text-amber-300 mb-1">🪢 POSISI TAMBANG 🪢</div>
+                    <div class="w-full bg-slate-700 h-4 rounded-full relative shadow-inner overflow-hidden flex items-center px-1">
+                        <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-red-400 transform -translate-x-1/2 z-10"></div>
+                        <div id="ropeElement" class="absolute w-full h-2 bg-amber-500 rounded-full transition-transform duration-500 flex items-center justify-center">
+                            <div id="ropeFlag" class="w-5 h-5 bg-amber-300 border border-amber-600 rounded-full shadow-md flex items-center justify-center text-[10px] font-bold text-amber-900 z-20 transform transition-all duration-500">
+                                🚩
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Skor Perempuan -->
-                <div id="cardTeamGirls" class="glass rounded-2xl p-3 flex items-center justify-between shadow-lg border-l-8 border-pink-500 transition-all">
-                    <div class="text-pink-700 text-base font-bold">Sisi Kanan 🩷</div>
+                <div class="glass rounded-2xl p-3 flex items-center justify-between shadow-lg border-l-8 border-pink-500">
+                    <span class="bg-pink-100 text-pink-800 text-xs px-2.5 py-1 rounded-lg font-bold">Sisi Kanan</span>
                     <div class="text-right">
                         <div class="text-xs font-bold text-pink-700 uppercase flex items-center justify-end space-x-1">
                             <span>Kelompok Perempuan</span> <i class="fa-solid fa-venus"></i>
@@ -151,62 +154,60 @@
                 </div>
             </div>
 
-            <!-- VISUALISASI TARIK TAMBANG -->
-            <div class="glass rounded-2xl p-3 shadow-lg relative overflow-hidden flex flex-col items-center">
-                <div class="w-full bg-slate-200 h-5 rounded-full relative shadow-inner overflow-hidden flex items-center">
-                    <div class="absolute left-1/2 top-0 bottom-0 w-1 bg-red-500 transform -translate-x-1/2 z-10"></div>
-                    <div id="ropeElement" class="absolute w-full h-2.5 bg-amber-700 rounded-full transition-transform duration-500 flex items-center justify-center">
-                        <div id="ropeFlag" class="w-7 h-7 bg-amber-400 border-2 border-amber-600 rounded-full shadow-md flex items-center justify-center text-xs font-bold text-amber-900 z-20 transform transition-all duration-500">
-                            🚩
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- LAYAR TERBAGI DUA (SPLIT-SCREEN) & KOTAK SOAL -->
+            <!-- LAYAR TERBAGI DUA (SPLIT SCREEN FULL) -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
                 
-                <!-- SISI KIRI: AREA KELOMPOK LAKI-LAKI -->
-                <div class="glass rounded-3xl p-4 sm:p-6 shadow-xl border-t-4 border-blue-600 flex flex-col justify-between">
+                <!-- SISI KIRI: KELOMPOK LAKI-LAKI -->
+                <div class="glass rounded-3xl p-5 shadow-2xl border-t-8 border-blue-600 flex flex-col justify-between min-h-[480px]">
                     <div>
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-mars"></i> KELOMPOK LAKI-LAKI</span>
-                            <span class="text-xs font-semibold text-slate-500">Pilih Kotak Soal di Bawah</span>
-                        </div>
-                    </div>
-                    <div id="leftSideBoard" class="my-auto py-2">
-                        <!-- Konten Kotak Soal / Pertanyaan Aktif untuk Laki-laki -->
-                        <div id="leftBoardContent" class="space-y-4">
-                            <p class="text-sm font-semibold text-slate-600 text-center py-2">Silakan pilih salah satu kotak misteri di bawah untuk memulai tantangan!</p>
-                            <div id="gridBoxesBoys" class="grid grid-cols-3 sm:grid-cols-5 gap-2">
-                                <!-- Kotak soal digenerate via JS -->
+                        <div class="flex justify-between items-center border-b border-blue-200 pb-3 mb-4">
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-blue-600 text-white p-2 rounded-xl text-sm"><i class="fa-solid fa-mars"></i></span>
+                                <div>
+                                    <h3 class="font-extrabold text-blue-900 text-base sm:text-lg">KELOMPOK LAKI-LAKI</h3>
+                                    <p class="text-xs text-slate-500">Pilih kotak misteri di bawah untuk mulai</p>
+                                </div>
                             </div>
+                            <span class="text-xs bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full">Sisi Kiri Layar</span>
                         </div>
                     </div>
-                    <div class="text-center text-xs text-slate-400 pt-2 border-t border-slate-200">
-                        Area Bermain Kelompok Laki-Laki
+
+                    <!-- Papan Kotak Soal Laki-Laki -->
+                    <div class="my-auto py-2">
+                        <div id="gridBoxesBoys" class="grid grid-cols-3 sm:grid-cols-5 gap-3">
+                            <!-- Diisi via JS -->
+                        </div>
+                    </div>
+
+                    <div class="border-t border-slate-200 pt-3 text-center text-xs text-slate-400 font-semibold">
+                        Bebas pilih kotak mana saja untuk dikerjakan kelompok Laki-Laki
                     </div>
                 </div>
 
-                <!-- SISI KANAN: AREA KELOMPOK PEREMPUAN -->
-                <div class="glass rounded-3xl p-4 sm:p-6 shadow-xl border-t-4 border-pink-500 flex flex-col justify-between">
+                <!-- SISI KANAN: KELOMPOK PEREMPUAN -->
+                <div class="glass rounded-3xl p-5 shadow-2xl border-t-8 border-pink-500 flex flex-col justify-between min-h-[480px]">
                     <div>
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-venus"></i> KELOMPOK PEREMPUAN</span>
-                            <span class="text-xs font-semibold text-slate-500">Pilih Kotak Soal di Bawah</span>
-                        </div>
-                    </div>
-                    <div id="rightSideBoard" class="my-auto py-2">
-                        <!-- Konten Kotak Soal / Pertanyaan Aktif untuk Perempuan -->
-                        <div id="rightBoardContent" class="space-y-4">
-                            <p class="text-sm font-semibold text-slate-600 text-center py-2">Silakan pilih salah satu kotak misteri di bawah untuk memulai tantangan!</p>
-                            <div id="gridBoxesGirls" class="grid grid-cols-3 sm:grid-cols-5 gap-2">
-                                <!-- Kotak soal digenerate via JS -->
+                        <div class="flex justify-between items-center border-b border-pink-200 pb-3 mb-4">
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-pink-600 text-white p-2 rounded-xl text-sm"><i class="fa-solid fa-venus"></i></span>
+                                <div>
+                                    <h3 class="font-extrabold text-pink-900 text-base sm:text-lg">KELOMPOK PEREMPUAN</h3>
+                                    <p class="text-xs text-slate-500">Pilih kotak misteri di bawah untuk mulai</p>
+                                </div>
                             </div>
+                            <span class="text-xs bg-pink-100 text-pink-800 font-bold px-3 py-1 rounded-full">Sisi Kanan Layar</span>
                         </div>
                     </div>
-                    <div class="text-center text-xs text-slate-400 pt-2 border-t border-slate-200">
-                        Area Bermain Kelompok Perempuan
+
+                    <!-- Papan Kotak Soal Perempuan -->
+                    <div class="my-auto py-2">
+                        <div id="gridBoxesGirls" class="grid grid-cols-3 sm:grid-cols-5 gap-3">
+                            <!-- Diisi via JS -->
+                        </div>
+                    </div>
+
+                    <div class="border-t border-slate-200 pt-3 text-center text-xs text-slate-400 font-semibold">
+                        Bebas pilih kotak mana saja untuk dikerjakan kelompok Perempuan
                     </div>
                 </div>
 
@@ -215,11 +216,11 @@
         </div>
 
         <!-- 3. HALAMAN HASIL AKHIR -->
-        <div id="screenResult" class="w-full glass rounded-3xl p-6 sm:p-12 text-center shadow-2xl flex flex-col items-center space-y-6 hidden">
+        <div id="screenResult" class="w-full max-w-3xl glass rounded-3xl p-6 sm:p-12 text-center shadow-2xl flex flex-col items-center space-y-6 my-auto hidden">
             <div class="text-5xl">🏆</div>
             <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 uppercase tracking-tight">HASIL AKHIR PERMAINAN</h2>
             
-            <div id="winnerAnnouncement" class="text-2xl sm:text-3xl font-extrabold p-6 rounded-2xl w-full max-w-xl shadow-lg border-2">
+            <div id="winnerAnnouncement" class="text-2xl font-extrabold p-6 rounded-2xl w-full max-w-xl shadow-lg border-2">
                 <!-- Diisi via JS -->
             </div>
 
@@ -231,16 +232,16 @@
 
     </main>
 
-    <!-- MODAL SOAL AKTIF (POPUP KETIKA KOTAK DIPILIH) -->
+    <!-- MODAL SOAL AKTIF (POPUP KETIKA KOTAK DIKLIK) -->
     <div id="questionModal" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="glass rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl flex flex-col space-y-5 border border-white/60">
             <div class="flex justify-between items-center border-b border-slate-300 pb-3">
-                <span id="modalActiveGroup" class="bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Giliran Kelompok</span>
+                <span id="modalActiveGroup" class="bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Kelompok</span>
                 <span id="modalBoxNumber" class="font-extrabold text-slate-700">Kotak #1</span>
             </div>
             
             <h3 id="modalQuestionText" class="text-xl sm:text-2xl font-extrabold text-slate-900 leading-snug">
-                Pertanyaan akan muncul di sini...
+                Pertanyaan...
             </h3>
 
             <div id="modalOptionsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -250,12 +251,12 @@
             <div id="modalFeedbackBox" class="hidden p-4 rounded-2xl border-2 shadow-inner">
                 <div id="modalFeedbackTitle" class="text-lg font-extrabold"></div>
                 <p id="modalFeedbackText" class="text-sm mt-1"></p>
-                <button onclick="closeQuestionModal()" class="mt-3 bg-slate-900 text-white px-5 py-2 rounded-xl text-sm font-bold shadow">Lanjutkan Permainan ➡️</button>
+                <button onclick="closeQuestionModal()" class="mt-3 bg-slate-900 text-white px-5 py-2 rounded-xl text-sm font-bold shadow hover:bg-slate-800 transition">Lanjutkan Permainan ➡️</button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL MODE GURU -->
+    <!-- MODAL KONTROL GURU -->
     <div id="teacherModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="glass-dark text-white rounded-3xl p-6 max-w-md w-full shadow-2xl flex flex-col space-y-4">
             <div class="flex justify-between items-center border-b border-slate-700 pb-3">
@@ -278,9 +279,9 @@
 
     <!-- SCRIPT UTAMA -->
     <script>
-        /* BANK SOAL KOTAK (TOTAL 15 KOTAK SOAL) */
+        /* BANK SOAL (15 KOTAK MISTERI) */
         const boxQuestions = [
-            { id: 1, q: "Manakah yang termasuk sifat wajib bagi Allah Swt.?", options: ["Wujud", "Fana", "Adam", "Huduts"], answer: 0, expl: "Wujud artinya ada (sifat wajib Allah)." },
+            { id: 1, q: "Manakah yang termasuk sifat wajib bagi Allah Swt. di antara pilihan berikut?", options: ["Wujud", "Fana", "Adam", "Huduts"], answer: 0, expl: "Wujud artinya ada (sifat wajib Allah)." },
             { id: 2, q: "Sifat wajib Allah yang berarti 'Terdahulu' tanpa permulaan adalah...", options: ["Baqa'", "Qidam", "Huduts", "A'ma"], answer: 1, expl: "Qidam berarti terdahulu." },
             { id: 3, q: "Apa arti dari sifat wajib Allah 'Baqa''?", options: ["Kekal / Abadi", "Baru", "Lemah", "Bodoh"], answer: 0, expl: "Baqa' artinya kekal abadi selamanya." },
             { id: 4, q: "Sifat wajib Allah yang bermakna 'Berbeda dengan makhluk-Nya' adalah...", options: ["Qiyamuhu binafsihi", "Wahdaniyah", "Mukhalafatu lil hawaditsi", "Qudrat"], answer: 2, expl: "Mukhalafatu lil hawaditsi berarti berbeda dengan makhluk." },
@@ -292,17 +293,18 @@
             { id: 10, q: "Sifat wajib Allah yang berarti 'Maha Hidup' adalah...", options: ["Hayat", "Bashar", "Kalam", "Muridan"], answer: 0, expl: "Hayat artinya hidup." },
             { id: 11, q: "Apa arti dari sifat wajib Allah 'Bashar'?", options: ["Maha Mendengar", "Maha Melihat", "Maha Berkata", "Maha Berkehendak"], answer: 1, expl: "Bashar artinya Maha Melihat." },
             { id: 12, q: "Sifat wajib Allah 'Iradat' memiliki arti...", options: ["Maha Kuasa", "Maha Berkehendak", "Maha Mengetahui", "Maha Esa"], answer: 1, expl: "Iradat artinya berkehendak." },
-            { id: 13, q: "Berapa jumlah sifat wajib bagi Allah Swt. yang wajib diketahui?", options: ["10", "20", "99", "25"], answer: 1, expl: "Terdapat 20 sifat wajib." },
-            { id: 14, q: "Sifat mustahil 'Umyun' (Buta) adalah kebalikan dari sifat wajib...", options: ["Sama'", "Bashar", "Hayat", "Kalam"], answer: 1, expl: "Umyun lawan dari Bashar." },
+            { id: 13, q: "Berapa jumlah sifat wajib bagi Allah Swt. yang wajib diketahui secara terperinci?", options: ["10", "20", "99", "25"], answer: 1, expl: "Terdapat 20 sifat wajib bagi Allah Swt." },
+            { id: 14, q: "Sifat mustahil 'Umyun' (Buta) adalah kebalikan dari sifat wajib...", options: ["Sama'", "Bashar", "Hayat", "Kalam"], answer: 1, expl: "Umyun lawan dari Bashar (Maha Melihat)." },
             { id: 15, q: "Meyakini sifat-sifat Allah membuat kita selalu berbuat jujur karena Allah bersifat...", options: ["Ilmu (Maha Mengetahui)", "Ajzun", "Fana", "Jahl"], answer: 0, expl: "Allah Maha Mengetahui segala perbuatan kita." }
         ];
 
-        let currentTurn = 'boys'; // 'boys' or 'girls'
-        let ropePosition = 0; // -5 to 5
+        let ropePosition = 0; // -5 s.d 5
         let scoreBoys = 0;
         let scoreGirls = 0;
-        let answeredBoxes = [];
+        let answeredBoxesBoys = [];
+        let answeredBoxesGirls = [];
         let activeBoxData = null;
+        let activeGroupTarget = null;
         let isAudioPlaying = false;
         let audioCtx = null;
 
@@ -312,7 +314,7 @@
             }
         }
 
-        /* SOUND EFFECTS: Cling, Benar, Salah */
+        /* EFEK SUARA: Cling, Benar, Salah */
         function playSound(type) {
             try {
                 initAudioContext();
@@ -324,16 +326,16 @@
                 const now = audioCtx.currentTime;
 
                 if (type === 'cling') {
-                    // Suara Cling saat kotak diklik
+                    // Bunyi Cling saat kotak diklik
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(1046.50, now); // C6
-                    osc.frequency.exponentialRampToValueAtTime(1567.98, now + 0.2); // G6
+                    osc.frequency.setValueAtTime(1046.50, now);
+                    osc.frequency.exponentialRampToValueAtTime(1567.98, now + 0.2);
                     gain.gain.setValueAtTime(0.2, now);
                     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
                     osc.start(now);
                     osc.stop(now + 0.3);
                 } else if (type === 'success') {
-                    // Suara Jawaban Benar
+                    // Bunyi Jawaban Benar
                     osc.type = 'sine';
                     osc.frequency.setValueAtTime(587.33, now);
                     osc.frequency.setValueAtTime(880, now + 0.12);
@@ -342,7 +344,7 @@
                     osc.start(now);
                     osc.stop(now + 0.4);
                 } else if (type === 'wrong') {
-                    // Suara Jawaban Salah
+                    // Bunyi Jawaban Salah
                     osc.type = 'sawtooth';
                     osc.frequency.setValueAtTime(160, now);
                     osc.frequency.setValueAtTime(110, now + 0.15);
@@ -386,7 +388,6 @@
             document.getElementById('screenOpening').classList.add('hidden');
             document.getElementById('screenGame').classList.remove('hidden');
             
-            // Otomatis Fullscreen saat game dimulai untuk kenyamanan di proyektor/TV
             toggleFullScreen();
 
             if (!isAudioPlaying) {
@@ -404,8 +405,8 @@
             scoreBoys = 0;
             scoreGirls = 0;
             ropePosition = 0;
-            answeredBoxes = [];
-            currentTurn = 'boys';
+            answeredBoxesBoys = [];
+            answeredBoxesGirls = [];
             renderGridBoxes();
             updateUI();
         }
@@ -417,26 +418,28 @@
             girlsGrid.innerHTML = '';
 
             boxQuestions.forEach(item => {
-                const isDone = answeredBoxes.includes(item.id);
-                
-                // Kotak untuk Sisi Laki-Laki
-                const btnBoys = createBoxElement(item, isDone, 'boys');
-                boysGrid.appendChild(btnBoys);
+                // Papan Kotak Laki-Laki
+                const isDoneBoys = answeredBoxesBoys.includes(item.id);
+                boysGrid.appendChild(createBoxElement(item, isDoneBoys, 'boys'));
 
-                // Kotak untuk Sisi Perempuan
-                const btnGirls = createBoxElement(item, isDone, 'girls');
-                girlsGrid.appendChild(btnGirls);
+                // Papan Kotak Perempuan
+                const isDoneGirls = answeredBoxesGirls.includes(item.id);
+                girlsGrid.appendChild(createBoxElement(item, isDoneGirls, 'girls'));
             });
         }
 
         function createBoxElement(item, isDone, targetGroup) {
             const btn = document.createElement('button');
             if (isDone) {
-                btn.className = "bg-slate-300 text-slate-500 font-bold p-3 rounded-xl text-sm flex items-center justify-center cursor-not-allowed opacity-60";
+                btn.className = "bg-slate-300 text-slate-500 font-bold p-3 rounded-xl text-sm flex items-center justify-center cursor-not-allowed opacity-50 shadow-inner";
                 btn.innerHTML = `<i class="fa-solid fa-check"></i>`;
                 btn.disabled = true;
             } else {
-                btn.className = "bg-gradient-to-br from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-extrabold p-3 rounded-xl text-sm shadow-md transition transform hover:scale-105 flex items-center justify-center";
+                const colorClass = targetGroup === 'boys' 
+                    ? "bg-gradient-to-br from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white" 
+                    : "bg-gradient-to-br from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white";
+                
+                btn.className = `${colorClass} font-extrabold p-3.5 rounded-xl text-sm shadow-md transition transform hover:scale-105 flex items-center justify-center`;
                 btn.innerHTML = `<span>${item.id}</span>`;
                 btn.onclick = () => selectBox(item, targetGroup);
             }
@@ -444,8 +447,9 @@
         }
 
         function selectBox(item, targetGroup) {
-            playSound('cling'); // Bunyi cling saat kotak dipilih
+            playSound('cling'); // Bunyi cling saat kotak diklik
             activeBoxData = item;
+            activeGroupTarget = targetGroup;
             
             document.getElementById('modalActiveGroup').innerText = targetGroup === 'boys' ? "Kelompok Laki-Laki 🔵" : "Kelompok Perempuan 🩷";
             document.getElementById('modalBoxNumber').innerText = `Kotak Soal #${item.id}`;
@@ -458,18 +462,23 @@
 
             item.options.forEach((opt, idx) => {
                 const b = document.createElement('button');
-                b.className = "bg-slate-100 hover:bg-emerald-500 hover:text-white text-slate-800 font-bold p-3 rounded-xl shadow transition text-left flex items-center space-x-2";
-                b.innerHTML = `<span class="bg-slate-200 px-2 py-0.5 rounded text-xs">${String.fromCharCode(65 + idx)}</span> <span>${opt}</span>`;
-                b.onclick = () => answerQuestion(idx, targetGroup);
+                b.className = "bg-slate-100 hover:bg-emerald-500 hover:text-white text-slate-800 font-bold p-3.5 rounded-xl shadow transition text-left flex items-center space-x-2";
+                b.innerHTML = `<span class="bg-slate-200 px-2.5 py-0.5 rounded text-xs">${String.fromCharCode(65 + idx)}</span> <span>${opt}</span>`;
+                b.onclick = () => answerQuestion(idx);
                 optContainer.appendChild(b);
             });
 
             document.getElementById('questionModal').classList.remove('hidden');
         }
 
-        function answerQuestion(selectedIndex, targetGroup) {
+        function answerQuestion(selectedIndex) {
             const isCorrect = (selectedIndex === activeBoxData.answer);
-            answeredBoxes.push(activeBoxData.id);
+            
+            if (activeGroupTarget === 'boys') {
+                answeredBoxesBoys.push(activeBoxData.id);
+            } else {
+                answeredBoxesGirls.push(activeBoxData.id);
+            }
 
             const optContainer = document.getElementById('modalOptionsContainer');
             optContainer.classList.add('hidden');
@@ -483,15 +492,15 @@
             if (isCorrect) {
                 playSound('success'); // Bunyi benar
                 fbBox.className = "p-4 rounded-2xl border-2 bg-emerald-100 border-emerald-500 text-emerald-900 shadow-inner";
-                fbTitle.innerHTML = "🎉 BENAR! MasyaAllah, hebat!";
+                fbTitle.innerHTML = "🎉 BENAR! MasyaAllah, jawaban tepat.";
                 fbText.innerText = activeBoxData.expl;
 
-                if (targetGroup === 'boys') {
+                if (activeGroupTarget === 'boys') {
                     scoreBoys++;
-                    ropePosition = Math.max(-5, ropePosition - 1);
+                    ropePosition = Math.max(-5, ropePosition - 1); // Tarik ke kiri
                 } else {
                     scoreGirls++;
-                    ropePosition = Math.min(5, ropePosition + 1);
+                    ropePosition = Math.min(5, ropePosition + 1); // Tarik ke kanan
                 }
             } else {
                 playSound('wrong'); // Bunyi salah
@@ -500,11 +509,11 @@
                 fbText.innerText = `Jawaban yang benar: ${activeBoxData.options[activeBoxData.answer]}. ${activeBoxData.expl}`;
             }
 
-            currentTurn = (targetGroup === 'boys') ? 'girls' : 'boys';
             updateUI();
             renderGridBoxes();
 
-            if (ropePosition === -5 || ropePosition === 5 || answeredBoxes.length >= boxQuestions.length) {
+            // Cek jika sudah selesai semua atau tambang mencapai ujung
+            if (ropePosition === -5 || ropePosition === 5 || (answeredBoxesBoys.length >= boxQuestions.length && answeredBoxesGirls.length >= boxQuestions.length)) {
                 setTimeout(() => {
                     closeQuestionModal();
                     showFinalResult();
@@ -519,15 +528,6 @@
         function updateUI() {
             document.getElementById('scoreBoysDisplay').innerText = `${scoreBoys} Tarikan`;
             document.getElementById('scoreGirlsDisplay').innerText = `${scoreGirls} Tarikan`;
-
-            const turnInd = document.getElementById('turnIndicator');
-            if (currentTurn === 'boys') {
-                turnInd.innerHTML = "Giliran: Kelompok Laki-Laki 🔵";
-                turnInd.className = "text-sm sm:text-base font-bold text-blue-300 animate-pulse";
-            } else {
-                turnInd.innerHTML = "Giliran: Kelompok Perempuan 🩷";
-                turnInd.className = "text-sm sm:text-base font-bold text-pink-300 animate-pulse";
-            }
 
             const ropeFlag = document.getElementById('ropeFlag');
             const ropeElement = document.getElementById('ropeElement');
@@ -553,7 +553,7 @@
                 winnerEl.className = "text-2xl font-extrabold p-6 rounded-2xl w-full max-w-xl shadow-lg border-2 bg-amber-600/20 border-amber-500 text-amber-900";
                 winnerEl.innerHTML = "🤝 HASIL IMBANG (SERI)!";
             }
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
         }
 
         function restartGame() {
