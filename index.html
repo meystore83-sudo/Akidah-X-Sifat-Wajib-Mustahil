@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarik Tambang Sifat Mustahil bagi Allah - Game Edukasi Interaktif</title>
+    <title>Tarik Tambang 20 Sifat Mustahil bagi Allah - Game Edukasi Interaktif</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Amiri:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -551,6 +551,8 @@
             border-radius: 15px;
             padding: 15px;
             min-height: 250px;
+            max-height: 350px;
+            overflow-y: auto;
         }
 
         .drop-column h4 {
@@ -571,11 +573,11 @@
         .drag-item {
             background: rgba(239, 68, 68, 0.2);
             border: 2px solid #ef4444;
-            padding: 12px 15px;
+            padding: 10px 14px;
             border-radius: 10px;
             cursor: grab;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: all 0.2s ease;
             box-shadow: 0 4px 6px rgba(0,0,0,0.2);
         }
@@ -586,13 +588,13 @@
         .drop-target {
             background: rgba(255, 255, 255, 0.05);
             border: 2px dashed rgba(255, 255, 255, 0.2);
-            padding: 12px 15px;
+            padding: 10px 14px;
             border-radius: 10px;
-            min-height: 50px;
+            min-height: 45px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: all 0.2s ease;
         }
 
@@ -627,21 +629,21 @@
         .letter-pool {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 20px;
             flex-wrap: wrap;
         }
 
         .letter-tile {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             background: linear-gradient(135deg, #ef4444 0%, #991b1b 100%);
             border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 800;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
@@ -661,21 +663,22 @@
         .answer-slots {
             display: flex;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             margin-bottom: 20px;
-            min-height: 50px;
+            min-height: 45px;
+            flex-wrap: wrap;
         }
 
         .answer-slot {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             background: rgba(255, 255, 255, 0.05);
             border: 2px dashed rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 800;
             color: #34d399;
             cursor: pointer;
@@ -700,7 +703,7 @@
         .connect-column {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px;
             flex: 1;
             z-index: 2;
         }
@@ -708,11 +711,12 @@
         .connect-item {
             background: rgba(15, 23, 42, 0.8);
             border: 2px solid rgba(255, 255, 255, 0.2);
-            padding: 14px 20px;
-            border-radius: 12px;
+            padding: 10px 15px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
             text-align: center;
+            font-size: 0.9rem;
             transition: all 0.2s ease;
             position: relative;
         }
@@ -1050,8 +1054,8 @@
             <h2>❓ PETUNJUK GAME</h2>
             <div class="modal-instructions">
                 <ol>
-                    <li>Game khusus materi <strong>Sifat Mustahil bagi Allah Swt.</strong></li>
-                    <li>Selesaikan ke-5 misi: Panah Balon (6 Soal), Pasangkan Tepat (2 Ronde), Menyusun Kata (6 Kata), Kotak Misteri, dan Hubungkan Kata (4 Putaran total).</li>
+                    <li>Game khusus materi <strong>20 Sifat Mustahil bagi Allah Swt.</strong></li>
+                    <li>Selesaikan ke-5 misi: Panah Balon (6 Soal), Pasangkan Tepat (4 Ronde), Menyusun Kata (6 Kata), Kotak Misteri, dan Hubungkan Kata (4 Putaran total).</li>
                     <li>Tiap kelompok mendapat <strong>1 kali kesempatan</strong> bantuan untuk: Tanya Teman, Petunjuk Jawaban, dan Ganti Anggota.</li>
                     <li>Klik huruf yang salah pada kotak jawaban di Misi 3 untuk mengembalikannya ke kolam huruf.</li>
                     <li>Gunakan tombol kontrol di header (Home, Pause, Fullscreen) kapan saja.</li>
@@ -1094,8 +1098,8 @@
     <!-- 1. HOME SCREEN -->
     <div class="screen active" id="home-screen">
         <div class="arabic-subtitle">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-        <h1 class="game-title">TARIK TAMBANG SIFAT MUSTAHIL ALLAH</h1>
-        <p class="game-subtitle">Materi Khusus: Sifat Mustahil bagi Allah Swt.</p>
+        <h1 class="game-title">TARIK TAMBANG 20 SIFAT MUSTAHIL ALLAH</h1>
+        <p class="game-subtitle">Materi Khusus: 20 Sifat Mustahil bagi Allah Swt.</p>
 
         <div class="home-avatars">
             <div class="home-avatar-card">
@@ -1191,7 +1195,7 @@
     <div class="screen" id="win-screen">
         <div class="trophy-icon">🏆</div>
         <h1 class="winner-title" id="winner-title">SELAMAT! KELOMPOK A MENANG!</h1>
-        <p class="winner-subtitle">"Luar Biasa! Terus kuasai ilmu tentang Sifat Mustahil bagi Allah Swt."</p>
+        <p class="winner-subtitle">"Luar Biasa! Terus kuasai ilmu tentang 20 Sifat Mustahil bagi Allah Swt."</p>
 
         <div class="stats-card">
             <div class="stats-grid">
@@ -1206,7 +1210,7 @@
                     <small id="stats-correct-b">Benar: 0 | Salah: 0</small>
                 </div>
             </div>
-            <div class="quote-box" id="winner-quote">"Mengenal sifat mustahil Allah memperkuat keimanan tauhid kita."</div>
+            <div class="quote-box" id="winner-quote">"Mengenal 20 sifat mustahil Allah memperkuat keimanan tauhid kita."</div>
         </div>
 
         <div class="btn-group">
@@ -1296,7 +1300,7 @@
             currentMission: 1,
             selectedTeam: null,
             mission1Count: 0,
-            mission2Round: 1,
+            mission2Round: 1, // Total 4 rounds for 20 traits (5 per round)
             mission3Count: 0,
             mission4Opened: [],
             mission5Round: 1, // Total 4 rounds (2 for A, 2 for B)
@@ -1306,17 +1310,27 @@
             }
         };
 
-        const bankSoalMustahil = [
-            { q: "Sifat mustahil bagi Allah Swt. yang berarti 'Tiada' atau 'Tidak Ada' adalah...", options: ["A. Adam", "B. Huduts", "C. Fana", "D. Ajzun"], correct: 0 },
-            { q: "Lawan dari sifat wajib Qidam adalah sifat mustahil...", options: ["A. Adam", "B. Huduts (Baru)", "C. Fana", "D. Karahah"], correct: 1 },
-            { q: "Allah Swt. mustahil bersifat 'Fana' yang artinya...", options: ["A. Lemah", "B. Bodoh", "C. Binasa / Rusak", "D. Mati"], correct: 2 },
-            { q: "Sifat mustahil 'Mumatsalatu lil Hawaditsi' bagi Allah Swt. berarti...", options: ["A. Serupa dengan makhluk-Nya", "B. Lemah", "C. Terpaksa", "D. Bisep"], correct: 0 },
-            { q: "Apa arti dari sifat mustahil Allah 'Ajzun'?", options: ["A. Bodoh", "B. Lemah", "C. Terpaksa", "D. Mati"], correct: 1 },
-            { q: "Sifat mustahil 'Karahah' bagi Allah Swt. memiliki arti...", options: ["A. Terpaksa", "B. Bisu", "C. Buta", "D. Tuli"], correct: 0 },
-            { q: "Allah Swt. mustahil bersifat 'Jahlun' yang artinya...", options: ["A. Lupa", "B. Bodoh", "C. Tidur", "D. Tuli"], correct: 1 },
+        const bankSoalMustahil20 = [
+            { q: "Sifat mustahil bagi Allah Swt. 'Adam' memiliki arti...", options: ["A. Tiada", "B. Baru", "C. Musnah", "D. Lemah"], correct: 0 },
+            { q: "Sifat mustahil 'Huduts' bagi Allah Swt. artinya adalah...", options: ["A. Tiada", "B. Ada yang mendahului / Baru", "C. Musnah", "D. Berbilang"], correct: 1 },
+            { q: "Allah Swt. mustahil bersifat 'Fana' yang berarti...", options: ["A. Lemah", "B. Bodoh", "C. Musnah", "D. Mati"], correct: 2 },
+            { q: "Sifat mustahil 'Mumatsalatu lil hawaditsi' bagi Allah Swt. berarti...", options: ["A. Ada yang menyamai", "B. Lemah", "C. Terpaksa", "D. Berbilang"], correct: 0 },
+            { q: "Apa arti dari sifat mustahil Allah 'Ihtiyaju lighairihi'?", options: ["A. Memerlukan yang lain", "B. Berbilang", "C. Bodoh", "D. Mati"], correct: 0 },
+            { q: "Sifat mustahil 'Ta’adud' bagi Allah Swt. memiliki arti...", options: ["A. Berbilang", "B. Tuli", "C. Buta", "D. Bisu"], correct: 0 },
+            { q: "Allah Swt. mustahil bersifat 'Ajzun' yang artinya...", options: ["A. Bodoh", "B. Lemah", "C. Terpaksa", "D. Mati"], correct: 1 },
+            { q: "Sifat mustahil 'Karahah' bagi Allah Swt. berarti...", options: ["A. Terpaksa", "B. Bisu", "C. Buta", "D. Tuli"], correct: 0 },
+            { q: "Sifat mustahil 'Jahlun' bagi Allah Swt. memiliki arti...", options: ["A. Lupa", "B. Bodoh", "C. Tidur", "D. Tuli"], correct: 1 },
             { q: "Sifat mustahil 'Mautun' bagi Allah Swt. berarti...", options: ["A. Buta", "B. Tuli", "C. Mati", "D. Bisu"], correct: 2 },
-            { q: "Sifat mustahil 'Umyun' bagi Allah Swt. memiliki arti...", options: ["A. Tuli", "B. Buta", "C. Bisu", "D. Lemah"], correct: 1 },
-            { q: "Lawan dari sifat wajib Sama' adalah sifat mustahil...", options: ["A. Shummun (Tuli)", "B. Bukmun (Bisu)", "C. Umyun (Buta)", "D. Mayyitan (Mati)"], correct: 0 }
+            { q: "Sifat mustahil 'Shamamun' bagi Allah Swt. artinya...", options: ["A. Tuli", "B. Buta", "C. Bisu", "D. Mati"], correct: 0 },
+            { q: "Sifat mustahil 'Ama' bagi Allah Swt. berarti...", options: ["A. Tuli", "B. Buta", "C. Bisu", "D. Bodoh"], correct: 1 },
+            { q: "Sifat mustahil 'Bakamun' bagi Allah Swt. berarti...", options: ["A. Tuli", "B. Buta", "C. Bisu", "D. Lemah"], correct: 2 },
+            { q: "Sifat mustahil 'Ajizan' bagi Allah Swt. bermakna...", options: ["A. Zat yang lemah", "B. Zat yang bodoh", "C. Zat yang mati", "D. Zat yang tuli"], correct: 0 },
+            { q: "Sifat mustahil 'Karihan' bagi Allah Swt. bermakna...", options: ["A. Zat yang terpaksa", "B. Zat yang buta", "C. Zat yang bisu", "D. Zat yang lemah"], correct: 0 },
+            { q: "Sifat mustahil 'Jahilan' bagi Allah Swt. berarti...", options: ["A. Zat yang sangat bodoh", "B. Zat yang mati", "C. Zat yang tuli", "D. Zat yang buta"], correct: 0 },
+            { q: "Sifat mustahil 'Mayyitan' bagi Allah Swt. berarti...", options: ["A. Zat yang mati", "B. Zat yang bisu", "C. Zat yang lemah", "D. Zat yang terpaksa"], correct: 0 },
+            { q: "Sifat mustahil 'Ashamma' bagi Allah Swt. berarti...", options: ["A. Zat yang tuli", "B. Zat yang buta", "C. Zat yang bodoh", "D. Zat yang mati"], correct: 0 },
+            { q: "Sifat mustahil 'A’ma' bagi Allah Swt. berarti...", options: ["A. Zat yang buta", "B. Zat yang tuli", "C. Zat yang bisu", "D. Zat yang lemah"], correct: 0 },
+            { q: "Sifat mustahil 'Abkama' bagi Allah Swt. berarti...", options: ["A. Zat yang bisu", "B. Zat yang mati", "C. Zat yang bodoh", "D. Zat yang tuli"], correct: 0 }
         ];
 
         let shuffledQuestions = [];
@@ -1426,7 +1440,7 @@
                 B: { 1: false, 2: false, 3: false }
             };
 
-            shuffledQuestions = [...bankSoalMustahil].sort(() => Math.random() - 0.5);
+            shuffledQuestions = [...bankSoalMustahil20].sort(() => Math.random() - 0.5);
             updateLifelineUI();
             lifelineBar.style.display = 'flex';
             updateUI();
@@ -1497,7 +1511,7 @@
                     break;
                 case 2:
                     missionTitleHeader.textContent = "MISI 2 / 5";
-                    missionDescHeader.textContent = `PASANGKAN TEPAT (Ronde ${gameState.mission2Round}/2)`;
+                    missionDescHeader.textContent = `PASANGKAN TEPAT (Ronde ${gameState.mission2Round}/4)`;
                     loadMission2();
                     break;
                 case 3:
@@ -1626,7 +1640,7 @@
             });
         }
 
-        /* MISSION 2: DRAG AND DROP */
+        /* MISSION 2: DRAG AND DROP (20 Sifat dibagi menjadi 4 ronde @ 5 sifat) */
         function loadMission2() {
             promptTeamTurn(() => {
                 gameContainer.innerHTML = `
@@ -1647,12 +1661,38 @@
                     <button class="btn" id="check-drag-btn" style="margin-top: 20px; padding: 12px 28px; font-size: 1rem;">SELESAI & PERIKSA</button>
                 `;
 
-                const allPairsMustahil = [
-                    [{ id: '1', sifat: 'Adam', arti: 'Tiada' }, { id: '2', sifat: 'Huduts', arti: 'Baru' }, { id: '3', sifat: 'Fana', arti: 'Binasa' }, { id: '4', sifat: 'Mumatsalatu lil Hawaditsi', arti: 'Serupa dengan makhluk' }],
-                    [{ id: '5', sifat: 'Ajzun', arti: 'Lemah' }, { id: '6', sifat: 'Karahah', arti: 'Terpaksa' }, { id: '7', sifat: 'Jahlun', arti: 'Bodoh' }, { id: '8', sifat: 'Mautun', arti: 'Mati' }]
+                const allPairs20 = [
+                    [
+                        { id: '1', sifat: 'Adam', arti: 'Tiada' },
+                        { id: '2', sifat: 'Huduts', arti: 'Ada yang mendahului' },
+                        { id: '3', sifat: 'Fana', arti: 'Musnah' },
+                        { id: '4', sifat: 'Mumatsalatu lil hawaditsi', arti: 'Ada yang menyamai' },
+                        { id: '5', sifat: 'Ihtiyaju lighairihi', arti: 'Memerlukan yang lain' }
+                    ],
+                    [
+                        { id: '6', sifat: 'Ta’adud', arti: 'Berbilang' },
+                        { id: '7', sifat: 'Ajzun', arti: 'Lemah' },
+                        { id: '8', sifat: 'Karahah', arti: 'Terpaksa' },
+                        { id: '9', sifat: 'Jahlun', arti: 'Bodoh' },
+                        { id: '10', sifat: 'Mautun', arti: 'Mati' }
+                    ],
+                    [
+                        { id: '11', sifat: 'Shamamun', arti: 'Tuli' },
+                        { id: '12', sifat: 'Ama', arti: 'Buta' },
+                        { id: '13', sifat: 'Bakamun', arti: 'Bisu' },
+                        { id: '14', sifat: 'Ajizan', arti: 'Zat yang lemah' },
+                        { id: '15', sifat: 'Karihan', arti: 'Zat yang terpaksa' }
+                    ],
+                    [
+                        { id: '16', sifat: 'Jahilan', arti: 'Zat yang sangat bodoh' },
+                        { id: '17', sifat: 'Mayyitan', arti: 'Zat yang mati' },
+                        { id: '18', sifat: 'Ashamma', arti: 'Zat yang tuli' },
+                        { id: '19', sifat: 'A’ma', arti: 'Zat yang buta' },
+                        { id: '20', sifat: 'Abkama', arti: 'Zat yang bisu' }
+                    ]
                 ];
 
-                const pairs = allPairsMustahil[gameState.mission2Round - 1];
+                const pairs = allPairs20[gameState.mission2Round - 1];
                 let shuffledSifat = [...pairs].sort(() => Math.random() - 0.5);
                 let shuffledArti = [...pairs].sort(() => Math.random() - 0.5);
 
@@ -1729,7 +1769,7 @@
                     updateUI();
                     setTimeout(() => {
                         gameState.mission2Round++;
-                        if (gameState.mission2Round > 2) {
+                        if (gameState.mission2Round > 4) {
                             gameState.currentMission = 3;
                             loadMission();
                         } else {
@@ -1740,19 +1780,19 @@
             });
         }
 
-        /* MISSION 3: MENYUSUN KATA (Dengan Fitur Kembalikan Huruf) */
-        const scrambleWordsMustahil = [
-            { word: "ADAM", clue: "Sifat mustahil Allah: Tiada" },
-            { word: "FANA", clue: "Sifat mustahil Allah: Binasa" },
-            { word: "AJZUN", clue: "Sifat mustahil Allah: Lemah" },
-            { word: "JAHLUN", clue: "Sifat mustahil Allah: Bodoh" },
-            { word: "MAUTUN", clue: "Sifat mustahil Allah: Mati" },
-            { word: "UMYUN", clue: "Sifat mustahil Allah: Buta" }
+        /* MISSION 3: MENYUSUN KATA */
+        const scrambleWordsMustahil20 = [
+            { word: "ADAM", clue: "Sifat mustahil: Tiada" },
+            { word: "FANA", clue: "Sifat mustahil: Musnah" },
+            { word: "AJZUN", clue: "Sifat mustahil: Lemah" },
+            { word: "JAHLUN", clue: "Sifat mustahil: Bodoh" },
+            { word: "MAUTUN", clue: "Sifat mustahil: Mati" },
+            { word: "TAADUD", clue: "Sifat mustahil: Berbilang" }
         ];
 
         function loadMission3() {
             promptTeamTurn(() => {
-                const currentWordObj = scrambleWordsMustahil[gameState.mission3Count];
+                const currentWordObj = scrambleWordsMustahil20[gameState.mission3Count];
                 const targetWord = currentWordObj.word;
                 const scrambledLetters = targetWord.split('').sort(() => Math.random() - 0.5);
 
@@ -1843,7 +1883,7 @@
             gameContainer.innerHTML = `
                 <div class="mission-title">
                     <h3>🎁 MISI 4: KOTAK MISTERI MUSTAHIL</h3>
-                    <p>Pilih kotak bernomor untuk membongkar pertanyaan rahasia Sifat Mustahil!</p>
+                    <p>Pilih kotak bernomor untuk membongkar pertanyaan rahasia 20 Sifat Mustahil!</p>
                 </div>
                 <div class="mystery-grid" id="mystery-grid"></div>
             `;
@@ -1879,7 +1919,6 @@
 
         /* MISSION 5: MENHUBUNGKAN KATA (4 Putaran total: A, B, A, B) */
         function loadMission5() {
-            // Tentukan giliran otomatis berdasarkan putaran: 1 (A), 2 (B), 3 (A), 4 (B)
             gameState.selectedTeam = (gameState.mission5Round % 2 !== 0) ? 'A' : 'B';
 
             gameContainer.innerHTML = `
@@ -1899,15 +1938,14 @@
                 <button class="btn" id="check-connect-btn" style="margin-top:25px; padding:12px 28px; font-size:1rem;" disabled>SELESAI & PERIKSA</button>
             `;
 
-            // Gunakan subset soal per putaran agar bervariasi
-            const setsConnect = [
-                [{ id: '1', left: 'Adam', right: 'Tiada' }, { id: '2', left: 'Huduts', right: 'Baru' }],
-                [{ id: '3', left: 'Ajzun', right: 'Lemah' }, { id: '4', left: 'Jahlun', right: 'Bodoh' }],
-                [{ id: '5', left: 'Fana', right: 'Binasa' }, { id: '6', left: 'Karahah', right: 'Terpaksa' }],
-                [{ id: '7', left: 'Mautun', right: 'Mati' }, { id: '8', left: 'Umyun', right: 'Buta' }]
+            const setsConnect20 = [
+                [{ id: '1', left: 'Adam', right: 'Tiada' }, { id: '2', left: 'Huduts', right: 'Ada yang mendahului' }],
+                [{ id: '3', left: 'Fana', right: 'Musnah' }, { id: '4', left: 'Mumatsalatu lil hawaditsi', right: 'Ada yang menyamai' }],
+                [{ id: '5', left: 'Ajzun', right: 'Lemah' }, { id: '6', left: 'Karahah', right: 'Terpaksa' }],
+                [{ id: '7', left: 'Mautun', right: 'Mati' }, { id: '8', left: 'Shamamun', right: 'Tuli' }]
             ];
 
-            const pairsToConnect = setsConnect[gameState.mission5Round - 1];
+            const pairsToConnect = setsConnect20[gameState.mission5Round - 1];
 
             let shuffledLeft = [...pairsToConnect].sort(() => Math.random() - 0.5);
             let shuffledRight = [...pairsToConnect].sort(() => Math.random() - 0.5);
