@@ -244,6 +244,22 @@
             color: #94a3b8;
         }
 
+        /* TIMER BOX */
+        .timer-box {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid #ef4444;
+            padding: 6px 16px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fca5a5;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+            margin-bottom: 12px;
+        }
+
         /* LIFELINE BAR */
         .lifeline-bar {
             width: 100%;
@@ -1055,7 +1071,7 @@
             <div class="modal-instructions">
                 <ol>
                     <li>Game khusus materi <strong>20 Sifat Mustahil bagi Allah Swt.</strong></li>
-                    <li>Selesaikan ke-5 misi: Panah Balon (6 Soal), Pasangkan Tepat (4 Ronde), Menyusun Kata (6 Kata), Kotak Misteri, dan Hubungkan Kata (4 Putaran total).</li>
+                    <li>Selesaikan ke-5 misi dengan batas waktu (30 detik per soal, 90 detik khusus Drag & Drop).</li>
                     <li>Tiap kelompok mendapat <strong>1 kali kesempatan</strong> bantuan untuk: Tanya Teman, Petunjuk Jawaban, dan Ganti Anggota.</li>
                     <li>Klik huruf yang salah pada kotak jawaban di Misi 3 untuk mengembalikannya ke kolam huruf.</li>
                     <li>Gunakan tombol kontrol di header (Home, Pause, Fullscreen) kapan saja.</li>
@@ -1150,6 +1166,11 @@
                 <img src="https://raw.githubusercontent.com/meystore83-sudo/Akidah-Akhlak/6d02e8635c29903da6ef8f9042ef6e2c89ea078f/Murid%20PR.png" alt="B">
             </div>
         </header>
+
+        <!-- TIMER BAR -->
+        <div class="timer-box" id="timer-box">
+            ⏱️ Waktu: <span id="timer-display">30</span> detik
+        </div>
 
         <!-- LIFELINE BAR -->
         <div class="lifeline-bar" id="lifeline-bar" style="display:none;">
@@ -1288,7 +1309,7 @@
             }
         }
 
-        /* GAME STATE */
+        /* GAME STATE & TIMER */
         let gameState = {
             scoreA: 0,
             scoreB: 0,
@@ -1300,15 +1321,38 @@
             currentMission: 1,
             selectedTeam: null,
             mission1Count: 0,
-            mission2Round: 1, // Total 4 rounds for 20 traits (5 per round)
+            mission2Round: 1,
             mission3Count: 0,
             mission4Opened: [],
-            mission5Round: 1, // Total 4 rounds (2 for A, 2 for B)
+            mission5Round: 1,
             lifelines: {
                 A: { 1: false, 2: false, 3: false },
                 B: { 1: false, 2: false, 3: false }
             }
         };
+
+        let currentTimer = null;
+        let timeLeft = 30;
+
+        function startTimer(seconds, onTimeUp) {
+            clearInterval(currentTimer);
+            timeLeft = seconds;
+            const timerDisplay = document.getElementById('timer-display');
+            if (timerDisplay) timerDisplay.textContent = timeLeft;
+
+            currentTimer = setInterval(() => {
+                timeLeft--;
+                if (timerDisplay) timerDisplay.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(currentTimer);
+                    if (onTimeUp) onTimeUp();
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(currentTimer);
+        }
 
         const bankSoalMustahil20 = [
             { q: "Sifat mustahil bagi Allah Swt. 'Adam' memiliki arti...", options: ["A. Tiada", "B. Baru", "C. Musnah", "D. Lemah"], correct: 0 },
@@ -1367,19 +1411,24 @@
         // UTILITY CONTROLS HANDLERS
         document.getElementById('home-util-btn').addEventListener('click', () => {
             if(confirm("Kembali ke menu utama? Progres saat ini akan direset.")) {
+                stopTimer();
                 switchScreen(homeScreen);
             }
         });
 
         document.getElementById('pause-util-btn').addEventListener('click', () => {
+            stopTimer();
             pauseModal.classList.add('active');
         });
 
         resumeBtn.addEventListener('click', () => {
             pauseModal.classList.remove('active');
+            // Resume timer with current timeLeft
+            startTimer(timeLeft, currentTimerAction);
         });
 
         pauseHomeBtn.addEventListener('click', () => {
+            stopTimer();
             pauseModal.classList.remove('active');
             switchScreen(homeScreen);
         });
@@ -1422,6 +1471,7 @@
         });
 
         function initGame() {
+            stopTimer();
             gameState.scoreA = 0;
             gameState.scoreB = 0;
             gameState.correctA = 0;
@@ -1533,7 +1583,10 @@
         }
 
         let pendingCallback = null;
+        let currentTimerAction = null;
+
         function promptTeamTurn(callback) {
+            stopTimer();
             pendingCallback = callback;
             turnModal.classList.add('active');
         }
@@ -1552,6 +1605,7 @@
 
         /* MISSION 1: FLYING BALLOONS */
         function loadMission1() {
+            stopTimer();
             gameContainer.innerHTML = `
                 <div class="mission-title">
                     <h3>🎈 MISI 1: PANAH BALON TERBANG (Soal ${gameState.mission1Count + 1} / 6)</h3>
@@ -1603,8 +1657,27 @@
                 </div>
             `;
 
+            let answered = false;
+
+            currentTimerAction = () => {
+                if (answered) return;
+                answered = true;
+                playSound('incorrect');
+                showFeedback(false, `Waktu Habis! Kelompok ${gameState.selectedTeam} Gagal.`);
+                if (gameState.selectedTeam === 'A') gameState.incorrectA++;
+                else gameState.incorrectB++;
+                updateUI();
+                setTimeout(onComplete, 2000);
+            };
+
+            startTimer(30, currentTimerAction);
+
             document.querySelectorAll('.option-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
+                    if (answered) return;
+                    answered = true;
+                    stopTimer();
+
                     const selectedIdx = parseInt(btn.getAttribute('data-index'));
                     const isCorrect = (selectedIdx === qObj.correct);
 
@@ -1640,7 +1713,7 @@
             });
         }
 
-        /* MISSION 2: DRAG AND DROP (20 Sifat dibagi menjadi 4 ronde @ 5 sifat) */
+        /* MISSION 2: DRAG AND DROP (Timer 90 detik) */
         function loadMission2() {
             promptTeamTurn(() => {
                 gameContainer.innerHTML = `
@@ -1740,7 +1813,13 @@
                     dropTargetsEl.appendChild(target);
                 });
 
-                document.getElementById('check-drag-btn').addEventListener('click', () => {
+                let mission2Finished = false;
+
+                const evaluateDrag = () => {
+                    if (mission2Finished) return;
+                    mission2Finished = true;
+                    stopTimer();
+
                     let allCorrect = true;
                     document.querySelectorAll('.drop-target').forEach(t => {
                         if (t.dataset.matchedId !== t.dataset.id) allCorrect = false;
@@ -1761,7 +1840,7 @@
                         }
                     } else {
                         playSound('incorrect');
-                        showFeedback(false, `Ada pasangan yang kurang tepat!`);
+                        showFeedback(false, `Waktu Habis / Susunan Belum Tepat!`);
                         if (gameState.selectedTeam === 'A') gameState.incorrectA++;
                         else gameState.incorrectB++;
                     }
@@ -1776,11 +1855,16 @@
                             loadMission2();
                         }
                     }, 2000);
-                });
+                };
+
+                currentTimerAction = evaluateDrag;
+                startTimer(90, currentTimerAction);
+
+                document.getElementById('check-drag-btn').addEventListener('click', evaluateDrag);
             });
         }
 
-        /* MISSION 3: MENYUSUN KATA */
+        /* MISSION 3: MENYUSUN KATA (Timer 30 detik) */
         const scrambleWordsMustahil20 = [
             { word: "ADAM", clue: "Sifat mustahil: Tiada" },
             { word: "FANA", clue: "Sifat mustahil: Musnah" },
@@ -1841,7 +1925,13 @@
                     });
                 });
 
-                document.getElementById('check-scramble-btn').addEventListener('click', () => {
+                let finishedMission3 = false;
+
+                const evaluateScramble = () => {
+                    if (finishedMission3) return;
+                    finishedMission3 = true;
+                    stopTimer();
+
                     let formedWord = Array.from(slots).map(s => s.textContent === '_' ? '' : s.textContent).join('');
 
                     if (formedWord === targetWord) {
@@ -1859,7 +1949,7 @@
                         }
                     } else {
                         playSound('incorrect');
-                        showFeedback(false, `Susunan Kata Belum Tepat!`);
+                        showFeedback(false, `Waktu Habis / Susunan Kata Belum Tepat!`);
                         if (gameState.selectedTeam === 'A') gameState.incorrectA++;
                         else gameState.incorrectB++;
                     }
@@ -1874,12 +1964,18 @@
                             loadMission3();
                         }
                     }, 2000);
-                });
+                };
+
+                currentTimerAction = evaluateScramble;
+                startTimer(30, currentTimerAction);
+
+                document.getElementById('check-scramble-btn').addEventListener('click', evaluateScramble);
             });
         }
 
         /* MISSION 4: KOTAK MISTERI */
         function loadMission4() {
+            stopTimer();
             gameContainer.innerHTML = `
                 <div class="mission-title">
                     <h3>🎁 MISI 4: KOTAK MISTERI MUSTAHIL</h3>
@@ -1917,7 +2013,7 @@
             }
         }
 
-        /* MISSION 5: MENHUBUNGKAN KATA (4 Putaran total: A, B, A, B) */
+        /* MISSION 5: MENHUBUNGKAN KATA (Timer 30 detik) */
         function loadMission5() {
             gameState.selectedTeam = (gameState.mission5Round % 2 !== 0) ? 'A' : 'B';
 
@@ -2027,10 +2123,20 @@
                 }
             }
 
-            document.getElementById('check-connect-btn').addEventListener('click', () => {
+            let mission5Finished = false;
+
+            const evaluateConnect = () => {
+                if (mission5Finished) return;
+                mission5Finished = true;
+                stopTimer();
+
                 let allCorrect = true;
                 for (let lId in connections) {
                     if (lId !== connections[lId]) allCorrect = false;
+                }
+
+                if (Object.keys(connections).length < pairsToConnect.length) {
+                    allCorrect = false;
                 }
 
                 if (allCorrect) {
@@ -2048,7 +2154,7 @@
                     }
                 } else {
                     playSound('incorrect');
-                    showFeedback(false, `Ada pasangan garis yang kurang tepat!`);
+                    showFeedback(false, `Waktu Habis / Ada pasangan garis yang kurang tepat!`);
                     if (gameState.selectedTeam === 'A') gameState.incorrectA++;
                     else gameState.incorrectB++;
                 }
@@ -2062,11 +2168,17 @@
                         loadMission5();
                     }
                 }, 2000);
-            });
+            };
+
+            currentTimerAction = evaluateConnect;
+            startTimer(30, currentTimerAction);
+
+            document.getElementById('check-connect-btn').addEventListener('click', evaluateConnect);
         }
 
         /* END GAME */
         function endGame() {
+            stopTimer();
             playSound('win');
             triggerConfetti();
 
